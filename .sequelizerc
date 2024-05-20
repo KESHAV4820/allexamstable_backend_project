@@ -1,0 +1,14 @@
+'use strict';
+
+
+// .sequelizerc
+
+const path = require('path');
+
+module.exports = {
+//code upgrade👇👇config: path.resolve('config', 'database.json'),//becouse in the ".json" files, you can't use environement variable. that's a bottle neck. To avoid it, we are using .js file👇
+  config: path.resolve('config', 'config.js'),//VIEeven after this,👆 when this file is created, you will have to open the file to really turn it into .js file by adding 'module.exports=' before the parent {} in the file.
+  'models-path': path.resolve('db', 'models'),
+  'seeders-path': path.resolve('db', 'seeders'),
+  'migrations-path': path.resolve('db', 'migrations'),
+};
