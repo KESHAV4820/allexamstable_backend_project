@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database'); // Replace with your Sequelize instance
 
-const AllexamsTableModel = sequelize.define('AllexamsTableModel', {
+const allexamstableModel = sequelize.define('allexamstableModel', {
   EXAMNAME: {
     type: DataTypes.STRING(50),
     allowNull: false
@@ -142,6 +142,7 @@ const AllexamsTableModel = sequelize.define('AllexamsTableModel', {
   tableName: 'allexamstable', // Specify the existing table name
   timestamps: false, // Disable Sequelize's automatic timestamp columns
   freezeTableName: true // Prevent Sequelize from modifying the table name
-});
+});// Concept: there is no "sequelize.sync() or sequelize.sync({alter: true})" used in this code. Becouse i already have existing table which needs to be recognised, not all kind of alteration to it. Hence, we simply not used this command. Becouse these are used when creating new table. we didn't use even the alter:true containing command becouse if by chance, if there happens to be any discripancy between model and table structure, the sequelize will take the initiative and change the structure of our table which need not be touched in any case. Hence, even this command was left out. 
 
-module.exports = AllexamsTableModel;
+module.exports = allexamstableModel;
+// Remember It: right after above code is didn't not use 👎💀"npx sequelize-cli db:create"❌❌. becouse this code is used when you want to make a new table. In our case, we want sequelize to know the existing table that we already have without making any changes. Hence we used ✅"npx sequelize-cli db:migrate"✅ to let the sequelize know the existance our table and the schema should match with our model defination. And ✅"npx sequelize-cli db:migrate:status"✅ was used to know the status of migration that we had undertook.  
