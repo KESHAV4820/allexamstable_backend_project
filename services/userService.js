@@ -1,0 +1,1 @@
+const Models=require('../db/models/allexamstablemodel');

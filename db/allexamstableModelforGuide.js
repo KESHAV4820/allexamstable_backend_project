@@ -1,10 +1,5 @@
-'use strict';
-const {Model} = require('sequelize');
-
 const { DataTypes } = require('sequelize');
-const sequelize = require('./../../config/database'); // Replace with your Sequelize instance
-module.exports = sequelize;
-
+const sequelize = require('../../db/models/index'); // Replace with your Sequelize instance
 
 const allexamstableModel = sequelize.define('allexamstableModel', {
     // id: {
@@ -148,82 +143,15 @@ const allexamstableModel = sequelize.define('allexamstableModel', {
   WITHHELD: {
     type: DataTypes.STRING(2),
     allowNull: false
-  },
-//   deletedAt:{
-//     type:DataTypes.DATE,
-//   }// to have paranoid feature in your database, you must have a coloumn named deletedAt, but since i can't change our database without permission, i am keeping this option ready for future.
+  }
 }, {
   tableName: 'allexamstable', // Specify the existing table name
-
-  //----SuperEither you mention the Primary key----
-  //primaryKey: 'ROLL', // Specify the column to be used as the primary key
-  //----SuperOr you specify no Primarykey exists---
-  primaryKey: false, // Disable the default primary key behavior
-  //ConceptSuper if you don't do any one of the above two things, you will get error during api call in postman. 
-
   timestamps: false, // Disable Sequelize's automatic timestamp columns
   freezeTableName: true, // Prevent Sequelize from modifying the table name
   createdAt: false,// this is given by default. we don't want it so wrote false
-  updatedAt: false,//updateTimeStamp,// is given by default. we don't need it.
-  //paranoid: true,// to soft delete the data. 
+  updatedAt: false,//updateTimeStamp,// is given by default. we don't need it. 
 });// Concept: there is no "sequelize.sync() or sequelize.sync({alter: true})" used in this code. Becouse i already have existing table which needs to be recognised, not all kind of alteration to it. Hence, we simply not used this command. Becouse these are used when creating new table. we didn't use even the alter:true containing command becouse if by chance, if there happens to be any discripancy between model and table structure, the sequelize will take the initiative and change the structure of our table which need not be touched in any case. Hence, even this command was left out. 
 
 module.exports = allexamstableModel;
 // Remember It: right after above code is didn't not use 👎💀"npx sequelize-cli db:create"❌❌. becouse this code is used when you want to make a new table. In our case, we want sequelize to know the existing table that we already have without making any changes. Hence we used ✅"npx sequelize-cli db:migrate"✅ to let the sequelize know the existance our table and the schema should match with our model defination. And ✅"npx sequelize-cli db:migrate:status"✅ was used to know the status of migration that we had undertook.  
 
-
-
-/*code upgrade👆 this is a method to do it as well. But there is another way, which is the code upgrade we have given above.
-module.exports = (sequelize, DataTypes) => {
-  class allexamstableModel extends Model {
-    
-     // Helper method for defining associations.
-     // This method is not a part of Sequelize lifecycle.
-     // The `models/index` file will call this method automatically.
-     
-    static associate(models) {
-      // define association here
-    }
-  }
-  allexamstableModel.init({
-    EXAMNAME: DataTypes.STRING,
-    REGID: DataTypes.STRING,
-    ROLL: DataTypes.STRING,
-    NAME: DataTypes.STRING,
-    FATHERNAME: DataTypes.STRING,
-    MOTHERNAME: DataTypes.STRING,
-    DOB: DataTypes.DATE,
-    GENDER: DataTypes.STRING,
-    CAT1: DataTypes.STRING,
-    CAT2: DataTypes.STRING,
-    CAT3: DataTypes.STRING,
-    WRTN1_APP: DataTypes.STRING,
-    WRTN1_QLY: DataTypes.STRING,
-    WRTN2_APP: DataTypes.STRING,
-    WRTN2_QLY: DataTypes.STRING,
-    WRTN3_APP: DataTypes.STRING,
-    WRTN3_QLY: DataTypes.STRING,
-    INTVW_APP: DataTypes.STRING,
-    SKILL_APP: DataTypes.STRING,
-    SKILL_QLY: DataTypes.STRING,
-    PET_APP: DataTypes.STRING,
-    PET_QLY: DataTypes.STRING,
-    DME_APP: DataTypes.STRING,
-    DME_QLY: DataTypes.STRING,
-    RME_APP: DataTypes.STRING,
-    RME_QLY: DataTypes.STRING,
-    SELECTED: DataTypes.STRING,
-    MARKS: DataTypes.STRING,
-    ALLOC_POST: DataTypes.STRING,
-    ALLOC_STAT: DataTypes.STRING,
-    ALLOC_AREA: DataTypes.STRING,
-    ALLOC_CAT: DataTypes.STRING,
-    RANK: DataTypes.STRING,
-    WITHHELD: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'allexamstableModel',
-  });
-  return allexamstableModel;
-};
-*/
