@@ -1,3 +1,12 @@
+/*
+1. i had made this file using AIs help for inspiration to make DataBase model.  
+2.You will see a lot of influence of this code into the real files present in allexamstablemodel.js  in "models" folder of "db" folder. Also into the file of the migration folders. 
+*/
+
+
+
+
+'use strict';
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../db/models/index'); // Replace with your Sequelize instance
 

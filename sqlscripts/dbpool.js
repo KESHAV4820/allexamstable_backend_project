@@ -1,3 +1,10 @@
+'use strict';
+/*
+1. this file is used to store the code for function calls stored within the postgres SQL. 
+2. you will have to export the local names of these function of sql. 
+3. you will have to import the function names in the app.js file.
+*/
+
 const { Pool, types } = require('pg');
 const dotenv = require('dotenv');
 dotenv.config({path:`${process.cwd()}/config.env`});
