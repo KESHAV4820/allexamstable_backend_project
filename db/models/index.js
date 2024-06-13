@@ -27,7 +27,7 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+}// Note: here i have added ",{logging: true}" at the end. It wasn't there ealier. If there is some error going forward, remove it. It is meant to show you what exactly the query that sequelize is creating against the instruction that you are giving.
 
 fs
   .readdirSync(__dirname)

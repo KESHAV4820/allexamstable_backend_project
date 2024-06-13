@@ -16,7 +16,8 @@ const express = require('express');
 const app = express();
 const authRouter = require('./route/authRoute');
 const allexamstableModel = require('./db/models/allexamstablemodel');
-const {callProcedure, callProcedtesting11} = require('./sqlscripts/dbpool');
+const {callProcedure, callProcedtesting11, callStoredFunction, callRecordViewFunction, downloadQueryFunction} = require('./sqlscripts/dbpool');
+const { getRecordsByFilters, getRecordsCountByFilters } = require('./sqlscripts/queryBuilder');
 
 app.use(express.json());//must come before👇this line
 app.use(express.urlencoded({extended: true}));// these two LOC is used againt the bodyparser code that we used to install. Now that's inbuilt in express.js and this the way you get it. 
@@ -33,9 +34,10 @@ app.get('/', (request, response) => {
 app.use('/api/v1/auth',authRouter);
 
 //SuperConceptVIERemember It:
-app.get('/api/v1/100allexamstable', async (request, response) => {	
+app.get('/api/v1/100allexamstable', async (request, response) => {	// for Code Testing
     try {
         // to Fetch only 100 records from the allexamstable table Marvel
+        /*Note that there is no 'id' field declared. it's default field that postgres adds to you database. But we suppressed it's default behaviour in allexamstablemodel.js */
         const records = await allexamstableModel.findAll({attributes: ['EXAMNAME','REGID','ROLL','NAME','FATHERNAME','MOTHERNAME', 'DOB','GENDER','CAT1','CAT2','CAT3','WRTN1_APP','WRTN1_QLY','WRTN2_APP','WRTN2_QLY','WRTN3_APP','WRTN3_QLY','INTVW_APP','SKILL_APP','SKILL_QLY','PET_APP','PET_QLY','DME_APP','DME_QLY',    'RME_APP','RME_QLY','SELECTED','MARKS',      'ALLOC_POST','ALLOC_STAT','ALLOC_AREA', 'ALLOC_CAT','RANK','WITHHELD'],limit:100});
         response.status(200).json({
             status: '200',
@@ -51,7 +53,7 @@ app.get('/api/v1/100allexamstable', async (request, response) => {
 	}
 });
 
-app.get('/api/v1/10000allexamstable', async (request, response) => {	
+app.get('/api/v1/10000allexamstable', async (request, response) => {	// for Code Testing 
     try {
         // to Fetch only 100 records from the allexamstable table
         const records = await allexamstableModel.findAll({attributes: ['EXAMNAME','REGID','ROLL','NAME','FATHERNAME','MOTHERNAME', 'DOB','GENDER','CAT1','CAT2','CAT3','WRTN1_APP','WRTN1_QLY','WRTN2_APP','WRTN2_QLY','WRTN3_APP','WRTN3_QLY','INTVW_APP','SKILL_APP','SKILL_QLY','PET_APP','PET_QLY','DME_APP','DME_QLY',    'RME_APP','RME_QLY','SELECTED','MARKS',      'ALLOC_POST','ALLOC_STAT','ALLOC_AREA', 'ALLOC_CAT','RANK','WITHHELD'],limit:10000});
@@ -70,13 +72,31 @@ app.get('/api/v1/10000allexamstable', async (request, response) => {
 });// this is route for Code Testing
 
 //Super path to call first callProcedure function
-app.get('/api/v1/callProcedureFunction', async (request, response) => {	
+app.get('/api/v1/viewQuery', async (request, response) => {	
     try {
         // to Fetch only 100 records from the allexamstable table
-        const records= await callProcedure('proceduretesting1',['allexamstable']);
+        const records= await callStoredFunction('viewQueryFunction1',['allexamstable']);
         response.status(200).json({
             status: '200',
-            message: 'procedure executed successfully',
+            message: 'function executed successfully',
+            data: records,
+        });
+    }catch(error){
+        console.error('Error fetching data from allexamstable:', error);
+        response.status(500).json({
+            status: '500',
+            message: 'Internal Server Error',
+        });
+	}
+});
+
+app.get('/api/v1/viewNumberOfRecords', async (request, response) => {	
+    try {
+        // to Fetch only 100 records from the allexamstable table
+        const records= await callRecordViewFunction('viewrecords1',['allexamstable']);
+        response.status(200).json({
+            status: '200',
+            message: 'function executed successfully',
             data: records,
         });
     }catch(error){
@@ -89,10 +109,10 @@ app.get('/api/v1/callProcedureFunction', async (request, response) => {
 });
 
 // path to call second callProcedure function
-app.get('/api/v1/callProcedtesting11Function', async (request, response) => {	
+app.get('/api/v1/downloadQuery1', async (request, response) => {	
     try {
         // to Fetch only 100 records from the allexamstable table
-         await callProcedure('procedtesting11',['allexamstable']);
+         await downloadQueryFunction('split_downloadqueryfunction2',['allexamstable']);
         response.status(200).json({
             status: '200',
             message: `Download successful. check folder ${process.env.DB_File_DownloadedAt}`,
@@ -105,6 +125,32 @@ app.get('/api/v1/callProcedtesting11Function', async (request, response) => {
         });
 	}
 });
+
+// Super: from here on, i am using Sequelize and node.js itself to do the query and get the output from the database based on the filter that we have made in node.js for sequelize. Note: we are choosing to receive the parameters for the filter from "request body" not the "request query". Becouse request body is better suited to deal with complex filters and large amount of data to be handled. 
+app.post('/api/v1/records', async (req, res) => {
+    try {
+      const filters = req.body;// i am not using request query like "req.query.EXAMNAME". It's useful for straigh forward, less complex shit.
+      const limit = req.query.limit || 1000;
+      const offset=req.query.offset || 0; 
+      const records = await getRecordsByFilters(filters,limit,offset);
+      res.status(200).json(records);
+    } catch (error) {
+      console.error('Error fetching records:', error);
+      res.status(500).json({ error: 'Failed to fetch records' });
+    }
+  });
+  app.post('/api/v1/recordcount', async (req, res) => {
+    try {
+      const filters = req.body;
+      //const limit = req.query.limit || 1000;
+      //const offset=req.query.offset || 0; 
+      const totalRecordCount = await getRecordsCountByFilters(filters);
+      res.status(200).json(totalRecordCount);
+    } catch (error) {
+      console.error('Error fetching records:', error);
+      res.status(500).json({ error: 'Failed to fetch records' });
+    }
+  });
 
 
 
