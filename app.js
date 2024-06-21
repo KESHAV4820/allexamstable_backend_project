@@ -13,14 +13,17 @@ const dotenv = require('dotenv');
 dotenv.config({path:`${process.cwd()}/config.env`});//is recipe! not concept these two lines now gives eyes to our rest of code to see what's present in config.env file.😎🙏
 
 const express = require('express');
+const cors = require('cors');// this will avoid CORS error. that is differnt ports talking to each other are considered different origin and hence not allowed generally.
 const app = express();
 const authRouter = require('./route/authRoute');
 const allexamstableModel = require('./db/models/allexamstablemodel');
 const {callProcedure, callProcedtesting11, callStoredFunction, callRecordViewFunction, downloadQueryFunction} = require('./sqlscripts/dbpool');
-const { getRecordsByFilters, getRecordsCountByFilters } = require('./sqlscripts/queryBuilder');
+const { getRecordsByFilters, getRecordsCountByFilters, downloadRecord } = require('./sqlscripts/queryBuilder');
 
 app.use(express.json());//must come before👇this line
 app.use(express.urlencoded({extended: true}));// these two LOC is used againt the bodyparser code that we used to install. Now that's inbuilt in express.js and this the way you get it. 
+app.use(cors({origin:'http://127.0.0.1:5500'}));// if we don't give parameter, it becomes a general instruction which is good like a shotgun . But if you want security and yet cross sharing you need to be specific like sniper. hence you give exact origin value that has to be allowed. 
+app.options('*', cors());
 
 app.get('/', (request, response) => {
     response.status(200).json({
@@ -52,7 +55,6 @@ app.get('/api/v1/100allexamstable', async (request, response) => {	// for Code T
         });
 	}
 });
-
 app.get('/api/v1/10000allexamstable', async (request, response) => {	// for Code Testing 
     try {
         // to Fetch only 100 records from the allexamstable table
@@ -89,7 +91,6 @@ app.get('/api/v1/viewQuery', async (request, response) => {
         });
 	}
 });
-
 app.get('/api/v1/viewNumberOfRecords', async (request, response) => {	
     try {
         // to Fetch only 100 records from the allexamstable table
@@ -107,7 +108,6 @@ app.get('/api/v1/viewNumberOfRecords', async (request, response) => {
         });
 	}
 });
-
 // path to call second callProcedure function
 app.get('/api/v1/downloadQuery1', async (request, response) => {	
     try {
@@ -126,6 +126,7 @@ app.get('/api/v1/downloadQuery1', async (request, response) => {
 	}
 });
 
+
 // Super: from here on, i am using Sequelize and node.js itself to do the query and get the output from the database based on the filter that we have made in node.js for sequelize. Note: we are choosing to receive the parameters for the filter from "request body" not the "request query". Becouse request body is better suited to deal with complex filters and large amount of data to be handled. 
 app.post('/api/v1/records', async (req, res) => {
     try {
@@ -136,10 +137,32 @@ app.post('/api/v1/records', async (req, res) => {
       res.status(200).json(records);
     } catch (error) {
       console.error('Error fetching records:', error);
-      res.status(500).json({ error: 'Failed to fetch records' });
+      res.status(500).json({ 
+        error: 'Failed to fetch records',
+        status:'500',
+        message: 'Failed to fetch.'
+        });
     }
   });
-  app.post('/api/v1/recordcount', async (req, res) => {
+
+app.post('/api/v1/downloadrecords', async (req, res) => {
+    try {
+      const filters = req.body;
+      const limit = req.query.limit || 20000;
+      const offset=req.query.offset || 0; 
+      const recordsDownloaded = await downloadRecord(filters,limit,offset);
+      res.status(200).json(recordsDownloaded);
+    } catch (error) {
+      console.error('Error Downloading records:', error);
+      res.status(500).json({ 
+        error: 'Failed to download the records',
+        status:'500',
+        message: 'Failed to Download.'
+        });
+    }
+  });
+
+app.post('/api/v1/recordcount', async (req, res) => {
     try {
       const filters = req.body;
       //const limit = req.query.limit || 1000;

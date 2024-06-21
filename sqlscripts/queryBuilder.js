@@ -1,55 +1,66 @@
 const { Op } = require('sequelize');
-//Issue FoundLOCKnowledge Gapconst { allexamstableModel } = require('../db/models/allexamstablemodel'); // Assuming your models are in the 'db/models' directory
-const allexamstableModel = require('../db/models/allexamstablemodel');//SuperConceptLearnByHeart
+//Issue FoundLOCKnowledge Gap const { allexamstableModel } = require('../db/models/allexamstablemodel'); // Assuming your models are in the 'db/models' directory
+const allexamstableModel = require('../db/models/allexamstablemodel');//SuperConceptLearnByHeart this works but almost the same thing is written in LOC just above. It's becouse my sequelize doesn't export object which needs destructuring. It direct exports.
 
 // Place the dynamic query building function here
 //VIEConcept: latter on i introduced parameter like limit and offset. Why becouse earlier, the large size data was being retrieved using the query and it used to thrown heap out of memory problem. to solve that i had to do Pagination to break the output data into page and reduce the overhead. Later on, i shall "implement lazy loading" as well. limit=1000 tells the number of records to be fetched in each page. offset=0 say the starting page number will start from page number=0. 
 const getRecordsByFilters = async (filters, limit=1000, offset=0) => {
-    const { EXAMNAME, REGID, ROLL, NAME, FATHERNAME, MOTHERNAME, DOB, GENDER, CAT1, CAT2, CAT3, WRTN1_APP, WRTN1_QLY, WRTN2_APP, WRTN2_QLY, WRTN3_APP, WRTN3_QLY, INTVW_APP, SKILL_APP, SKILL_QLY, PET_APP, PET_QLY, DME_APP, DME_QLY, RME_APP, RME_QLY, SELECTED, MARKS, ALLOC_POST, ALLOC_STAT, ALLOC_AREA, ALLOC_CAT, RANK, WITHHELD } = filters;//this here is the most important thing.here i am destructuring the input from filters that contains the input parameters. based ondestructuring some will get value and some will not. And base on that, down below👇 we are making filters. Here is the punch line. since i was trying to make a query which can take any provided condition, as many conditions as possible and together by And operator, i used all the field names present in my table. Now i can use any field inside the whereClause filter. 😎Baam.
-
+    const { EXAMNAME, REGID, ROLL, NAME, FATHERNAME, MOTHERNAME, DOB, GENDER, CAT1, CAT2, CAT3, WRTN1_APP, WRTN1_QLY, WRTN2_APP, WRTN2_QLY, WRTN3_APP, WRTN3_QLY, INTVW_APP, SKILL_APP, SKILL_QLY, PET_APP, PET_QLY, DME_APP, DME_QLY, RME_APP, RME_QLY, SELECTED, MARKS, ALLOC_POST, ALLOC_STAT, ALLOC_AREA, ALLOC_CAT, RANK, WITHHELD } = filters;
+    /*SuperNotethis here is the most important thing.here i am 
+    destructuring the input from filters that contains the input parameters. based on destructuring some will get value and some will not. And based on that, down below👇 we are making filters. Here is the punch line. since i was trying to make a query which can take any provided condition, as many conditions as possible and together by And operator, i used all the field names present in my table. Now i can use any field inside the whereClause filters. 😎Baam.
+    */
   const whereClause = {
     where: {
       [Op.and]: [
-                filters.EXAMNAME ? { 'EXAMNAME': filters.EXAMNAME } : {},
-                filters.REGID ? { 'REGID': filters.REGID } : {},
-                filters.ROLL ? { 'ROLL': filters.ROLL } : {},
-                filters.NAME ? { 'NAME': filters.NAME } : {},
-                filters.FATHERNAME ? { 'FATHERNAME': filters.FATHERNAME } : {},
-                filters.MOTHERNAME ? { 'MOTHERNAME': filters.MOTHERNAME } : {},
-                filters.DOB ? { 'DOB': filters.DOB } : {},
-                filters.GENDER ? { 'GENDER': filters.GENDER } : {},
-                filters.CAT1 ? { 'CAT1': filters.CAT1 } : {},
-                filters.CAT2 ? { 'CAT2': filters.CAT2 } : {},
-                filters.CAT3 ? { 'CAT3': filters.CAT3 } : {},
-                filters.WRTN1_APP ? { 'WRTN1_APP': filters.WRTN1_APP } : {},
-                filters.WRTN1_QLY ? { 'WRTN1_QLY': filters.WRTN1_QLY } : {},
-                filters.WRTN2_APP ? { 'WRTN2_APP': filters.WRTN2_APP } : {},
-                filters.WRTN2_QLY ? { 'WRTN2_QLY': filters.WRTN2_QLY } : {},
-                filters.WRTN3_APP ? { 'WRTN3_APP': filters.WRTN3_APP } : {},
-                filters.WRTN3_QLY ? { 'WRTN3_QLY': filters.WRTN3_QLY } : {},
-                filters.INTVW_APP ? { 'INTVW_APP': filters.INTVW_APP } : {},
-                filters.SKILL_APP ? { 'SKILL_APP': filters.SKILL_APP } : {},
-                filters.SKILL_QLY ? { 'SKILL_QLY': filters.SKILL_QLY } : {},
-                filters.PET_APP ? { 'PET_APP': filters.PET_APP } : {},
-                filters.PET_QLY ? { 'PET_QLY': filters.PET_QLY } : {},
-                filters.DME_APP ? { 'DME_APP': filters.DME_APP } : {},
-                filters.DME_QLY ? { 'DME_QLY': filters.DME_QLY } : {},
-                filters.RME_APP ? { 'RME_APP': filters.RME_APP } : {},
-                filters.RME_QLY ? { 'RME_QLY': filters.RME_QLY } : {},
-                filters.SELECTED ? { 'SELECTED': filters.SELECTED } : {},
-                filters.MARKS ? { 'MARKS': filters.MARKS } : {},
-                filters.ALLOC_POST ? { 'ALLOC_POST': filters.ALLOC_POST } : {},
-                filters.ALLOC_STAT ? { 'ALLOC_STAT': filters.ALLOC_STAT } : {},
-                filters.ALLOC_AREA ? { 'ALLOC_AREA': filters.ALLOC_AREA } : {},
-                filters.ALLOC_CAT ? { 'ALLOC_CAT': filters.ALLOC_CAT } : {},
-                filters.RANK ? { 'RANK': filters.RANK } : {},
-                filters.WITHHELD ? { 'WITHHELD': filters.WITHHELD } : {}
+        filters.EXAMNAME !== undefined ? ((filters.EXAMNAME === "") ? { EXAMNAME: { [Op.eq]: null } } : (filters.EXAMNAME==="ALL EXAMs")?{EXAMNAME:{[Op.ne]:null}}: { EXAMNAME: filters.EXAMNAME }) : {},
+
+        filters.REGID !== undefined ? (filters.REGID === "" ? { REGID: { [Op.ne]: null } } : { REGID: filters.REGID }) : {},
+        filters.ROLL !== undefined ? (filters.ROLL === "" ? { ROLL: { [Op.ne]: null } } : { ROLL: filters.ROLL }) : {},
+        filters.NAME !== undefined ? (filters.NAME === "" ? { NAME: { [Op.ne]: null } } : { NAME: filters.NAME }) : {},
+        filters.FATHERNAME !== undefined ? (filters.FATHERNAME === "" ? { FATHERNAME: { [Op.ne]: null } } : { FATHERNAME: filters.FATHERNAME }) : {},
+        filters.MOTHERNAME !== undefined ? (filters.MOTHERNAME === "" ? { MOTHERNAME: { [Op.ne]: null } } : { MOTHERNAME: filters.MOTHERNAME }) : {},
+        filters.DOB !== undefined ? (filters.DOB === "" ? { DOB: { [Op.ne]: null } } : { DOB: filters.DOB }) : {},
+
+        filters.GENDER !== undefined ? ((filters.GENDER === "") ? { GENDER: { [Op.eq]: null } } :(filters.GENDER==="OVERALL")?{GENDER:{[Op.ne]:null}}:(filters.GENDER !== "OTHERS" ? {GENDER:filters.GENDER} :{ GENDER:{ [Op.eq]: "T" }})) : {},
+
+        filters.CAT1 !== undefined ? ((filters.CAT1 === "") ? { CAT1: { [Op.eq]: null } } : (filters.CAT1 === "TOGETHER")?{CAT1:{[Op.ne]:null}}: { CAT1: filters.CAT1 }) : {},
+
+        filters.CAT2 !== undefined ? ((filters.CAT2 === "" || filters.CAT2==="N") ? { CAT2: { [Op.eq]: null } } : { CAT2: filters.CAT2 }) : {},
+
+        filters.CAT3 !== undefined ? (filters.CAT3 === "" ? { CAT3: { [Op.eq]: null } } :(filters.CAT3==="TOGETHER"?{CAT3: {[Op.ne]:null}}:{ CAT3: filters.CAT3 })): {},
+
+        filters.WRTN1_APP !== undefined ? (filters.WRTN1_APP === "" ? { WRTN1_APP: { [Op.eq]: null } } : { WRTN1_APP: filters.WRTN1_APP }) : {},
+        filters.WRTN1_QLY !== undefined ? (filters.WRTN1_QLY === "" ? { WRTN1_QLY: { [Op.eq]: null } } : { WRTN1_QLY: filters.WRTN1_QLY }) : {},
+        filters.WRTN2_APP !== undefined ? (filters.WRTN2_APP === "" ? { WRTN2_APP: { [Op.eq]: null } } : { WRTN2_APP: filters.WRTN2_APP }) : {},
+        filters.WRTN2_QLY !== undefined ? (filters.WRTN2_QLY === "" ? { WRTN2_QLY: { [Op.eq]: null } } : { WRTN2_QLY: filters.WRTN2_QLY }) : {},
+        filters.WRTN3_APP !== undefined ? (filters.WRTN3_APP === "" ? { WRTN3_APP: { [Op.eq]: null } } : { WRTN3_APP: filters.WRTN3_APP }) : {},
+        filters.WRTN3_QLY !== undefined ? (filters.WRTN3_QLY === "" ? { WRTN3_QLY: { [Op.eq]: null } } : { WRTN3_QLY: filters.WRTN3_QLY }) : {},
+        filters.INTVW_APP !== undefined ? (filters.INTVW_APP === "" ? { INTVW_APP: { [Op.eq]: null } } : { INTVW_APP: filters.INTVW_APP }) : {},
+        filters.SKILL_APP !== undefined ? (filters.SKILL_APP === "" ? { SKILL_APP: { [Op.eq]: null } } : { SKILL_APP: filters.SKILL_APP }) : {},
+        filters.SKILL_QLY !== undefined ? (filters.SKILL_QLY === "" ? { SKILL_QLY: { [Op.eq]: null } } : { SKILL_QLY: filters.SKILL_QLY }) : {},
+        filters.PET_APP !== undefined ? (filters.PET_APP === "" ? { PET_APP: { [Op.eq]: null } } : { PET_APP: filters.PET_APP }) : {},
+        filters.PET_QLY !== undefined ? (filters.PET_QLY === "" ? { PET_QLY: { [Op.eq]: null } } : { PET_QLY: filters.PET_QLY }) : {},
+        filters.DME_APP !== undefined ? (filters.DME_APP === "" ? { DME_APP: { [Op.eq]: null } } : { DME_APP: filters.DME_APP }) : {},
+        filters.DME_QLY !== undefined ? (filters.DME_QLY === "" ? { DME_QLY: { [Op.eq]: null } } : { DME_QLY: filters.DME_QLY }) : {},
+        filters.RME_APP !== undefined ? (filters.RME_APP === "" ? { RME_APP: { [Op.eq]: null } } : { RME_APP: filters.RME_APP }) : {},
+        filters.RME_QLY !== undefined ? (filters.RME_QLY === "" ? { RME_QLY: { [Op.eq]: null } } : { RME_QLY: filters.RME_QLY }) : {},
+        filters.SELECTED !== undefined ? (filters.SELECTED === "" ? { SELECTED: { [Op.eq]: null } } : { SELECTED: filters.SELECTED }) : {},
+        filters.MARKS !== undefined ? (filters.MARKS === "" ? { MARKS: { [Op.eq]: null } } : { MARKS: filters.MARKS }) : {},
+        filters.ALLOC_POST !== undefined ? (filters.ALLOC_POST === "" ? { ALLOC_POST: { [Op.eq]: null } } : { ALLOC_POST: filters.ALLOC_POST }) : {},
+        filters.ALLOC_STAT !== undefined ? (filters.ALLOC_STAT === "" ? { ALLOC_STAT: { [Op.eq]: null } } : { ALLOC_STAT: filters.ALLOC_STAT }) : {},
+        filters.ALLOC_AREA !== undefined ? (filters.ALLOC_AREA === "" ? { ALLOC_AREA: { [Op.eq]: null } } : { ALLOC_AREA: filters.ALLOC_AREA }) : {},
+        filters.ALLOC_CAT !== undefined ? (filters.ALLOC_CAT === "" ? { ALLOC_CAT: { [Op.eq]: null } } : { ALLOC_CAT: filters.ALLOC_CAT }) : {},
+        filters.RANK !== undefined ? (filters.RANK === "" ? { RANK: { [Op.eq]: null } } : { RANK: filters.RANK }) : {},
+        filters.WITHHELD !== undefined ? (filters.WITHHELD === "" ? { WITHHELD: { [Op.eq]: null } } : { WITHHELD: filters.WITHHELD }) : {}
         // Add any other conditions here
       ],
     },
 };
+/* SuperNoteThis is yet another important part. here i am defining the
+ "whereClause" which uses sequelize sementics to form query. Now what's special about this is that i am chekcing if the filters has some value for that columnname. if not, then it would assign empty {} to it which would essentially mean that this particular column name will not be considered while forming the query. If the column name isn't undefined ,that means it must have some value. now there is no other way to send the value "is not null" in filters so that we can form such query. To do this, we have used "" empty double quotes to convery the signal that we are actually saying sequelize to consider it as "null" value. Now moving forward, if the columnname variable in filters has a value, it could be something else as well. so we do the same thing, but using ternary operator.  
+*/
 
-const records = await allexamstableModel.findAll({
+const records = await allexamstableModel.findAll({// here query is being made.
     ...whereClause,
      attributes: ['EXAMNAME', 'REGID', 'ROLL', 'NAME', 'FATHERNAME', 'MOTHERNAME', 'DOB', 'GENDER', 'CAT1', 'CAT2', 'CAT3', 'WRTN1_APP', 'WRTN1_QLY', 'WRTN2_APP', 'WRTN2_QLY', 'WRTN3_APP', 'WRTN3_QLY', 'INTVW_APP', 'SKILL_APP', 'SKILL_QLY', 'PET_APP', 'PET_QLY', 'DME_APP', 'DME_QLY', 'RME_APP', 'RME_QLY', 'SELECTED', 'MARKS', 'ALLOC_POST', 'ALLOC_STAT', 'ALLOC_AREA', 'ALLOC_CAT', 'RANK', 'WITHHELD'],
      /*NoteSuperConceptRemember It: 2️⃣ point is the most important in this project structure. 1️⃣ point is general information.  
@@ -63,6 +74,7 @@ const records = await allexamstableModel.findAll({
   return records;
 };
 
+//Another Query
 const getRecordsCountByFilters = async (filters) => {
     const { EXAMNAME, REGID, ROLL, NAME, FATHERNAME, MOTHERNAME, DOB, GENDER, CAT1, CAT2, CAT3, WRTN1_APP, WRTN1_QLY, WRTN2_APP, WRTN2_QLY, WRTN3_APP, WRTN3_QLY, INTVW_APP, SKILL_APP, SKILL_QLY, PET_APP, PET_QLY, DME_APP, DME_QLY, RME_APP, RME_QLY, SELECTED, MARKS, ALLOC_POST, ALLOC_STAT, ALLOC_AREA, ALLOC_CAT, RANK, WITHHELD } = filters;
 
@@ -86,7 +98,7 @@ const getRecordsCountByFilters = async (filters) => {
 
         filters.CAT2 !== undefined ? ((filters.CAT2 === "" || filters.CAT2==="N") ? { CAT2: { [Op.eq]: null } } : { CAT2: filters.CAT2 }) : {},
 
-        filters.CAT3 !== undefined ? (filters.CAT3 === "" ? { CAT3: { [Op.eq]: null } } :(filter.CAT3==="TOGETHER"?{CAT3: {[Op.ne]:null}}:{ CAT3: filters.CAT3 })): {},
+        filters.CAT3 !== undefined ? (filters.CAT3 === "" ? { CAT3: { [Op.eq]: null } } :(filters.CAT3==="TOGETHER"?{CAT3: {[Op.ne]:null}}:{ CAT3: filters.CAT3 })): {},
 
         filters.WRTN1_APP !== undefined ? (filters.WRTN1_APP === "" ? { WRTN1_APP: { [Op.eq]: null } } : { WRTN1_APP: filters.WRTN1_APP }) : {},
         filters.WRTN1_QLY !== undefined ? (filters.WRTN1_QLY === "" ? { WRTN1_QLY: { [Op.eq]: null } } : { WRTN1_QLY: filters.WRTN1_QLY }) : {},
@@ -113,8 +125,8 @@ const getRecordsCountByFilters = async (filters) => {
         filters.WITHHELD !== undefined ? (filters.WITHHELD === "" ? { WITHHELD: { [Op.eq]: null } } : { WITHHELD: filters.WITHHELD }) : {}
 
 
-        /* code upgrade👆
-           filters.EXAMNAME ? { 'EXAMNAME': filters.EXAMNAME } : {},
+        /*code upgrade👆
+            filters.EXAMNAME ? { 'EXAMNAME': filters.EXAMNAME } : {},
             filters.REGID ? { 'REGID': filters.REGID } : {},
             filters.ROLL ? { 'ROLL': filters.ROLL } : {},
             filters.NAME ? { 'NAME': filters.NAME } : {},
@@ -158,7 +170,143 @@ const getRecordsCountByFilters = async (filters) => {
   return count;
 };
 
-  module.exports = {
-  getRecordsByFilters,
-  getRecordsCountByFilters,
+// For downloeding the query
+const fs = require('fs');
+const path = require('path');
+const { Parser } = require('json2csv');
+const archiver=require('archiver');
+const os=require('os');
+
+const downloadRecord = async (filters) => {
+  const { EXAMNAME, REGID, ROLL, NAME, FATHERNAME, MOTHERNAME, DOB, GENDER, CAT1, CAT2, CAT3, WRTN1_APP, WRTN1_QLY, WRTN2_APP, WRTN2_QLY, WRTN3_APP, WRTN3_QLY, INTVW_APP, SKILL_APP, SKILL_QLY, PET_APP, PET_QLY, DME_APP, DME_QLY, RME_APP, RME_QLY, SELECTED, MARKS, ALLOC_POST, ALLOC_STAT, ALLOC_AREA, ALLOC_CAT, RANK, WITHHELD } = filters;
+
+const whereClause = {
+    where: {
+      [Op.and]: [
+        filters.EXAMNAME !== undefined ? ((filters.EXAMNAME === "") ? { EXAMNAME: { [Op.eq]: null } } : (filters.EXAMNAME==="ALL EXAMs")?{EXAMNAME:{[Op.ne]:null}}: { EXAMNAME: filters.EXAMNAME }) : {},
+
+        filters.REGID !== undefined ? (filters.REGID === "" ? { REGID: { [Op.ne]: null } } : { REGID: filters.REGID }) : {},
+        filters.ROLL !== undefined ? (filters.ROLL === "" ? { ROLL: { [Op.ne]: null } } : { ROLL: filters.ROLL }) : {},
+        filters.NAME !== undefined ? (filters.NAME === "" ? { NAME: { [Op.ne]: null } } : { NAME: filters.NAME }) : {},
+        filters.FATHERNAME !== undefined ? (filters.FATHERNAME === "" ? { FATHERNAME: { [Op.ne]: null } } : { FATHERNAME: filters.FATHERNAME }) : {},
+        filters.MOTHERNAME !== undefined ? (filters.MOTHERNAME === "" ? { MOTHERNAME: { [Op.ne]: null } } : { MOTHERNAME: filters.MOTHERNAME }) : {},
+        filters.DOB !== undefined ? (filters.DOB === "" ? { DOB: { [Op.ne]: null } } : { DOB: filters.DOB }) : {},
+
+        filters.GENDER !== undefined ? ((filters.GENDER === "") ? { GENDER: { [Op.eq]: null } } :(filters.GENDER==="OVERALL")?{GENDER:{[Op.ne]:null}}:(filters.GENDER !== "OTHERS" ? {GENDER:filters.GENDER} :{ GENDER:{ [Op.eq]: "T" }})) : {},
+
+        filters.CAT1 !== undefined ? ((filters.CAT1 === "") ? { CAT1: { [Op.eq]: null } } : (filters.CAT1 === "TOGETHER")?{CAT1:{[Op.ne]:null}}: { CAT1: filters.CAT1 }) : {},
+
+        filters.CAT2 !== undefined ? ((filters.CAT2 === "" || filters.CAT2==="N") ? { CAT2: { [Op.eq]: null } } : { CAT2: filters.CAT2 }) : {},
+
+        filters.CAT3 !== undefined ? (filters.CAT3 === "" ? { CAT3: { [Op.eq]: null } } :(filters.CAT3==="TOGETHER"?{CAT3: {[Op.ne]:null}}:{ CAT3: filters.CAT3 })): {},
+
+        filters.WRTN1_APP !== undefined ? (filters.WRTN1_APP === "" ? { WRTN1_APP: { [Op.eq]: null } } : { WRTN1_APP: filters.WRTN1_APP }) : {},
+        filters.WRTN1_QLY !== undefined ? (filters.WRTN1_QLY === "" ? { WRTN1_QLY: { [Op.eq]: null } } : { WRTN1_QLY: filters.WRTN1_QLY }) : {},
+        filters.WRTN2_APP !== undefined ? (filters.WRTN2_APP === "" ? { WRTN2_APP: { [Op.eq]: null } } : { WRTN2_APP: filters.WRTN2_APP }) : {},
+        filters.WRTN2_QLY !== undefined ? (filters.WRTN2_QLY === "" ? { WRTN2_QLY: { [Op.eq]: null } } : { WRTN2_QLY: filters.WRTN2_QLY }) : {},
+        filters.WRTN3_APP !== undefined ? (filters.WRTN3_APP === "" ? { WRTN3_APP: { [Op.eq]: null } } : { WRTN3_APP: filters.WRTN3_APP }) : {},
+        filters.WRTN3_QLY !== undefined ? (filters.WRTN3_QLY === "" ? { WRTN3_QLY: { [Op.eq]: null } } : { WRTN3_QLY: filters.WRTN3_QLY }) : {},
+        filters.INTVW_APP !== undefined ? (filters.INTVW_APP === "" ? { INTVW_APP: { [Op.eq]: null } } : { INTVW_APP: filters.INTVW_APP }) : {},
+        filters.SKILL_APP !== undefined ? (filters.SKILL_APP === "" ? { SKILL_APP: { [Op.eq]: null } } : { SKILL_APP: filters.SKILL_APP }) : {},
+        filters.SKILL_QLY !== undefined ? (filters.SKILL_QLY === "" ? { SKILL_QLY: { [Op.eq]: null } } : { SKILL_QLY: filters.SKILL_QLY }) : {},
+        filters.PET_APP !== undefined ? (filters.PET_APP === "" ? { PET_APP: { [Op.eq]: null } } : { PET_APP: filters.PET_APP }) : {},
+        filters.PET_QLY !== undefined ? (filters.PET_QLY === "" ? { PET_QLY: { [Op.eq]: null } } : { PET_QLY: filters.PET_QLY }) : {},
+        filters.DME_APP !== undefined ? (filters.DME_APP === "" ? { DME_APP: { [Op.eq]: null } } : { DME_APP: filters.DME_APP }) : {},
+        filters.DME_QLY !== undefined ? (filters.DME_QLY === "" ? { DME_QLY: { [Op.eq]: null } } : { DME_QLY: filters.DME_QLY }) : {},
+        filters.RME_APP !== undefined ? (filters.RME_APP === "" ? { RME_APP: { [Op.eq]: null } } : { RME_APP: filters.RME_APP }) : {},
+        filters.RME_QLY !== undefined ? (filters.RME_QLY === "" ? { RME_QLY: { [Op.eq]: null } } : { RME_QLY: filters.RME_QLY }) : {},
+        filters.SELECTED !== undefined ? (filters.SELECTED === "" ? { SELECTED: { [Op.eq]: null } } : { SELECTED: filters.SELECTED }) : {},
+        filters.MARKS !== undefined ? (filters.MARKS === "" ? { MARKS: { [Op.eq]: null } } : { MARKS: filters.MARKS }) : {},
+        filters.ALLOC_POST !== undefined ? (filters.ALLOC_POST === "" ? { ALLOC_POST: { [Op.eq]: null } } : { ALLOC_POST: filters.ALLOC_POST }) : {},
+        filters.ALLOC_STAT !== undefined ? (filters.ALLOC_STAT === "" ? { ALLOC_STAT: { [Op.eq]: null } } : { ALLOC_STAT: filters.ALLOC_STAT }) : {},
+        filters.ALLOC_AREA !== undefined ? (filters.ALLOC_AREA === "" ? { ALLOC_AREA: { [Op.eq]: null } } : { ALLOC_AREA: filters.ALLOC_AREA }) : {},
+        filters.ALLOC_CAT !== undefined ? (filters.ALLOC_CAT === "" ? { ALLOC_CAT: { [Op.eq]: null } } : { ALLOC_CAT: filters.ALLOC_CAT }) : {},
+        filters.RANK !== undefined ? (filters.RANK === "" ? { RANK: { [Op.eq]: null } } : { RANK: filters.RANK }) : {},
+        filters.WITHHELD !== undefined ? (filters.WITHHELD === "" ? { WITHHELD: { [Op.eq]: null } } : { WITHHELD: filters.WITHHELD }) : {}
+      ],
+    },
+  };
+
+  let records = [];
+  let offset = 0;
+  const limit = 500000; // Limit to 1 lakh records per fetch
+  const csvFileNames=[];
+
+  while (true) {
+    const fetchedRecords = await allexamstableModel.findAll({
+      ...whereClause,
+      attributes: ['EXAMNAME', 'REGID', 'ROLL', 'NAME', 'FATHERNAME', 'MOTHERNAME', 'DOB', 'GENDER', 'CAT1', 'CAT2', 'CAT3', 'WRTN1_APP', 'WRTN1_QLY', 'WRTN2_APP', 'WRTN2_QLY', 'WRTN3_APP', 'WRTN3_QLY', 'INTVW_APP', 'SKILL_APP', 'SKILL_QLY', 'PET_APP', 'PET_QLY', 'DME_APP', 'DME_QLY', 'RME_APP', 'RME_QLY', 'SELECTED', 'MARKS', 'ALLOC_POST', 'ALLOC_STAT', 'ALLOC_AREA', 'ALLOC_CAT', 'RANK', 'WITHHELD'],
+      limit,
+      offset,
+    });
+
+    if (fetchedRecords.length === 0) {
+      break;
+    }
+
+    records = records.concat(fetchedRecords);
+    offset += limit;
+
+    if (records.length >= limit) {
+      const fields = ['EXAMNAME', 'REGID', 'ROLL', 'NAME', 'FATHERNAME', 'MOTHERNAME', 'DOB', 'GENDER', 'CAT1', 'CAT2', 'CAT3', 'WRTN1_APP', 'WRTN1_QLY', 'WRTN2_APP', 'WRTN2_QLY', 'WRTN3_APP', 'WRTN3_QLY', 'INTVW_APP', 'SKILL_APP', 'SKILL_QLY', 'PET_APP', 'PET_QLY', 'DME_APP', 'DME_QLY', 'RME_APP', 'RME_QLY', 'SELECTED', 'MARKS', 'ALLOC_POST', 'ALLOC_STAT', 'ALLOC_AREA', 'ALLOC_CAT', 'RANK', 'WITHHELD'];
+      const parser = new Parser({ fields });
+      const csv = parser.parse(records);
+
+      const fileNumber = Math.floor(offset / limit);
+      const filePath = path.join(__dirname, `data_part_${fileNumber}.csv`);
+      fs.writeFileSync(filePath, csv);
+      csvFileNames.push(filePath);
+      records = [];
+    }
+  }
+
+  // trying to handle the remaining records
+  if (records.length > 0) {
+    const fields = ['EXAMNAME', 'REGID', 'ROLL', 'NAME', 'FATHERNAME', 'MOTHERNAME', 'DOB', 'GENDER', 'CAT1', 'CAT2', 'CAT3', 'WRTN1_APP', 'WRTN1_QLY', 'WRTN2_APP', 'WRTN2_QLY', 'WRTN3_APP', 'WRTN3_QLY', 'INTVW_APP', 'SKILL_APP', 'SKILL_QLY', 'PET_APP', 'PET_QLY', 'DME_APP', 'DME_QLY', 'RME_APP', 'RME_QLY', 'SELECTED', 'MARKS', 'ALLOC_POST', 'ALLOC_STAT', 'ALLOC_AREA', 'ALLOC_CAT', 'RANK', 'WITHHELD'];
+    const parser = new Parser({ fields });
+    const csv = parser.parse(records);
+    const fileNumber = Math.floor(offset / limit); // Increment the file number
+    const filePath = path.join(__dirname, `data_part_${fileNumber}.csv`);
+    fs.writeFileSync(filePath, csv);
+    csvFileNames.push(filePath);
+  }
+  // Now i will try the zipping it and downloading it.😵God Help
+  const zipFilePath = path.join('D:\\', 'data.zip');
+  const archive = archiver('zip', { zlib: { level: 9 } });
+  const outputArea = fs.createWriteStream(zipFilePath);
+  
+
+  outputArea.on('close', () => {
+
+      console.log(`Total file size of zipped folder is: ${archive.pointer()} bytes`);
+    console.log('ZIP archive has been made and the outputArea file descriptor has been shutdown');
+    console.log('ZIP archive has been downloaded successfully at the location D:\\ drive.');
+    //and now removing the old temporary .csv file
+      csvFileNames.forEach((file) => {
+        fs.unlinkSync(file);
+      });
+      console.log('removed all the temporary file generated in the process.');
+      
+  });
+
+  archive.on('error', (err) => {
+    console.error('Error creating ZIP archive:', err);
+  });
+
+  archive.pipe(outputArea);
+
+  csvFileNames.forEach((file) => {
+    archive.file(file, { name: path.basename(file) });
+  });
+
+  archive.finalize();
+
+  return records;
+};
+
+
+    module.exports = {
+    getRecordsByFilters,
+    getRecordsCountByFilters,
+    downloadRecord
 };
