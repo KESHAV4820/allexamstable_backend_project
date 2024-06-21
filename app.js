@@ -22,7 +22,10 @@ const { getRecordsByFilters, getRecordsCountByFilters, downloadRecord } = requir
 
 app.use(express.json());//must come before👇this line
 app.use(express.urlencoded({extended: true}));// these two LOC is used againt the bodyparser code that we used to install. Now that's inbuilt in express.js and this the way you get it. 
-app.use(cors({origin:'http://127.0.0.1:5500'}));// if we don't give parameter, it becomes a general instruction which is good like a shotgun . But if you want security and yet cross sharing you need to be specific like sniper. hence you give exact origin value that has to be allowed. 
+app.use(cors({origin:[
+    'http://127.0.0.1:5500',
+    'https://mirrorverse--sscradhe.netlify.app/'//Temporary Code
+    ]}));// if we don't give parameter, it becomes a general instruction which is good like a shotgun . But if you want security and yet cross sharing you need to be specific like sniper. hence you give exact origin value that has to be allowed. 
 app.options('*', cors());
 
 app.get('/', (request, response) => {
