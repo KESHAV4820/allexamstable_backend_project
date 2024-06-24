@@ -1,10 +1,11 @@
+const dotenv = require('dotenv');
 const { Op } = require('sequelize');
 //Issue FoundLOCKnowledge Gap const { allexamstableModel } = require('../db/models/allexamstablemodel'); // Assuming your models are in the 'db/models' directory
 const allexamstableModel = require('../db/models/allexamstablemodel');//SuperConceptLearnByHeart this works but almost the same thing is written in LOC just above. It's becouse my sequelize doesn't export object which needs destructuring. It direct exports.
 
 // Place the dynamic query building function here
 //VIEConcept: latter on i introduced parameter like limit and offset. Why becouse earlier, the large size data was being retrieved using the query and it used to thrown heap out of memory problem. to solve that i had to do Pagination to break the output data into page and reduce the overhead. Later on, i shall "implement lazy loading" as well. limit=1000 tells the number of records to be fetched in each page. offset=0 say the starting page number will start from page number=0. 
-const getRecordsByFilters = async (filters, limit=1000, offset=0) => {
+const getRecordsByFilters = async (filters, limit=300, offset=0) => {
     const { EXAMNAME, REGID, ROLL, NAME, FATHERNAME, MOTHERNAME, DOB, GENDER, CAT1, CAT2, CAT3, WRTN1_APP, WRTN1_QLY, WRTN2_APP, WRTN2_QLY, WRTN3_APP, WRTN3_QLY, INTVW_APP, SKILL_APP, SKILL_QLY, PET_APP, PET_QLY, DME_APP, DME_QLY, RME_APP, RME_QLY, SELECTED, MARKS, ALLOC_POST, ALLOC_STAT, ALLOC_AREA, ALLOC_CAT, RANK, WITHHELD } = filters;
     /*SuperNotethis here is the most important thing.here i am 
     destructuring the input from filters that contains the input parameters. based on destructuring some will get value and some will not. And based on that, down below👇 we are making filters. Here is the punch line. since i was trying to make a query which can take any provided condition, as many conditions as possible and together by And operator, i used all the field names present in my table. Now i can use any field inside the whereClause filters. 😎Baam.

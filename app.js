@@ -135,7 +135,7 @@ app.post('/api/v1/records', async (req, res) => {
     try {
       const filters = req.body;// i am not using request query like "req.query.EXAMNAME". It's useful for straigh forward, less complex shit.
       const limit = req.query.limit || 1000;
-      const offset=req.query.offset || 0; 
+      const offset=req.query.offset || 0;
       const records = await getRecordsByFilters(filters,limit,offset);
       res.status(200).json(records);
     } catch (error) {
