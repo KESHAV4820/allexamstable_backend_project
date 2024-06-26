@@ -5,6 +5,9 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('./../../config/database'); // Replace with your Sequelize instance
 module.exports = sequelize;
 
+const dotenv = require('dotenv');
+dotenv.config({path:`${process.cwd()}/config.env`});//is recipe! not concept
+
 
 const allexamstableModel = sequelize.define('allexamstableModel', {
     // id: {
@@ -153,7 +156,7 @@ const allexamstableModel = sequelize.define('allexamstableModel', {
 //     type:DataTypes.DATE,
 //   }// to have paranoid feature in your database, you must have a coloumn named deletedAt, but since i can't change our database without permission, i am keeping this option ready for future.
 }, {
-  tableName: 'allexamstable', // Specify the existing table name
+  tableName:`${process.env.DB_TABLE_NAME}`, // Specify the existing table name
 
   //----SuperEither you mention the Primary key----
   //primaryKey: 'ROLL', // Specify the column to be used as the primary key

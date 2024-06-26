@@ -1,4 +1,8 @@
 'use strict';
+
+const dotenv = require('dotenv');
+dotenv.config({path:`${process.cwd()}/config.env`});//is recipe! not concept
+
 const { DataTypes } = require('sequelize');//added
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -271,7 +275,7 @@ module.exports = {
                       }
                     */
     },{
-      tableName: 'allexamstable', // Specify the existing table name
+      tableName: `${process.env.DB_TABLE_NAME}`, // Specify the existing table name
       //----SuperEither you mention the Primary key----
       //primaryKey: 'ROLL', // Specify the column to be used as the primary key
       //----SuperOr you specify no Primarykey exists---

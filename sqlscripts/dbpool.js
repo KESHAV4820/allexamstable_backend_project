@@ -3,11 +3,12 @@
 1. this file is used to store the code for function calls stored within the postgres SQL. 
 2. you will have to export the local names of these function of sql. 
 3. you will have to import the function names in the app.js file.
+4. VIE Super this whole section became useless for me after i used sequlize ana node for the API making . This code base hasn't been used for the real implementation in our project.
 */
 
 const { Pool, types } = require('pg');
 const dotenv = require('dotenv');
-dotenv.config({path:`${process.cwd()}/config.env`});
+dotenv.config({path:`${process.cwd()}/config.env`});//is recipe! not concept
 
 const pool = new Pool({
   user: process.env.DB_USERNAME,
