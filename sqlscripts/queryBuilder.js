@@ -28,7 +28,7 @@ const getRecordsByFilters = async (filters, limit=300, offset=0) => {
         filters.MOTHERNAME !== undefined ? (filters.MOTHERNAME === "" ? { MOTHERNAME: { [Op.ne]: null } } : { MOTHERNAME: filters.MOTHERNAME }) : {},
         filters.DOB !== undefined ? (filters.DOB === "" ? { DOB: { [Op.ne]: null } } : { DOB: filters.DOB }) : {},
 
-        filters.GENDER !== undefined ? ((filters.GENDER === "") ? { GENDER: { [Op.eq]: null } } :(filters.GENDER==="OVERALL")?{GENDER:{[Op.ne]:null}}:(filters.GENDER !== "OTHERS" ? {GENDER:filters.GENDER} :{ GENDER:{ [Op.eq]: "T" }})) : {},
+        filters.GENDER !== undefined ? ((filters.GENDER === "") ? { GENDER: { [Op.eq]: null } } :(filters.GENDER==="OVERALL")?{GENDER:{[Op.ne]:null}}:(filters.GENDER !== "OTHERS" ? {GENDER:filters.GENDER} :{ GENDER:{ [Op.eq]: "T" }})) : {},//Note
 
         filters.CAT1 !== undefined ? ((filters.CAT1 === "") ? { CAT1: { [Op.eq]: null } } : (filters.CAT1 === "TOGETHER")?{CAT1:{[Op.ne]:null}}: { CAT1: filters.CAT1 }) : {},
 
@@ -57,9 +57,37 @@ const getRecordsByFilters = async (filters, limit=300, offset=0) => {
         filters.ALLOC_STAT !== undefined ? (filters.ALLOC_STAT === "" ? { ALLOC_STAT: { [Op.eq]: null } } : { ALLOC_STAT: filters.ALLOC_STAT }) : {},
         filters.ALLOC_AREA !== undefined ? (filters.ALLOC_AREA === "" ? { ALLOC_AREA: { [Op.eq]: null } } : { ALLOC_AREA: filters.ALLOC_AREA }) : {},
 
-        filters.ALLOC_CAT !== undefined ? ((filters.ALLOC_CAT === "") ? { ALLOC_CAT: { [Op.eq]: null } } : (filters.ALLOC_CAT === "TOGETHER")?{ALLOC_CAT:{[Op.ne]:null}}: { ALLOC_CAT: filters.ALLOC_CAT }) : {},
-
-        // filters.ALLOC_CAT !== undefined ? (filters.ALLOC_CAT === "" ? { ALLOC_CAT: { [Op.eq]: null } } : { ALLOC_CAT: filters.ALLOC_CAT }) : {},
+        filters.ALLOC_CAT !== undefined ? ((filters.ALLOC_CAT === "") ? ({ALLOC_CAT: { [Op.eq]: null } }):
+    (filters.ALLOC_CAT === "ALL_TOGETHER")?{ ALLOC_CAT:{ [Op.ne]: null } }:
+        (filters.ALLOC_CAT === "0")?({ ALLOC_CAT: { [Op.in]: ['0','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT ==="1")?({ ALLOC_CAT: { [Op.in]: ['1','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT === "2")?({ ALLOC_CAT: { [Op.in]: ['2','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT === "6")?({ ALLOC_CAT: { [Op.in]: ['6','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT ==="9")?({
+            [Op.or]: [
+                { ALLOC_CAT: '9' },
+                {
+                    [Op.and]: [
+                        { ALLOC_CAT: { [Op.in]: ['3', '4', '5', '7', '8'] } },
+                        { CAT1: '9' }
+                    ]
+                }
+            ]
+        }):
+        { ALLOC_CAT: filters.ALLOC_CAT }):{},
+        
+      /* legacy code explicit readable form
+            filters.ALLOC_CAT !== undefined 
+              ? (
+                  (filters.ALLOC_CAT === "") 
+                      ? ({ ALLOC_CAT: { [Op.eq]: null }}) 
+                      : (
+                          filters.ALLOC_CAT !== "ALL_TOGETHER"
+                            ? { ALLOC_CAT: filters.ALLOC_CAT }
+                              : { ALLOC_CAT: { [Op.ne]:null } }
+                        )
+                ) 
+              : {}, */
         filters.RANK !== undefined ? (filters.RANK === "" ? { RANK: { [Op.eq]: null } } : { RANK: filters.RANK }) : {},
         filters.WITHHELD !== undefined ? (filters.WITHHELD === "" ? { WITHHELD: { [Op.eq]: null } } : { WITHHELD: filters.WITHHELD }) : {}
         // Add any other conditions here
@@ -132,7 +160,29 @@ const getRecordsCountByFilters = async (filters) => {
         filters.ALLOC_POST !== undefined ? (filters.ALLOC_POST === "" ? { ALLOC_POST: { [Op.eq]: null } } : { ALLOC_POST: filters.ALLOC_POST }) : {},
         filters.ALLOC_STAT !== undefined ? (filters.ALLOC_STAT === "" ? { ALLOC_STAT: { [Op.eq]: null } } : { ALLOC_STAT: filters.ALLOC_STAT }) : {},
         filters.ALLOC_AREA !== undefined ? (filters.ALLOC_AREA === "" ? { ALLOC_AREA: { [Op.eq]: null } } : { ALLOC_AREA: filters.ALLOC_AREA }) : {},
-        filters.ALLOC_CAT !== undefined ? (filters.ALLOC_CAT === "" ? { ALLOC_CAT: { [Op.eq]: null } } : { ALLOC_CAT: filters.ALLOC_CAT }) : {},
+
+        
+        // filters.ALLOC_CAT !== undefined ? ((filters.ALLOC_CAT === "") ? { ALLOC_CAT: { [Op.eq]: null } } : (filters.ALLOC_CAT === "ALL_TOGETHER")?{ ALLOC_CAT: { [Op.ne]: null } }: { ALLOC_CAT: filters.ALLOC_CAT }): {},
+        filters.ALLOC_CAT !== undefined ? ((filters.ALLOC_CAT === "") ? ({ALLOC_CAT: { [Op.eq]: null } }):
+    (filters.ALLOC_CAT === "ALL_TOGETHER")?{ ALLOC_CAT:{ [Op.ne]: null } }:
+        (filters.ALLOC_CAT === "0")?({ ALLOC_CAT: { [Op.in]: ['0','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT ==="1")?({ ALLOC_CAT: { [Op.in]: ['1','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT === "2")?({ ALLOC_CAT: { [Op.in]: ['2','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT === "6")?({ ALLOC_CAT: { [Op.in]: ['6','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT ==="9")?({
+            [Op.or]: [
+                { ALLOC_CAT: '9' },
+                {
+                    [Op.and]: [
+                        { ALLOC_CAT: { [Op.in]: ['3', '4', '5', '7', '8'] } },
+                        { CAT1: '9' }
+                    ]
+                }
+            ]
+        }):
+        { ALLOC_CAT: filters.ALLOC_CAT }):{},
+        
+
         filters.RANK !== undefined ? (filters.RANK === "" ? { RANK: { [Op.eq]: null } } : { RANK: filters.RANK }) : {},
         filters.WITHHELD !== undefined ? (filters.WITHHELD === "" ? { WITHHELD: { [Op.eq]: null } } : { WITHHELD: filters.WITHHELD }) : {}
 
@@ -232,7 +282,27 @@ const whereClause = {
         filters.ALLOC_POST !== undefined ? (filters.ALLOC_POST === "" ? { ALLOC_POST: { [Op.eq]: null } } : { ALLOC_POST: filters.ALLOC_POST }) : {},
         filters.ALLOC_STAT !== undefined ? (filters.ALLOC_STAT === "" ? { ALLOC_STAT: { [Op.eq]: null } } : { ALLOC_STAT: filters.ALLOC_STAT }) : {},
         filters.ALLOC_AREA !== undefined ? (filters.ALLOC_AREA === "" ? { ALLOC_AREA: { [Op.eq]: null } } : { ALLOC_AREA: filters.ALLOC_AREA }) : {},
-        filters.ALLOC_CAT !== undefined ? (filters.ALLOC_CAT === "" ? { ALLOC_CAT: { [Op.eq]: null } } : { ALLOC_CAT: filters.ALLOC_CAT }) : {},
+
+        // filters.ALLOC_CAT !== undefined ? (filters.ALLOC_CAT === "" ? { ALLOC_CAT: { [Op.eq]: null } } : { ALLOC_CAT: filters.ALLOC_CAT }) : {},
+        filters.ALLOC_CAT !== undefined ? ((filters.ALLOC_CAT === "") ? ({ALLOC_CAT: { [Op.eq]: null } }):
+    (filters.ALLOC_CAT === "ALL_TOGETHER")?{ ALLOC_CAT:{ [Op.ne]: null } }:
+        (filters.ALLOC_CAT === "0")?({ ALLOC_CAT: { [Op.in]: ['0','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT ==="1")?({ ALLOC_CAT: { [Op.in]: ['1','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT === "2")?({ ALLOC_CAT: { [Op.in]: ['2','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT === "6")?({ ALLOC_CAT: { [Op.in]: ['6','3', '4', '5', '7', '8'] }}):
+        (filters.ALLOC_CAT ==="9")?({
+            [Op.or]: [
+                { ALLOC_CAT: '9' },
+                {
+                    [Op.and]: [
+                        { ALLOC_CAT: { [Op.in]: ['3', '4', '5', '7', '8'] } },
+                        { CAT1: '9' }
+                    ]
+                }
+            ]
+        }):
+        { ALLOC_CAT: filters.ALLOC_CAT }):{},
+
         filters.RANK !== undefined ? (filters.RANK === "" ? { RANK: { [Op.eq]: null } } : { RANK: filters.RANK }) : {},
         filters.WITHHELD !== undefined ? (filters.WITHHELD === "" ? { WITHHELD: { [Op.eq]: null } } : { WITHHELD: filters.WITHHELD }) : {}
       ],
