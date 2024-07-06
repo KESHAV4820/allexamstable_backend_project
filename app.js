@@ -1,12 +1,13 @@
 'use strict';
 
-/*
+/* SuperNote
 1. in this folder, first we setup the server in app.
 2. it's here that we add Routes / (path) on the CRUD functions of node.js to the server variable named app in this file. 
 3. we also add the middleware functions to the server variable named app in this file.
 4. we can name a path anything. It just that when our browser that is frontend, on the some evenlistening sends this value to the server in the addressbar, our server get's a clue to send what kind of content. 
 5. But it's better to have a structured naming system. Becouse the system that we make has to scalable and maintainable by anyone in comming years. hence there has to be a logic behind performing 
 6. never forget to use try catch within these backend functions, becouse they use asyn, and hence uses promise. And in these case, automatic throw of error fails. Hence you need to do it explicitly. 
+7.Remember It I didn't knew where to write this important thing. Hence i am writing it here. When database is very big, like crores of data. Your querying will be very slow. Hence, you will need to optimise your database. process of optimization has many steps in it. i am writing them as you will need to do starting from first, being the first step to optimise your database and so on. 1️⃣"partition" the database(on the fields that can break the table into major chunks) 👉2️⃣"indexing" the database(single filed and multiple field basis as well. index those fields with less number of null value in them) 👉3️⃣"enable parallel querying process"(that is you will set the number of "workers" doing query from the database; simultaneously; for your query. The number of workers that your computer can afford exactly depends on the number of cores in your computer. At max, you can you number of worker= number of cores in your sytem - 1) 👉4️⃣"create materialised view" of queries that you deem important or most used ones or the most time taking ones. 👉5️⃣Keep "Refreshing the materialised view" so that if any change has been made in database, it get recorded by materialised view as well 👉6️⃣to keep materialised view update automatically, we need to "SCHEDULE the Refreshing of materialised view" 👉7️⃣to avoid stale data in materialised view, you need "Real-time Refreshing" of materialised view as well.
 */
 
 const dotenv = require('dotenv');
@@ -19,6 +20,7 @@ const authRouter = require('./route/authRoute');
 const allexamstableModel = require('./db/models/allexamstablemodel');
 const {callProcedure, callProcedtesting11, callStoredFunction, callRecordViewFunction, downloadQueryFunction} = require('./sqlscripts/dbpool');
 const { getRecordsByFilters, getRecordsCountByFilters, downloadRecord } = require('./sqlscripts/queryBuilder');
+const {citycodeDataprocessor} = require('./dataprocesser/citycodeDataprocessor');
 
 app.use(express.json());//must come before👇this line
 app.use(express.urlencoded({extended: true}));// these two LOC is used againt the bodyparser code that we used to install. Now that's inbuilt in express.js and this the way you get it. 
@@ -148,7 +150,6 @@ app.post('/api/v1/records', async (req, res) => {
         });
     }
   });
-
 app.post('/api/v1/downloadrecords', async (req, res) => {
     try {
       const filters = req.body;
@@ -165,7 +166,6 @@ app.post('/api/v1/downloadrecords', async (req, res) => {
         });
     }
   });
-
 app.post('/api/v1/recordcount', async (req, res) => {
     try {
       const filters = req.body;
@@ -178,7 +178,29 @@ app.post('/api/v1/recordcount', async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch records' });
     }
   });
-
+app.post('/api/v1/venuerecords', async (req, res) => {
+    try {
+        const filters = req.body;
+        const limit = req.query.limit || 1000;
+        const offset = req.query.offset || 0;
+        const records = await getRecordsByFilters(filters, limit, offset);
+        
+        // Process the records to get counts
+        const processedData = citycodeDataprocessor(records);
+        
+        res.status(200).json({
+            records: processedData,
+            //statistics: processedData//SuperConcept in this parameter we send any other data that we may have calculated using the main records that we have fetched from the data base. like some kind of percentage of students being SC or ST. In this parameter we send those parameters like {totalSCPercent,averageAgeSc,}, where totalSCPercent or averageAgeSc is are variables that holds the calculated data from the records fetched.
+        });
+    } catch (error) {
+        console.error('Error fetching Venue Records:', error);
+      res.status(500).json({
+        error: 'Failed to fetch the venue records',
+        status:'500',
+        message: 'Failed to fetch.'
+        });
+    }
+});
 
 
 
