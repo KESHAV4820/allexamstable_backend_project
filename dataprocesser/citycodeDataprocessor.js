@@ -20,12 +20,14 @@ const cityCodeToName = {
     '1201': 'Dharamshala',
     '1202': 'Hamirpur',
     '1203': 'Shimla',
+    //Issue Found'1204': 'city code missing',
     '1401': 'Bhathinda',
     '1402': 'Jalandhar',
     '1403': 'Patiala',
     '1404': 'Amritsar',
     '1405': 'Ludhiana',
     '1406': 'Mohali',
+    //Issue Found'1408': 'this city name is missing',//this code is missing from SSC book let but it is in the result. 
     '1601': 'Chandigarh',
     '1801': 'Ambala',
     '1802': 'Bhiwani',
@@ -69,6 +71,7 @@ const cityCodeToName = {
     '3016': 'Muzaffarnagar',
     '3017': 'Gautam Budhnagar(Noida)',
     '3018': 'Greater Noida',
+    //Issue Found '3019': 'city code missing',
     '3201': 'Bhagalpur',
     '3202': 'Darbhanga',
     '3203': 'Gaya',
@@ -105,6 +108,7 @@ const cityCodeToName = {
     '4417': 'Asansol',
     '4418': 'Hooghly',
     '4419': 'Kalyani',
+    //Issue Found'4426': 'city code missing'
     '4601': 'Balasore',
     '4602': 'Berhampore',
     '4603': 'Bhawanipatna',
@@ -520,6 +524,7 @@ const cityToState = {
     'Kerala': ['9201', '9202', '9203', '9204', '9205', '9206', '9207', '9208', '9209', '9210', '9211','9212','9213'],
     'Lakshadweep': ['9401'],
 };*/
+
 const stateToZone = {
     'Jammu & Kashmir': 'North Western Region',
     'Ladakh': 'North Western Region',
@@ -529,7 +534,7 @@ const stateToZone = {
     'Haryana': 'North Western Region',
     'Delhi': 'Northern Region',
     'Uttarakhand': 'Northern Region',
-    'Rajsthan': 'Northern Region',
+    'Rajasthan': 'Northern Region',
     'Uttar Pradesh': 'Central Region',
     'Bihar': 'Central Region',
     'Jharkhand': 'Eastern Region',
@@ -797,7 +802,45 @@ const cityCoordinates = {
     'Kavaratti': [10.5593, 72.6358],
 };
 
+const statePopulation={
+    "Jammu & Kashmir": 12541302,
+    "Himachal Pradesh": 6864602,
+    "Punjab": 27743338,
+    "Uttarakhand": 10086292,
+    "Haryana": 25351462,
+    "Rajasthan": 68548437,
+    "Uttar Pradesh": 199812341,
+    "Bihar": 104099452,
+    "Sikkim": 610577,
+    "Arunachal Pradesh": 1383727,
+    "Nagaland": 1978502,
+    "Manipur": 2570390,
+    "Mizoram": 1097206,
+    "Tripura": 3673917,
+    "Meghalaya": 2966889,
+    "Assam": 31205576,
+    "West Bengal": 91276115,
+    "Jharkhand": 32988134,
+    "Odisha": 41974218,
+    "Chhattisgarh": 25545198,
+    "Madhya Pradesh": 72626809,
+    "Gujarat": 60439692,
+    "Maharashtra": 112374333,
+    "Andhra Pradesh": 84580777,
+    "Karnataka": 61095297,
+    "Goa": 1458545,
+    "Kerala": 33406061,
+    "Tamil Nadu": 72147030,
+    "A & N Islands": 380581,
+    "Chandigarh": 1054686,
+    "Dadra & Nagar Haveli": 342855,
+    "Daman & Diu": 240249,
+    "Delhi": 16753235,
+    "Lakshadweep": 60650,
+    "Puducherry": 1244464,
+};
 
+/*
 function citycodeDataprocessor(data) {
     const cityCounts = {};
     const stateCounts = {};
@@ -808,6 +851,13 @@ function citycodeDataprocessor(data) {
         const city = cityCodeToName[cityCode] || 'Unknown';
         const state = cityToState[city] || 'Unknown';
         const zone = stateToZone[state] || 'Unknown';
+        if(city === 'Unknown' || state ==='Unknown' || zone === 'Unknown'){
+            console.log('CityCode= '+cityCode);
+            console.log('city= '+city);
+            console.log('state= '+state);
+            console.log('zone= '+zone);
+        };//Code Testing
+        
 
         cityCounts[city] = (cityCounts[city] || 0) + 1;
         stateCounts[state] = (stateCounts[state] || 0) + 1;
@@ -819,11 +869,67 @@ function citycodeDataprocessor(data) {
         state_counts: stateCounts,
         zone_counts: zoneCounts
     };
+}//code upgrade👇
+*/
+
+//code in progress
+function citycodeDataprocessor(data) {
+    const cityCounts = {};
+    const stateCounts = {};
+    const zoneCounts = {};
+    const totalRecords = data.length;
+    let populationState={};
+    let state;
+
+    for (const record of data) {
+        const cityCode = record.ROLL.substring(0, 4);
+        const city = cityCodeToName[cityCode] || 'Unknown';
+         state = cityToState[city] || 'Unknown';
+        const zone = stateToZone[state] || 'Unknown';
+        if(city === 'Unknown' || state ==='Unknown' || zone === 'Unknown'){
+            console.log('CityCode= '+cityCode);
+            // console.log('city= '+city);
+            // console.log('state= '+state);
+            // console.log('zone= '+zone);
+        };//Code Testing
+        
+        cityCounts[city] = (cityCounts[city] || 0) + 1;
+        stateCounts[state] = (stateCounts[state] || 0) + 1;
+        zoneCounts[zone] = (zoneCounts[zone] || 0) + 1;
+    };
+    
+        populationState= statePopulation[state] || 1;
+    
+    // Calculate percentages for each city, state, and zone
+    const cityStats = calculateStats(cityCounts, totalRecords, populationState);
+    // const stateStats = calculateStats(stateCounts, totalRecords, populationState);
+    //const zoneStats = calculateStats(zoneCounts, totalRecords, populationState);
+
+    return {
+        city_stats: cityStats,
+        // state_stats: stateStats,
+        //zone_stats: zoneStats,
+        //total_records: totalRecords
+    };
+}
+
+function calculateStats(counts, total, statePopulation=0) {
+    const stats = {};
+    for (const key in counts) {
+        stats[key] = {
+            count: counts[key],
+            percentageSeat: (counts[key] / total) * 100,
+            perLakh: (counts[key] / statePopulation)*100000,
+        };//console.log(stats[key].percapita);
+        
+    }
+    return stats;
 }
 
 module.exports = {
     citycodeDataprocessor
 };
+
 
 
 
@@ -1314,7 +1420,7 @@ const stateToZone = {
     'Haryana': 'North Western Region',
     'Delhi': 'Northern Region',
     'Uttarakhand': 'Northern Region',
-    'Rajsthan': 'Northern Region',
+    '': 'Northern Region',
     'Uttar Pradesh': 'Central Region',
     'Bihar': 'Central Region',
     'Jharkhand': 'Eastern Region',
