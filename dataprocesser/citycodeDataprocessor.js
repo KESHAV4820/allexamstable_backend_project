@@ -15,6 +15,7 @@ const cityCodeToName = {
     '1004': 'Jammu',
     '1006': 'Rajouri',
     '1007': 'Srinagar(J&K)',
+    //Issue Found'1008': 'city code missing',
     '1010': 'Samba',
     '1005': 'Leh',
     '1201': 'Dharamshala',
