@@ -886,25 +886,29 @@ function citycodeDataprocessor(data) {
     const cityCounts = {};
     const stateCounts = {};
     const zoneCounts = {};
+    const centerCoordinatesCounts={};
     const totalRecords = data.length;
     let populationState={};
     let state;
 
     for (const record of data) {
         const cityCode = record.ROLL.substring(0, 4);
-        const city = cityCodeToName[cityCode] || 'Unknown';
-         state = cityToState[city] || 'Unknown';
-        const zone = stateToZone[state] || 'Unknown';
-        if(city === 'Unknown' || state ==='Unknown' || zone === 'Unknown'){
+        const city = cityCodeToName[cityCode] || 'UnknownCity';
+         state = cityToState[city] || 'UnknownState';
+        const zone = stateToZone[state] || 'UnknownZone';
+        const centerCoordinates= cityCoordinates[city] || 'unknownCenterCoordinates';//newly added11/7/2024
+        if(city === 'UnknownCity' || state ==='UnknownState' || zone === 'UnknownZone' || centerCoordinates=== 'UnknownCenterCoordinates'){
             console.log('CityCode= '+cityCode);
             // console.log('city= '+city);
             // console.log('state= '+state);
             // console.log('zone= '+zone);
+            // console.log('centerCoordinates= '+centerCoordinates);
         };//Code Testing
         
         cityCounts[city] = (cityCounts[city] || 0) + 1;
         stateCounts[state] = (stateCounts[state] || 0) + 1;
         zoneCounts[zone] = (zoneCounts[zone] || 0) + 1;
+        centerCoordinatesCounts[city]=(centerCoordinatesCounts[city] || 0) + 1;//newly added11/7/2024
     };
     
         populationState= statePopulation[state] || 1;
@@ -918,7 +922,8 @@ function citycodeDataprocessor(data) {
         city_stats: cityStats,
         // state_stats: stateStats,
         // zone_stats: zoneStats,
-        //total_records: totalRecords
+        //total_records: totalRecords,
+        // center_coordinates: centerCoordinatesCounts,//newly added11/7/24
     };
 }
 
