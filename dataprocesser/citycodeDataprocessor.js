@@ -5,7 +5,9 @@
 /*Note
 1️⃣ this module was made to map each center code with number of students that appeared from there. This required creation of Dictonary which maps code with city, city with state, state with SSC Zone.
 2️⃣ Now for the each record in the "data" variable being passed, this function will map each roll number with a city and increment the counter for that city, state and zone.  
-3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟
+3️⃣I have also added the Grid coordinates for each exam centers so that if give a chance i can spread this whole data on a geospacial plane like google map using deck.gl.
+4️⃣Command to pull the code from repo: git pull origin mirrorverse(or any branchname)
+5️⃣6️⃣7️⃣8️⃣9️⃣🔟
 */
 
 const cityCodeToName = {
@@ -886,42 +888,48 @@ function citycodeDataprocessor(data) {
     const cityCounts = {};
     const stateCounts = {};
     const zoneCounts = {};
+    const centerCoordinatesCounts={};
     const totalRecords = data.length;
     let populationState={};
     let state;
 
     for (const record of data) {
         const cityCode = record.ROLL.substring(0, 4);
-        const city = cityCodeToName[cityCode] || 'Unknown';
-         state = cityToState[city] || 'Unknown';
-        const zone = stateToZone[state] || 'Unknown';
-        if(city === 'Unknown' || state ==='Unknown' || zone === 'Unknown'){
+        const city = cityCodeToName[cityCode] || 'UnknownCity';
+         state = cityToState[city] || 'UnknownState';
+        const zone = stateToZone[state] || 'UnknownZone';
+        const centerCoordinates= cityCoordinates[city] || 'unknownCenterCoordinates';//newly added11/7/2024
+        if(city === 'UnknownCity' || state ==='UnknownState' || zone === 'UnknownZone' || centerCoordinates=== 'UnknownCenterCoordinates'){
             console.log('CityCode= '+cityCode);
             // console.log('city= '+city);
             // console.log('state= '+state);
             // console.log('zone= '+zone);
+            // console.log('centerCoordinates= '+centerCoordinates);
         };//Code Testing
         
         cityCounts[city] = (cityCounts[city] || 0) + 1;
         stateCounts[state] = (stateCounts[state] || 0) + 1;
         zoneCounts[zone] = (zoneCounts[zone] || 0) + 1;
+        centerCoordinatesCounts[city]=(centerCoordinatesCounts[city] || 0) + 1;//newly added11/7/2024
     };
     
         populationState= statePopulation[state] || 1;
     
     // Calculate percentages for each city, state, and zone
     const cityStats = calculateStats(cityCounts, totalRecords, populationState);
-    // const stateStats = calculateStats(stateCounts, totalRecords, populationState);
+    const stateStats = calculateStats(stateCounts, totalRecords, populationState);
     // const zoneStats = calculateStats(zoneCounts, totalRecords, populationState);
 
     return {
         city_stats: cityStats,
-        // state_stats: stateStats,
+        state_stats: stateStats,
         // zone_stats: zoneStats,
-        //total_records: totalRecords
+        //total_records: totalRecords,
+        // center_coordinates: centerCoordinatesCounts,//newly added11/7/24
     };
 }
 
+/*working code
 function calculateStats(counts, total, statePopulation=0) {
     const stats = {};
     for (const key in counts) {
@@ -933,7 +941,24 @@ function calculateStats(counts, total, statePopulation=0) {
         
     }
     return stats;
-}
+};
+*/
+
+function calculateStats(counts, total, statePopulation=0) {
+    // Convert the counts object to an array of [key, value] pairs and sort it
+    const sortedEntries = Object.entries(counts).sort((a, b) => a[0].localeCompare(b[0]));
+
+    // Create a new object from the sorted entries
+    const stats = {};
+    for (const [key, count] of sortedEntries) {
+        stats[key] = {
+            count: count,
+            percentageSeat: (count / total) * 100,
+            perLakh: (count / statePopulation) * 100000,
+        };
+    }
+    return stats;
+};// newly added 15/7/2024
 
 module.exports = {
     citycodeDataprocessor
