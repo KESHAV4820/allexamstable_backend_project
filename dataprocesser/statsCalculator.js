@@ -62,23 +62,41 @@ function initializeStatsObject() {
     return {
       examname:'EXAM NAME',
       candidates: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
+      candidates_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },//for saving percentage values after calculation.
       male: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      male_per:{ total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       female: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      female_per:{ total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       esm_candidates: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      esm_candidates_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       esm_male: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      esm_male_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       esm_female: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      esm_female_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       oh_candidates: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      oh_candidates_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       oh_male: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      oh_male_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       oh_female: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      oh_female_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       hh_candidates: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      hh_candidates_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       hh_male: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      hh_male_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       hh_female: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      hh_female_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       vh_candidates: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      vh_candidates_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       vh_male: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      vh_male_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       vh_female: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      vh_female_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       pwd_candidates: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      pwd_candidates_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       pwd_male: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      pwd_male_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
       pwd_female: {total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0},
+      pwd_female_per: { total: 0, gen: 0, sc: 0, st: 0, obc: 0, ews: 0 },
     };
   };
   
@@ -298,8 +316,147 @@ function initializeStatsObject() {
     // Process each record
     for (const record of records) {
       updateStats(stats, record);
+    };
+    // percentage wise calculation
+    //for General consideration.
+    {
+        stats.candidates_per.total = (stats.candidates.total/stats.candidates.total)*100;
+        stats.candidates_per.ews = (stats.candidates.ews/stats.candidates.total)*100;
+        stats.candidates_per.sc = (stats.candidates.sc/stats.candidates.total)*100;
+        stats.candidates_per.st = (stats.candidates.st/stats.candidates.total)*100;
+        stats.candidates_per.obc = (stats.candidates.obc/stats.candidates.total)*100;
+        stats.candidates_per.gen = (stats.candidates.gen/stats.candidates.total)*100;
+
+        stats.male_per.total = (stats.male.total/stats.candidates.total)*100;
+        stats.male_per.ews = (stats.male.ews/stats.candidates.total)*100;
+        stats.male_per.sc = (stats.male.sc/stats.candidates.total)*100;
+        stats.male_per.st = (stats.male.st/stats.candidates.total)*100;
+        stats.male_per.obc = (stats.male.obc/stats.candidates.total)*100
+        stats.male_per.gen = (stats.male.gen/stats.candidates.total)*100;
+
+        stats.female_per.total = (stats.female.total/stats.candidates.total)*100;
+        stats.female_per.ews = (stats.female.ews/stats.candidates.total)*100;
+        stats.female_per.sc = (stats.female.sc/stats.candidates.total)*100;
+        stats.female_per.st = (stats.female.st/stats.candidates.total)*100;
+        stats.female_per.obc = (stats.female.obc/stats.candidates.total)*100
+        stats.female_per.gen = (stats.female.gen/stats.candidates.total)*100;
     }
-  
+ // for ESM candidates %
+    {
+        stats.esm_candidates_per.total = (stats.esm_candidates.total/stats.candidates.total)*100;
+        stats.esm_candidates_per.ews = (stats.esm_candidates.ews/stats.candidates.total)*100;
+        stats.esm_candidates_per.sc = (stats.esm_candidates.sc/stats.candidates.total)*100;
+        stats.esm_candidates_per.st = (stats.esm_candidates.st/stats.candidates.total)*100;
+        stats.esm_candidates_per.obc = (stats.esm_candidates.obc/stats.candidates.total)*100;
+        stats.esm_candidates_per.gen = (stats.esm_candidates.gen/stats.candidates.total)*100;
+
+        stats.esm_male_per.total = (stats.esm_male.total/stats.candidates.total)*100;
+        stats.esm_male_per.ews = (stats.esm_male.ews/stats.candidates.total)*100;
+        stats.esm_male_per.sc = (stats.esm_male.sc/stats.candidates.total)*100;
+        stats.esm_male_per.st = (stats.esm_male.st/stats.candidates.total)*100;
+        stats.esm_male_per.obc = (stats.esm_male.obc/stats.candidates.total)*100;
+        stats.esm_male_per.gen = (stats.esm_male.gen/stats.candidates.total)*100;
+
+        stats.esm_female_per.total = (stats.esm_female.total/stats.candidates.total)*100;
+        stats.esm_female_per.ews = (stats.esm_female.ews/stats.candidates.total)*100;
+        stats.esm_female_per.sc = (stats.esm_female.sc/stats.candidates.total)*100;
+        stats.esm_female_per.st = (stats.esm_female.st/stats.candidates.total)*100;
+        stats.esm_female_per.obc = (stats.esm_female.obc/stats.candidates.total)*100;
+        stats.esm_female_per.gen = (stats.esm_female.gen/stats.candidates.total)*100;
+    }
+ // for OH candidate %
+    {
+        stats.oh_candidates_per.total = (stats.oh_candidates.total/stats.candidates.total)*100;
+        stats.oh_candidates_per.ews = (stats.oh_candidates.ews/stats.candidates.total)*100;
+        stats.oh_candidates_per.sc = (stats.oh_candidates.sc/stats.candidates.total)*100;
+        stats.oh_candidates_per.st = (stats.oh_candidates.st/stats.candidates.total)*100;
+        stats.oh_candidates_per.obc = (stats.oh_candidates.obc/stats.candidates.total)*100;
+        stats.oh_candidates_per.gen = (stats.oh_candidates.gen/stats.candidates.total)*100;
+
+        stats.oh_male_per.total = (stats.oh_male.total/stats.candidates.total)*100;
+        stats.oh_male_per.ews = (stats.oh_male.ews/stats.candidates.total)*100;
+        stats.oh_male_per.sc = (stats.oh_male.sc/stats.candidates.total)*100;
+        stats.oh_male_per.st = (stats.oh_male.st/stats.candidates.total)*100;
+        stats.oh_male_per.obc = (stats.oh_male.obc/stats.candidates.total)*100;
+        stats.oh_male_per.gen = (stats.oh_male.gen/stats.candidates.total)*100;
+
+        stats.oh_female_per.total = (stats.oh_female.total/stats.candidates.total)*100;
+        stats.oh_female_per.ews = (stats.oh_female.ews/stats.candidates.total)*100;
+        stats.oh_female_per.sc = (stats.oh_female.sc/stats.candidates.total)*100;
+        stats.oh_female_per.st = (stats.oh_female.st/stats.candidates.total)*100;
+        stats.oh_female_per.obc = (stats.oh_female.obc/stats.candidates.total)*100;
+        stats.oh_female_per.gen = (stats.oh_female.gen/stats.candidates.total)*100;
+    }
+ // for HH candidate %
+    {
+        stats.hh_candidates_per.total = (stats.hh_candidates.total/stats.candidates.total)*100;
+        stats.hh_candidates_per.ews = (stats.hh_candidates.ews/stats.candidates.total)*100;
+        stats.hh_candidates_per.sc = (stats.hh_candidates.sc/stats.candidates.total)*100;
+        stats.hh_candidates_per.st = (stats.hh_candidates.st/stats.candidates.total)*100;
+        stats.hh_candidates_per.obc = (stats.hh_candidates.obc/stats.candidates.total)*100;
+        stats.hh_candidates_per.gen = (stats.hh_candidates.gen/stats.candidates.total)*100;
+
+        stats.hh_male_per.total = (stats.hh_male.total/stats.candidates.total)*100;
+        stats.hh_male_per.ews = (stats.hh_male.ews/stats.candidates.total)*100;
+        stats.hh_male_per.sc = (stats.hh_male.sc/stats.candidates.total)*100;
+        stats.hh_male_per.st = (stats.hh_male.st/stats.candidates.total)*100;
+        stats.hh_male_per.obc = (stats.hh_male.obc/stats.candidates.total)*100;
+        stats.hh_male_per.gen = (stats.hh_male.gen/stats.candidates.total)*100;
+
+        stats.hh_female_per.total = (stats.hh_female.total/stats.candidates.total)*100;
+        stats.hh_female_per.ews = (stats.hh_female.ews/stats.candidates.total)*100;
+        stats.hh_female_per.sc = (stats.hh_female.sc/stats.candidates.total)*100;
+        stats.hh_female_per.st = (stats.hh_female.st/stats.candidates.total)*100;
+        stats.hh_female_per.obc = (stats.hh_female.obc/stats.candidates.total)*100;
+        stats.hh_female_per.gen = (stats.hh_female.gen/stats.candidates.total)*100;
+    }
+ // for VH candidate %
+    {
+        stats.vh_candidates_per.total = (stats.vh_candidates.total/stats.candidates.total)*100;
+        stats.vh_candidates_per.ews = (stats.vh_candidates.ews/stats.candidates.total)*100;
+        stats.vh_candidates_per.sc = (stats.vh_candidates.sc/stats.candidates.total)*100;
+        stats.vh_candidates_per.st = (stats.vh_candidates.st/stats.candidates.total)*100;
+        stats.vh_candidates_per.obc = (stats.vh_candidates.obc/stats.candidates.total)*100;
+        stats.vh_candidates_per.gen = (stats.vh_candidates.gen/stats.candidates.total)*100;
+
+        stats.vh_male_per.total = (stats.vh_male.total/stats.candidates.total)*100;
+        stats.vh_male_per.ews = (stats.vh_male.ews/stats.candidates.total)*100;
+        stats.vh_male_per.sc = (stats.vh_male.sc/stats.candidates.total)*100;
+        stats.vh_male_per.st = (stats.vh_male.st/stats.candidates.total)*100;
+        stats.vh_male_per.obc = (stats.vh_male.obc/stats.candidates.total)*100;
+        stats.vh_male_per.gen = (stats.vh_male.gen/stats.candidates.total)*100;
+
+        stats.vh_female_per.total = (stats.vh_female.total/stats.candidates.total)*100;
+        stats.vh_female_per.ews = (stats.vh_female.ews/stats.candidates.total)*100;
+        stats.vh_female_per.sc = (stats.vh_female.sc/stats.candidates.total)*100;
+        stats.vh_female_per.st = (stats.vh_female.st/stats.candidates.total)*100;
+        stats.vh_female_per.obc = (stats.vh_female.obc/stats.candidates.total)*100;
+        stats.vh_female_per.gen = (stats.vh_female.gen/stats.candidates.total)*100;
+    }
+ // for PWD candidate %
+    {
+        stats.pwd_candidates_per.total = (stats.pwd_candidates.total/stats.candidates.total)*100;
+        stats.pwd_candidates_per.ews = (stats.pwd_candidates.ews/stats.candidates.total)*100;
+        stats.pwd_candidates_per.sc = (stats.pwd_candidates.sc/stats.candidates.total)*100;
+        stats.pwd_candidates_per.st = (stats.pwd_candidates.st/stats.candidates.total)*100;
+        stats.pwd_candidates_per.obc = (stats.pwd_candidates.obc/stats.candidates.total)*100;
+        stats.pwd_candidates_per.gen = (stats.pwd_candidates.gen/stats.candidates.total)*100;
+
+        stats.pwd_male_per.total = (stats.pwd_male.total/stats.candidates.total)*100;
+        stats.pwd_male_per.ews = (stats.pwd_male.ews/stats.candidates.total)*100;
+        stats.pwd_male_per.sc = (stats.pwd_male.sc/stats.candidates.total)*100;
+        stats.pwd_male_per.st = (stats.pwd_male.st/stats.candidates.total)*100;
+        stats.pwd_male_per.obc = (stats.pwd_male.obc/stats.candidates.total)*100;
+        stats.pwd_male_per.gen = (stats.pwd_male.gen/stats.candidates.total)*100;
+
+        stats.pwd_female_per.total = (stats.pwd_female.total/stats.candidates.total)*100;
+        stats.pwd_female_per.ews = (stats.pwd_female.ews/stats.candidates.total)*100;
+        stats.pwd_female_per.sc = (stats.pwd_female.sc/stats.candidates.total)*100;
+        stats.pwd_female_per.st = (stats.pwd_female.st/stats.candidates.total)*100;
+        stats.pwd_female_per.obc = (stats.pwd_female.obc/stats.candidates.total)*100;
+        stats.pwd_female_per.gen = (stats.pwd_female.gen/stats.candidates.total)*100;
+    }
+
     return stats;
   };
   
