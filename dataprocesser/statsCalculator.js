@@ -90,7 +90,7 @@ function initializeStatsObject() {
         
             // for overall consideration.
                 obj.candidates.total++;
-                switch(record.ALLOC_CAT) {
+                switch(record.CAT1) {
                 case '0': obj.candidates.ews++; break;
                 case '1': obj.candidates.sc++; break;
                 case '2': obj.candidates.st++; break;
@@ -100,7 +100,7 @@ function initializeStatsObject() {
             // Update gender-specific counts
                 if (record.GENDER === 'M') {
                     obj.male.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.male.ews++; break;
                         case '1': obj.male.sc++; break;
                         case '2': obj.male.st++; break;
@@ -110,7 +110,7 @@ function initializeStatsObject() {
                 };
                 if (record.GENDER === 'F') {
                     obj.female.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.female.ews++; break;
                         case '1': obj.female.sc++; break;
                         case '2': obj.female.st++; break;
@@ -120,7 +120,7 @@ function initializeStatsObject() {
                 };
 
                 // for ESM candidates
-                if(record.ALLOC_CAT === '3'){
+                if(record.CAT2 === '3'){
                     obj.esm_candidates.total++;
                     switch(record.CAT1) {// becouse the ALLOC_CAT is already known. Becouse it's horizontal reservation. To know vertical, we use CAT1
                         case '0': obj.esm_candidates.ews++; break;
@@ -130,7 +130,7 @@ function initializeStatsObject() {
                         case '9': obj.esm_candidates.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === '3' && record.GENDER === 'M') {
+                if (record.CAT2 === '3' && record.GENDER === 'M') {
                     obj.esm_male.total++;
                     switch(record.CAT1) {
                         case '0': obj.esm_male.ews++; break;
@@ -140,7 +140,7 @@ function initializeStatsObject() {
                         case '9': obj.esm_male.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === '3' && record.GENDER === 'F') {
+                if (record.CAT2 === '3' && record.GENDER === 'F') {
                     obj.esm_female.total++;
                     switch(record.CAT1) {
                         case '0': obj.esm_female.ews++; break;
@@ -152,7 +152,7 @@ function initializeStatsObject() {
                 };
 
                 //for OH candidates
-                if(record.ALLOC_CAT === '4'){
+                if(record.CAT3 === '4'){
                     obj.oh_candidates.total++;
                     switch(record.CAT1) {
                         case '0': obj.oh_candidates.ews++; break;
@@ -162,7 +162,7 @@ function initializeStatsObject() {
                         case '9': obj.oh_candidates.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === '4' && record.GENDER === 'M') {
+                if (record.CAT3 === '4' && record.GENDER === 'M') {
                     obj.oh_male.total++;
                     switch(record.CAT1) {
                         case '0': obj.oh_male.ews++; break;
@@ -172,7 +172,7 @@ function initializeStatsObject() {
                         case '9': obj.oh_male.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === '4' && record.GENDER === 'F') {
+                if (record.CAT3 === '4' && record.GENDER === 'F') {
                     obj.oh_female.total++;
                     switch(record.CAT1) {
                         case '0': obj.oh_female.ews++; break;
@@ -184,7 +184,7 @@ function initializeStatsObject() {
                 };
 
                 //for HH handicapped candidates
-                if(record.ALLOC_CAT === '5'){
+                if(record.CAT3 === '5'){
                     obj.hh_candidates.total++;
                     switch(record.CAT1) {
                         case '0': obj.hh_candidates.ews++; break;
@@ -194,7 +194,7 @@ function initializeStatsObject() {
                         case '9': obj.hh_candidates.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === '5' && record.GENDER === 'M') {
+                if (record.CAT3 === '5' && record.GENDER === 'M') {
                     obj.hh_male.total++;
                     switch(record.CAT1) {
                         case '0': obj.hh_male.ews++; break;
@@ -204,7 +204,7 @@ function initializeStatsObject() {
                         case '9': obj.hh_male.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === '5' && record.GENDER === 'F') {
+                if (record.CAT3 === '5' && record.GENDER === 'F') {
                     obj.hh_female.total++;
                     switch(record.CAT1) {
                         case '0': obj.hh_female.ews++; break;
@@ -215,8 +215,8 @@ function initializeStatsObject() {
                     };    
                 };
 
-                //for HH handicapped candidates
-                if(record.ALLOC_CAT === '7'){
+                //for VH handicapped candidates
+                if(record.CAT3 === '7'){
                     obj.vh_candidates.total++;
                     switch(record.CAT1) {
                         case '0': obj.vh_candidates.ews++; break;
@@ -226,7 +226,7 @@ function initializeStatsObject() {
                         case '9': obj.vh_candidates.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === '7' && record.GENDER === 'M') {
+                if (record.CAT3 === '7' && record.GENDER === 'M') {
                     obj.vh_male.total++;
                     switch(record.CAT1) {
                         case '0': obj.vh_male.ews++; break;
@@ -236,7 +236,7 @@ function initializeStatsObject() {
                         case '9': obj.vh_male.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === '7' && record.GENDER === 'F') {
+                if (record.CAT3 === '7' && record.GENDER === 'F') {
                     obj.vh_female.total++;
                     switch(record.CAT1) {
                         case '0': obj.vh_female.ews++; break;
@@ -248,7 +248,7 @@ function initializeStatsObject() {
                 };
 
                 //for PWD handicapped candidates
-                if(record.ALLOC_CAT === '8'){
+                if(record.CAT3 === '8'){
                     obj.pwd_candidates.total++;
                     switch(record.CAT1) {
                         case '0': obj.pwd_candidates.ews++; break;
@@ -258,7 +258,7 @@ function initializeStatsObject() {
                         case '9': obj.pwd_candidates.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === '8' && record.GENDER === 'M') {
+                if (record.CAT3 === '8' && record.GENDER === 'M') {
                     obj.pwd_male.total++;
                     switch(record.CAT1) {
                         case '0': obj.pwd_male.ews++; break;
@@ -268,7 +268,7 @@ function initializeStatsObject() {
                         case '9': obj.pwd_male.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === '8' && record.GENDER === 'F') {
+                if (record.CAT3 === '8' && record.GENDER === 'F') {
                     obj.pwd_female.total++;
                     switch(record.CAT1) {
                         case '0': obj.pwd_female.ews++; break;
@@ -282,11 +282,11 @@ function initializeStatsObject() {
 
     };
     // Update total candidate count
-    updateCategoryCounts(stats);
+    updateCategoryCounts(stats);//calling the function rightaway to use the concept of IIFy . Instantly Invoked Funtiony.
 }
   
   // Main function to calculate all stats
-  async function calculateAllStats(baseFilters, limit=300, offset=0) {
+  async function calculateAllStats(baseFilters, limit=316000, offset=0) {
     // Get EXAMNAME if it exists or put default"NAME N/A"
     const examName = baseFilters.EXAMNAME || "NAME N/A";
 
