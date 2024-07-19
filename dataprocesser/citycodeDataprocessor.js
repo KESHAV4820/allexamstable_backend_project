@@ -17,7 +17,7 @@ const cityCodeToName = {
     '1004': 'Jammu',
     '1006': 'Rajouri',
     '1007': 'Srinagar(J&K)',
-    //Issue Found'1008': 'city code missing',
+    //Issue Found'1008': 'city code missing', 
     '1010': 'Samba',
     '1005': 'Leh',
     '1201': 'Dharamshala',
@@ -918,12 +918,12 @@ function citycodeDataprocessor(data) {
     // Calculate percentages for each city, state, and zone
     const cityStats = calculateStats(cityCounts, totalRecords, populationState);
     const stateStats = calculateStats(stateCounts, totalRecords, populationState);
-    // const zoneStats = calculateStats(zoneCounts, totalRecords, populationState);
+    const zoneStats = calculateStats(zoneCounts, totalRecords, populationState);
 
     return {
         city_stats: cityStats,
         state_stats: stateStats,
-        // zone_stats: zoneStats,
+        zone_stats: zoneStats,
         //total_records: totalRecords,
         // center_coordinates: centerCoordinatesCounts,//newly added11/7/24
     };

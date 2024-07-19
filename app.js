@@ -21,6 +21,7 @@ const allexamstableModel = require('./db/models/allexamstablemodel');
 const {callProcedure, callProcedtesting11, callStoredFunction, callRecordViewFunction, downloadQueryFunction} = require('./sqlscripts/dbpool');
 const { getRecordsByFilters, getRecordsCountByFilters, downloadRecord } = require('./sqlscripts/queryBuilder');
 const {citycodeDataprocessor} = require('./dataprocesser/citycodeDataprocessor');
+const {calculateAllStats} = require('./dataprocesser/statsCalculator');
 
 app.use(express.json());//must come before👇this line
 app.use(express.urlencoded({extended: true}));// these two LOC is used againt the bodyparser code that we used to install. Now that's inbuilt in express.js and this the way you get it. 
@@ -178,6 +179,18 @@ app.post('/api/v1/recordcount', async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch records' });
     }
   });
+app.post('/api/v1/recordcount/summarytablestats', async (req, res) => {
+    try {
+        const filters = req.body;
+        const limit = req.query.limit || 1000;
+        const offset=req.query.offset || 0;
+        const stats = await calculateAllStats(filters, limit, offset);
+        res.status(200).json(stats);
+    } catch (error) {
+        console.error('Error fetching the Stats for the summary table:', error);
+        res.status(500).json({ error: 'Failed to fetch the summary table records' });
+    };
+});
 app.post('/api/v1/venuerecords', async (req, res) => {
     try {
         const filters = req.body;
