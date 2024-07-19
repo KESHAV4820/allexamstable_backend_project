@@ -152,9 +152,9 @@ function initializeStatsObject() {
                 };
 
                 //for OH candidates
-                if(record.ALLOC_CAT === 4){
+                if(record.ALLOC_CAT === '4'){
                     obj.oh_candidates.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.oh_candidates.ews++; break;
                         case '1': obj.oh_candidates.sc++; break;
                         case '2': obj.oh_candidates.st++; break;
@@ -162,9 +162,9 @@ function initializeStatsObject() {
                         case '9': obj.oh_candidates.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === 4 && record.GENDER === 'M') {
+                if (record.ALLOC_CAT === '4' && record.GENDER === 'M') {
                     obj.oh_male.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.oh_male.ews++; break;
                         case '1': obj.oh_male.sc++; break;
                         case '2': obj.oh_male.st++; break;
@@ -172,9 +172,9 @@ function initializeStatsObject() {
                         case '9': obj.oh_male.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === 4 && record.GENDER === 'F') {
+                if (record.ALLOC_CAT === '4' && record.GENDER === 'F') {
                     obj.oh_female.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.oh_female.ews++; break;
                         case '1': obj.oh_female.sc++; break;
                         case '2': obj.oh_female.st++; break;
@@ -184,9 +184,9 @@ function initializeStatsObject() {
                 };
 
                 //for HH handicapped candidates
-                if(record.ALLOC_CAT === 5){
+                if(record.ALLOC_CAT === '5'){
                     obj.hh_candidates.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.hh_candidates.ews++; break;
                         case '1': obj.hh_candidates.sc++; break;
                         case '2': obj.hh_candidates.st++; break;
@@ -194,9 +194,9 @@ function initializeStatsObject() {
                         case '9': obj.hh_candidates.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === 5 && record.GENDER === 'M') {
+                if (record.ALLOC_CAT === '5' && record.GENDER === 'M') {
                     obj.hh_male.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.hh_male.ews++; break;
                         case '1': obj.hh_male.sc++; break;
                         case '2': obj.hh_male.st++; break;
@@ -204,9 +204,9 @@ function initializeStatsObject() {
                         case '9': obj.hh_male.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === 5 && record.GENDER === 'F') {
+                if (record.ALLOC_CAT === '5' && record.GENDER === 'F') {
                     obj.hh_female.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.hh_female.ews++; break;
                         case '1': obj.hh_female.sc++; break;
                         case '2': obj.hh_female.st++; break;
@@ -216,9 +216,9 @@ function initializeStatsObject() {
                 };
 
                 //for HH handicapped candidates
-                if(record.ALLOC_CAT === 7){
+                if(record.ALLOC_CAT === '7'){
                     obj.vh_candidates.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.vh_candidates.ews++; break;
                         case '1': obj.vh_candidates.sc++; break;
                         case '2': obj.vh_candidates.st++; break;
@@ -226,9 +226,9 @@ function initializeStatsObject() {
                         case '9': obj.vh_candidates.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === 7 && record.GENDER === 'M') {
+                if (record.ALLOC_CAT === '7' && record.GENDER === 'M') {
                     obj.vh_male.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.vh_male.ews++; break;
                         case '1': obj.vh_male.sc++; break;
                         case '2': obj.vh_male.st++; break;
@@ -236,9 +236,9 @@ function initializeStatsObject() {
                         case '9': obj.vh_male.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === 7 && record.GENDER === 'F') {
+                if (record.ALLOC_CAT === '7' && record.GENDER === 'F') {
                     obj.vh_female.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.vh_female.ews++; break;
                         case '1': obj.vh_female.sc++; break;
                         case '2': obj.vh_female.st++; break;
@@ -248,9 +248,9 @@ function initializeStatsObject() {
                 };
 
                 //for PWD handicapped candidates
-                if(record.ALLOC_CAT === 8){
+                if(record.ALLOC_CAT === '8'){
                     obj.pwd_candidates.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.pwd_candidates.ews++; break;
                         case '1': obj.pwd_candidates.sc++; break;
                         case '2': obj.pwd_candidates.st++; break;
@@ -258,9 +258,9 @@ function initializeStatsObject() {
                         case '9': obj.pwd_candidates.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === 8 && record.GENDER === 'M') {
+                if (record.ALLOC_CAT === '8' && record.GENDER === 'M') {
                     obj.pwd_male.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.pwd_male.ews++; break;
                         case '1': obj.pwd_male.sc++; break;
                         case '2': obj.pwd_male.st++; break;
@@ -268,9 +268,9 @@ function initializeStatsObject() {
                         case '9': obj.pwd_male.gen++; break;
                     };
                 };
-                if (record.ALLOC_CAT === 8 && record.GENDER === 'F') {
+                if (record.ALLOC_CAT === '8' && record.GENDER === 'F') {
                     obj.pwd_female.total++;
-                    switch(record.ALLOC_CAT) {
+                    switch(record.CAT1) {
                         case '0': obj.pwd_female.ews++; break;
                         case '1': obj.pwd_female.sc++; break;
                         case '2': obj.pwd_female.st++; break;
