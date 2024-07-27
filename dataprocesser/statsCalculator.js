@@ -301,7 +301,7 @@ function initializeStatsObject() {
     };
     // Update total candidate count
     updateCategoryCounts(stats);//calling the function rightaway to use the concept of IIFy . Instantly Invoked Funtiony.
-}
+};
   
   // Main function to calculate all stats
   async function calculateAllStats(baseFilters, limit=316000, offset=0) {
@@ -465,6 +465,4 @@ function initializeStatsObject() {
   // Export the functions
   module.exports = {
     calculateAllStats,
-    // updateStats,
-    // initializeStatsObject
   };

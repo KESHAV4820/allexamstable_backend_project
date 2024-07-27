@@ -240,7 +240,11 @@ const archiver=require('archiver');
 const os=require('os');
 
 const downloadRecord = async (filters) => {
+  console.log(filters);//Code Testing
+  
   const { EXAMNAME, REGID, ROLL, NAME, FATHERNAME, MOTHERNAME, DOB, GENDER, CAT1, CAT2, CAT3, WRTN1_APP, WRTN1_QLY, WRTN2_APP, WRTN2_QLY, WRTN3_APP, WRTN3_QLY, INTVW_APP, SKILL_APP, SKILL_QLY, PET_APP, PET_QLY, DME_APP, DME_QLY, RME_APP, RME_QLY, SELECTED, MARKS, ALLOC_POST, ALLOC_STAT, ALLOC_AREA, ALLOC_CAT, RANK, WITHHELD } = filters;
+  console.log(filters);//Code Testing
+  
 
 const whereClause = {
     where: {
@@ -311,7 +315,7 @@ const whereClause = {
 
   let records = [];
   let offset = 0;
-  const limit = 500000; // Limit to 1 lakh records per fetch
+  const limit = 500000; // Limit to 5 lakh records per fetch
   const csvFileNames=[];
 
   while (true) {
@@ -354,7 +358,7 @@ const whereClause = {
   }
   // Now i will try the zipping it and downloading it.😵God Help
   const zipFilePath = path.join('D:\\', 'data.zip');
-  const archive = archiver('zip', { zlib: { level: 9 } });
+  const archive = archiver('zip', { zlib: { level: 9 } });//i don't know what level:9 is. it's probably the level of zipping or compression to be done.
   const outputArea = fs.createWriteStream(zipFilePath);
   
 

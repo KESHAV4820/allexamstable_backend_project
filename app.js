@@ -8,6 +8,19 @@
 5. But it's better to have a structured naming system. Becouse the system that we make has to scalable and maintainable by anyone in comming years. hence there has to be a logic behind performing 
 6. never forget to use try catch within these backend functions, becouse they use asyn, and hence uses promise. And in these case, automatic throw of error fails. Hence you need to do it explicitly. 
 7.Remember It I didn't knew where to write this important thing. Hence i am writing it here. When database is very big, like crores of data. Your querying will be very slow. Hence, you will need to optimise your database. process of optimization has many steps in it. i am writing them as you will need to do starting from first, being the first step to optimise your database and so on. 1️⃣"partition" the database(on the fields that can break the table into major chunks) 👉2️⃣"indexing" the database(single filed and multiple field basis as well. index those fields with less number of null value in them) 👉3️⃣"enable parallel querying process"(that is you will set the number of "workers" doing query from the database; simultaneously; for your query. The number of workers that your computer can afford exactly depends on the number of cores in your computer. At max, you can you number of worker= number of cores in your sytem - 1) 👉4️⃣"create materialised view" of queries that you deem important or most used ones or the most time taking ones. 👉5️⃣Keep "Refreshing the materialised view" so that if any change has been made in database, it get recorded by materialised view as well 👉6️⃣to keep materialised view update automatically, we need to "SCHEDULE the Refreshing of materialised view" 👉7️⃣to avoid stale data in materialised view, you need "Real-time Refreshing" of materialised view as well.
+8. Remember It: How to create database dump and how to import it. 
+👉1️⃣ nagivate to the bin folder of the postgresql program files in the C drive. 
+👉2️⃣ to dump an entire database: pg_dump -U username -d databasename > "C:\Program Files\PostgreSQL\[version]\bin\dumpfile.sql"
+here username in ourcase was postgres and name of database was sscdatabase. 
+e.g:- pg_dump -U postgres -d sscdatabase > "C:\Program Files\PostgreSQL\15\bin\allexamstable_partitioned.sql"
+👉2️⃣to dump a table of a database: pg_dump -U postgres -d sscdatabase -t allexamstable_partitioned > "C:\Program Files\PostgreSQL\15\bin\allexamstable_partitionedtesting.sql"
+👉3️⃣ in each case, after entering this command you will be prompted to enter the password of the database and mindyou, while entering the password of the database, you won't see the keystrokes. It's for security reasons.
+👉4️⃣why you create database dump of a database and sometime only for the table. Becouse sometimes, we just have a table that is small and we don't need to optimise it. So no partitioning or indexing. that table is standalone thing and hence, we need only one thing which is that table. But if you table is huge, contains 50 to 60 millions of records/rows and you need to optimise it to speedup the query. So you will need to partition and index the table. that will create additional separate table and indexes from the big table and the whole partitioned table and the big table is a connected system. So you no more has one table that you need to dump. Hence, you will need to dump the whole database like sscdatabase in our case.
+👉5️⃣ the database dump so created will have .sql extension, may look like notepad icon file
+ 9.Remember It: steps to import the database dump into another system. 
+ 👉1️⃣ first, navigate to the bin folder of postgres in the terminal or cmd using cd command. like: cd "C:\Program Files\PostgreSQL\15\bin" 
+ 👉2️⃣then create the database possibly named the same as in the previous system using the command "createdb -U username databasename".  like this: "createdb -U postgres sscdatabase". you will need to enter the password of the database according to the password set in the new system when postgres was installed. 
+ 👉3️⃣ then import the database with command: psql -U username -d databasename -f "C:\path\to\your\dumpfile.sql" which in ourcase looks like: psql -U postgres -d sscdatabase -f "C:\Users\YourUsername\Desktop\allexamstable_partitioned.sql"
 */
 
 const dotenv = require('dotenv');
@@ -156,6 +169,8 @@ app.post('/api/v1/downloadrecords', async (req, res) => {
       const filters = req.body;
       const limit = req.query.limit || 20000;
       const offset=req.query.offset || 0; 
+      console.log(filters);//Code Testing
+      
       const recordsDownloaded = await downloadRecord(filters,limit,offset);
       res.status(200).json(recordsDownloaded);
     } catch (error) {
@@ -179,7 +194,7 @@ app.post('/api/v1/recordcount', async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch records' });
     }
   });
-app.post('/api/v1/recordcount/summarytablestats', async (req, res) => {
+app.post('/api/v1/summarytablestats', async (req, res) => {
     try {
         const filters = req.body;
         const limit = req.query.limit || 1000;
