@@ -1,5 +1,5 @@
 'use strict';
-
+/* this file is used for summary table data processing. */
 
 // const dotenv = require('dotenv');
 // dotenv.config({path:`${process.cwd()}/config.env`});//is recipe! not concept these two lines now gives eyes to our rest of code to see what's present in config.env file.😎🙏
@@ -309,7 +309,7 @@ function initializeStatsObject() {
     const examName = baseFilters.EXAMNAME || "NAME N/A";
 
     // Fetch all relevant records in one query
-    const records = await getRecordsByFilters(baseFilters,limit,offset);//Issue Found
+    const records = await getRecordsByFilters(baseFilters,limit,offset);//Issue Found currently we aren't sending specified baseFilter in the argument.Hence it is showing data from the start of the database.
     const stats = initializeStatsObject();
     stats.examname=examName;
   
