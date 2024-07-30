@@ -920,18 +920,7 @@ function citycodeDataprocessor(data) {
 }//code upgrade👇
 */
 
-// function that sets the model parameter for the model dataset.
-async function getModelData(examName) {
-    const modelFilters = { EXAMNAME: examName };
-    return await getRecordsByFilters(modelFilters);
-};
-
-// this function is meant to process the model data comming from getModelData() function
-function modelCitycodeDataprocessor(data) {
-    // This function is similar to citycodeDataprocessor, but for the full dataset
-    // ... (implement similarly to citycodeDataprocessor)
-}
-
+//code in progress
 function citycodeDataprocessor(data) {
     const cityCounts = {};
     const stateCounts = {};
@@ -991,16 +980,14 @@ function calculateStats(counts, total, statePopulation=0) {
 };
 */
 
-function calculateStats(counts, total, modelCounts, cityToStateMap=null, populationData=null, type) {
+function calculateStats(counts, total, cityToStateMap=null, populationData=null, type) {
     // Convert the counts object to an array of [key, value] pairs and sort it
     const sortedEntries = Object.entries(counts).sort((a, b) => a[0].localeCompare(b[0]));
 
     // Create a new object from the sorted entries
     const stats = {};
-
     for (const [key, count] of sortedEntries) {
         let population = 1;//newly added putting some default value
-        let modelCount=modelCounts[key] || 0;
 
         // 👇 this code is just to check and handle the city codes who mapping is missing which actually causes all the problems of null. 
         if(type === 'city' && cityToStateMap && populationData){
