@@ -15,22 +15,24 @@ const cityCodeToName = {
     '1002': 'Baramullah',
     '1003': 'Bhaderwah',
     '1004': 'Jammu',
+    '1005': 'Leh',
     '1006': 'Rajouri',
     '1007': 'Srinagar(J&K)',
     //Issue Found'1008': 'city code missing',
+    //Issue Found'1009': 'city code missing', 
     '1010': 'Samba',
-    '1005': 'Leh',
     '1201': 'Dharamshala',
     '1202': 'Hamirpur',
     '1203': 'Shimla',
-    //Issue Found'1204': 'city code missing',
+    // '1204': 'city code missing',//Issue Found
     '1401': 'Bhathinda',
     '1402': 'Jalandhar',
     '1403': 'Patiala',
     '1404': 'Amritsar',
     '1405': 'Ludhiana',
     '1406': 'Mohali',
-    //Issue Found'1408': 'this city name is missing',//this code is missing from SSC book let but it is in the result. 
+    //Issue Found'1407': 'city code missing',
+    //Issue Found'1408': 'this city name is missing',//this code is missing from SSC book-let but it is in the result. 
     '1601': 'Chandigarh',
     '1801': 'Ambala',
     '1802': 'Bhiwani',
@@ -47,10 +49,22 @@ const cityCodeToName = {
     '2201': 'Delhi',
     // Issue Found'2202': 'city code missing',
     // Issue Found'2203': 'city code missing',
-    // Issue Found'2209': 'city code missing',
     // Issue Found'2204': 'city code missing',
+    // Issue Found'2205': 'city code missing',
+    // Issue Found'2206': 'city code missing',
+    // Issue Found'2206': 'city code missing',
+    // Issue Found'2207': 'city code missing',
+    // Issue Found'2208': 'city ocde missing',
+    // Issue Found'2209': 'city code missing',
+    // Issue Found'2210': 'city code missing',
+    // Issue Found'2211': 'city code missing',
+    // Issue Found'2212': 'city code missing',
+    // Issue Found'2213': 'city code missing',
     // Issue Found'2214': 'city code missing',
     // Issue Found'2215': 'city code missing',
+    // Issue Found'2216': 'city code missing',
+    // Issue Found'2217': 'city code missing',
+    // Issue Found'2218': 'city code missing',
     // Issue Found'2219': 'city code missing',
     // Issue Found'2220': 'city code missing',
     '2401': 'Ajmer',
@@ -83,6 +97,7 @@ const cityCodeToName = {
     '3017': 'Gautam Budhnagar(Noida)',
     '3018': 'Greater Noida',
     //Issue Found '3019': 'city code missing',
+    //Issue Found '3020': 'city code missing',
     '3201': 'Bhagalpur',
     '3202': 'Darbhanga',
     '3203': 'Gaya',
@@ -92,6 +107,7 @@ const cityCodeToName = {
     '3207': 'Ara(Arrah)',
     '3208': 'Aurangabad(Bihar)',
     '3209': 'Purnia',
+    //Issue Found '3210': 'city code missing',
     '4001': 'Gangtok',
     '4201': 'Bokaro',
     '4202': 'Chaibasa',
@@ -100,6 +116,9 @@ const cityCodeToName = {
     '4205': 'Ranchi',
     '4206': 'Dhanbad',
     '4207': 'Jamshedpur',
+    //Issue Found'4208':'city code missing',
+    //Issue Found'4209':'city code missing',
+    //Issue Found'4210':'city code missing',
     '4401': 'Bankura',
     '4402': 'Barasat',
     '4403': 'Berhampore',
@@ -119,6 +138,12 @@ const cityCodeToName = {
     '4417': 'Asansol',
     '4418': 'Hooghly',
     '4419': 'Kalyani',
+    //Issue Found '4420': 'city code missing',
+    //Issue Found'4421': 'city code missing',
+    //Issue Found'4422': 'city code missing',
+    //Issue Found'4423': 'city code missing',
+    //Issue Found'4424': 'city code missing',
+    //Issue Found'4425': 'city code missing',
     //Issue Found'4426': 'city code missing'
     '4601': 'Balasore',
     '4602': 'Berhampore',
@@ -257,7 +282,7 @@ const cityCodeToName = {
     '9211': 'Thiruvananthapuram',
     '9212': 'Thrissur (Trichur)',
     '9213': 'Ernakulam',
-    '9401': 'Kavaratti',// total 212 centers
+    '9401': 'Kavaratti',// total 272 centers
 };
 
 const cityToState = {
@@ -837,7 +862,8 @@ const statePopulation={
     "Madhya Pradesh": 72626809,
     "Gujarat": 60439692,
     "Maharashtra": 112374333,
-    "Andhra Pradesh": 84580777,
+    "Andhra Pradesh": 50580777,
+    "Telangana": 35003674,
     "Karnataka": 61095297,
     "Goa": 1458545,
     "Kerala": 33406061,
@@ -851,6 +877,17 @@ const statePopulation={
     "Puducherry": 1244464,
 };
 
+const zonePopulation={
+    "Northern Region":16753235+10086292+68548437,
+    "North Western Region":12541302+6864602+27743338+25351462+1054686,
+    "Western Region":60439692+112374333+1458545+240249+342855,
+    "Eastern Region":610577+91276115+41974218+380581+32988134,
+    "North Eastern Region":1383727+1978502+2570390+1097206+3673917+2966889+31305576,
+    "Madhya Pradesh Region":25545198+72626806,
+    "Southern Region":50580777+35003674+72147030+1244464,
+    "Central Region":199812341+104099452,
+    "Karnataka Kerala Region":61095297+33406061+60650,
+};
 /*
 function citycodeDataprocessor(data) {
     const cityCounts = {};
@@ -883,22 +920,32 @@ function citycodeDataprocessor(data) {
 }//code upgrade👇
 */
 
-//code in progress
+// function that sets the model parameter for the model dataset.
+async function getModelData(examName) {
+    const modelFilters = { EXAMNAME: examName };
+    return await getRecordsByFilters(modelFilters);
+};
+
+// this function is meant to process the model data comming from getModelData() function
+function modelCitycodeDataprocessor(data) {
+    // This function is similar to citycodeDataprocessor, but for the full dataset
+    // ... (implement similarly to citycodeDataprocessor)
+}
+
 function citycodeDataprocessor(data) {
     const cityCounts = {};
     const stateCounts = {};
     const zoneCounts = {};
     const centerCoordinatesCounts={};
     const totalRecords = data.length;
-    let populationState={};
-    let state;
+    
 
     for (const record of data) {
         const cityCode = record.ROLL.substring(0, 4);
         const city = cityCodeToName[cityCode] || 'UnknownCity';
-         state = cityToState[city] || 'UnknownState';
+        const state = cityToState[city] || 'UnknownState';
         const zone = stateToZone[state] || 'UnknownZone';
-        const centerCoordinates= cityCoordinates[city] || 'unknownCenterCoordinates';//newly added11/7/2024
+        const centerCoordinates= cityCoordinates[city] || 'unknownCenterCoordinates';
         if(city === 'UnknownCity' || state ==='UnknownState' || zone === 'UnknownZone' || centerCoordinates=== 'UnknownCenterCoordinates'){
             console.log('CityCode= '+cityCode);
             // console.log('city= '+city);
@@ -906,19 +953,19 @@ function citycodeDataprocessor(data) {
             // console.log('zone= '+zone);
             // console.log('centerCoordinates= '+centerCoordinates);
         };//Code Testing
+
         
         cityCounts[city] = (cityCounts[city] || 0) + 1;
         stateCounts[state] = (stateCounts[state] || 0) + 1;
         zoneCounts[zone] = (zoneCounts[zone] || 0) + 1;
-        centerCoordinatesCounts[city]=(centerCoordinatesCounts[city] || 0) + 1;//newly added11/7/2024
+        centerCoordinatesCounts[city]=(centerCoordinatesCounts[city] || 0) + 1;
     };
-    
-        populationState= statePopulation[state] || 1;
+        
     
     // Calculate percentages for each city, state, and zone
-    const cityStats = calculateStats(cityCounts, totalRecords, populationState);
-    const stateStats = calculateStats(stateCounts, totalRecords, populationState);
-    const zoneStats = calculateStats(zoneCounts, totalRecords, populationState);
+    const cityStats = calculateStats(cityCounts, totalRecords,cityToState, statePopulation, 'city');//newly added27/7
+    const stateStats = calculateStats(stateCounts, totalRecords, null, statePopulation, 'state');//newly added 27/7
+    const zoneStats = calculateStats(zoneCounts, totalRecords, null, zonePopulation, 'zone');//newly added 27/7
 
     return {
         city_stats: cityStats,
@@ -927,7 +974,7 @@ function citycodeDataprocessor(data) {
         //total_records: totalRecords,
         // center_coordinates: centerCoordinatesCounts,//newly added11/7/24
     };
-}
+};
 
 /*working code
 function calculateStats(counts, total, statePopulation=0) {
@@ -944,18 +991,51 @@ function calculateStats(counts, total, statePopulation=0) {
 };
 */
 
-function calculateStats(counts, total, statePopulation=0) {
+function calculateStats(counts, total, modelCounts, cityToStateMap=null, populationData=null, type) {
     // Convert the counts object to an array of [key, value] pairs and sort it
     const sortedEntries = Object.entries(counts).sort((a, b) => a[0].localeCompare(b[0]));
 
     // Create a new object from the sorted entries
     const stats = {};
+
     for (const [key, count] of sortedEntries) {
+        let population = 1;//newly added putting some default value
+        let modelCount=modelCounts[key] || 0;
+
+        // 👇 this code is just to check and handle the city codes who mapping is missing which actually causes all the problems of null. 
+        if(type === 'city' && cityToStateMap && populationData){
+            const state = cityToStateMap[key] || 'UnknownState';
+            if (!state) {// if there is no mapping of this city to state.
+                console.log(`State not mapped for city: ${key}`);
+            } else if (!populationData[state]) {// if state exists but somehow, it's population isn't mentioned. 
+                console.log(`No population data mapped for state: ${state}`);
+            } else {
+                population = populationData[state];
+            };
+        } else if (type === 'state' && populationData) {
+            if (!populationData[key]) {
+                console.log(`No population data for state: ${key}`);
+            } else {
+                population = populationData[key];
+            };
+        } else if (type === 'zone' && populationData){
+            if (!populationData[key]) {// if there is no mapping of this zone to it's population.
+                console.log(`Unknown zone : ${key}`);
+            } else {
+                population = populationData[key];
+            };
+        };// newly added27/7
+        
         stats[key] = {
             count: count,
             percentageSeat: (count / total) * 100,
-            perLakh: (count / statePopulation) * 100000,
+            // perLakh: population > 1 ? (count / (0.3*population)) * 100000 : null,
+            perLakh: population > 1 ? (count / (population*0.3)) * 100000 : 1,//Code Testingworking code use this if you can't mitigate use of null instead of 1 in just above LOC👆 perLakh line. 
         };
+
+        if (stats[key].perLakh === null) {
+            console.log(`Null perLakh for ${type}: ${key}, Population: ${population}`);
+        };// Code Testing
     }
     return stats;
 };// newly added 15/7/2024
