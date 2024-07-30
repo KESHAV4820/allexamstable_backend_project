@@ -918,12 +918,12 @@ function citycodeDataprocessor(data) {
     // Calculate percentages for each city, state, and zone
     const cityStats = calculateStats(cityCounts, totalRecords, populationState);
     const stateStats = calculateStats(stateCounts, totalRecords, populationState);
-    // const zoneStats = calculateStats(zoneCounts, totalRecords, populationState);
+    const zoneStats = calculateStats(zoneCounts, totalRecords, populationState);
 
     return {
         city_stats: cityStats,
         state_stats: stateStats,
-        // zone_stats: zoneStats,
+        zone_stats: zoneStats,
         //total_records: totalRecords,
         // center_coordinates: centerCoordinatesCounts,//newly added11/7/24
     };
