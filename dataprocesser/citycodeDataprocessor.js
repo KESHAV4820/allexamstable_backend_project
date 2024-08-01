@@ -1,6 +1,6 @@
 'use strict';
 
-
+const {getRecordsByFilters} = require('./../sqlscripts/queryBuilder');
 
 /*Note
 1️⃣ this module was made to map each center code with number of students that appeared from there. This required creation of Dictonary which maps code with city, city with state, state with SSC Zone.
@@ -920,8 +920,60 @@ function citycodeDataprocessor(data) {
 }//code upgrade👇
 */
 
-//code in progress
-function citycodeDataprocessor(data) {
+// function that sets the model parameter for the model dataset.
+async function getModelData(examName, limit, offset) {
+    const modelFilters = { EXAMNAME: examName };
+    return await getRecordsByFilters(modelFilters, limit, offset);
+};
+
+// this function is meant to process the model data comming from getModelData() function
+function modelCitycodeDataprocessor(data) {
+    // This function is similar to citycodeDataprocessor, but not identical. becouse it has to make modeldataset and send them to citycodeDataprocessor() for further processing. 
+
+    if (!Array.isArray(data) || data.length === 0) {
+        console.error("Invalid or empty data passed to modelCitycodeDataprocessor");
+        return {
+            city_stats: {},
+            state_stats: {},
+            zone_stats: {},
+            total_records: 0
+        };
+    };// this code is meant to log error when it is "not array or empty array" comming inside.
+
+    const cityCounts = {};
+    const stateCounts = {};
+    const zoneCounts = {};
+    const totalRecords = data.length;
+
+    for (const record of data) {
+        const cityCode = record.ROLL.substring(0, 4);
+        const city = cityCodeToName[cityCode] || 'UnknownCity';
+        const state = cityToState[city] || 'UnknownState';
+        const zone = stateToZone[state] || 'UnknownZone';
+
+        // if (city === 'UnknownCity' || state === 'UnknownState' || zone === 'UnknownZone') {
+        //     console.log('CityCode= ' + cityCode);
+        // }
+
+        cityCounts[city] = (cityCounts[city] || 0) + 1;
+        stateCounts[state] = (stateCounts[state] || 0) + 1;
+        zoneCounts[zone] = (zoneCounts[zone] || 0) + 1;
+    }
+
+    // Calculate stats for the full dataset
+    const cityStats = calculateStats(cityCounts, totalRecords, null, cityToState, statePopulation, 'city', 'model');
+    const stateStats = calculateStats(stateCounts, totalRecords, null, null, statePopulation, 'state', 'model');
+    const zoneStats = calculateStats(zoneCounts, totalRecords, null, null, zonePopulation, 'zone', 'model');
+
+    return {
+        city_stats: cityStats,
+        state_stats: stateStats,
+        zone_stats: zoneStats,
+        total_records: totalRecords,
+    };
+};
+
+function citycodeDataprocessor(data, modelData) {
     const cityCounts = {};
     const stateCounts = {};
     const zoneCounts = {};
@@ -929,6 +981,7 @@ function citycodeDataprocessor(data) {
     const totalRecords = data.length;
     
 
+    //to process the records comming from user filters.(subset) 
     for (const record of data) {
         const cityCode = record.ROLL.substring(0, 4);
         const city = cityCodeToName[cityCode] || 'UnknownCity';
@@ -952,15 +1005,16 @@ function citycodeDataprocessor(data) {
         
     
     // Calculate percentages for each city, state, and zone
-    const cityStats = calculateStats(cityCounts, totalRecords,cityToState, statePopulation, 'city');//newly added27/7
-    const stateStats = calculateStats(stateCounts, totalRecords, null, statePopulation, 'state');//newly added 27/7
-    const zoneStats = calculateStats(zoneCounts, totalRecords, null, zonePopulation, 'zone');//newly added 27/7
+    const cityStats = calculateStats(cityCounts, totalRecords, modelData && modelData.city_stats ? modelData.city_stats : {},cityToState, statePopulation, 'city');//newly added27/7
+    const stateStats = calculateStats(stateCounts, totalRecords, modelData && modelData.state_stats ? modelData.state_stats : {},null, statePopulation, 'state');//newly added 27/7
+    const zoneStats = calculateStats(zoneCounts, totalRecords, modelData && modelData.zone_stats ? modelData.zone_stats : {}, null, zonePopulation, 'zone');//newly added 27/7
 
     return {
         city_stats: cityStats,
         state_stats: stateStats,
         zone_stats: zoneStats,
         //total_records: totalRecords,
+        //model_total_records: modelData.total_records,// newly added31/7/24
         // center_coordinates: centerCoordinatesCounts,//newly added11/7/24
     };
 };
@@ -980,37 +1034,51 @@ function calculateStats(counts, total, statePopulation=0) {
 };
 */
 
-function calculateStats(counts, total, cityToStateMap=null, populationData=null, type) {
+function calculateStats(counts, total, modelCounts, cityToStateMap=null, populationData=null, type, modelOrNot=null) {
     // Convert the counts object to an array of [key, value] pairs and sort it
     const sortedEntries = Object.entries(counts).sort((a, b) => a[0].localeCompare(b[0]));
 
     // Create a new object from the sorted entries
     const stats = {};
+
     for (const [key, count] of sortedEntries) {
         let population = 1;//newly added putting some default value
+        let modelCount= 0; //legacy codemodelCounts & modelCounts[key] ? modelCounts[key] : 0;
 
-        // 👇 this code is just to check and handle the city codes who mapping is missing which actually causes all the problems of null. 
+        //safely access modelCounts
+        if(modelCounts && typeof modelCounts === 'object' && key in modelCounts){
+            modelCount = modelCounts[key].count || 0;
+        };
+
+        // 👇 this code is just to check and handle the city codes whose mapping is missing which actually causes all the problems of null. 
         if(type === 'city' && cityToStateMap && populationData){
+
             const state = cityToStateMap[key] || 'UnknownState';
             if (!state) {// if there is no mapping of this city to state.
                 console.log(`State not mapped for city: ${key}`);
-            } else if (!populationData[state]) {// if state exists but somehow, it's population isn't mentioned. 
+                                                } 
+            else if (!populationData[state]) {// if state exists but somehow, it's population isn't mentioned. 
                 console.log(`No population data mapped for state: ${state}`);
-            } else {
+                                                } 
+            else {
                 population = populationData[state];
-            };
+                                                };
         } else if (type === 'state' && populationData) {
+
             if (!populationData[key]) {
                 console.log(`No population data for state: ${key}`);
-            } else {
+                                                } 
+            else {
                 population = populationData[key];
-            };
+                                                };
         } else if (type === 'zone' && populationData){
+
             if (!populationData[key]) {// if there is no mapping of this zone to it's population.
                 console.log(`Unknown zone : ${key}`);
-            } else {
+                                                    }
+            else {
                 population = populationData[key];
-            };
+                                                    };
         };// newly added27/7
         
         stats[key] = {
@@ -1018,17 +1086,20 @@ function calculateStats(counts, total, cityToStateMap=null, populationData=null,
             percentageSeat: (count / total) * 100,
             // perLakh: population > 1 ? (count / (0.3*population)) * 100000 : null,
             perLakh: population > 1 ? (count / (population*0.3)) * 100000 : 1,//Code Testingworking code use this if you can't mitigate use of null instead of 1 in just above LOC👆 perLakh line. 
+            
+            percentageToPlace: modelOrNot==='model'? 'not in modeldataset':(modelCount > 0 ? (count/modelCount)*100:0),
         };
 
         if (stats[key].perLakh === null) {
             console.log(`Null perLakh for ${type}: ${key}, Population: ${population}`);
         };// Code Testing
+        console.log(`${type} - ${key}: count = ${count}, modelCount = ${modelCount}, percentageToPlace = ${stats[key].percentageToPlace}`);
     }
     return stats;
 };// newly added 15/7/2024
 
 module.exports = {
-    citycodeDataprocessor
+    citycodeDataprocessor,modelCitycodeDataprocessor, getModelData
 };
 
 
