@@ -33,7 +33,7 @@ const authRouter = require('./route/authRoute');
 const allexamstableModel = require('./db/models/allexamstablemodel');
 const {callProcedure, callProcedtesting11, callStoredFunction, callRecordViewFunction, downloadQueryFunction} = require('./sqlscripts/dbpool');
 const { getRecordsByFilters, getRecordsCountByFilters, downloadRecord } = require('./sqlscripts/queryBuilder');
-const {citycodeDataprocessor} = require('./dataprocesser/citycodeDataprocessor');
+const {citycodeDataprocessor, getModelData, modelCitycodeDataprocessor} = require('./dataprocesser/citycodeDataprocessor');
 const {calculateAllStats} = require('./dataprocesser/statsCalculator');
 
 app.use(express.json());//must come before👇this line
@@ -211,10 +211,19 @@ app.post('/api/v1/venuerecords', async (req, res) => {
         const filters = req.body;
         const limit = req.query.limit || 1000;
         const offset = req.query.offset || 0;
-        const records = await getRecordsByFilters(filters, limit, offset);
         
-        // Process the records to get counts
-        const processedData = citycodeDataprocessor(records);
+        //to get the model data
+        const examName = filters.EXAMNAME;
+        const modelData = await getModelData(examName, limit, offset);
+        // console.log(modelData);// Code Testing
+        const modelStats = modelCitycodeDataprocessor(modelData);
+        console.log(modelStats);// Code Testing
+        
+        
+        
+        // Process the records to get counts of the student based on user conditions
+        const records = await getRecordsByFilters(filters, limit, offset);
+        const processedData = citycodeDataprocessor(records, modelStats);
         
         res.status(200).json({
             records: processedData,
