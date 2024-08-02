@@ -24,7 +24,8 @@ const cityCodeToName = {
     '1201': 'Dharamshala',
     '1202': 'Hamirpur',
     '1203': 'Shimla',
-    // '1204': 'city code missing',//Issue Found
+    //Issue Found'1204': 'city code missing',
+    //Issue Found'1207': 'city code missing',
     '1401': 'Bhathinda',
     '1402': 'Jalandhar',
     '1403': 'Patiala',
@@ -34,6 +35,7 @@ const cityCodeToName = {
     //Issue Found'1407': 'city code missing',
     //Issue Found'1408': 'this city name is missing',//this code is missing from SSC book-let but it is in the result. 
     '1601': 'Chandigarh',
+    '1601': 'Mohali',//newly added1/8/24
     '1801': 'Ambala',
     '1802': 'Bhiwani',
     '1803': 'Hisar',
@@ -96,7 +98,7 @@ const cityCodeToName = {
     '3016': 'Muzaffarnagar',
     '3017': 'Gautam Budhnagar(Noida)',
     '3018': 'Greater Noida',
-    //Issue Found '3019': 'city code missing',
+    '3019': 'Sitapur',//newly added02/08/2024
     //Issue Found '3020': 'city code missing',
     '3201': 'Bhagalpur',
     '3202': 'Darbhanga',
@@ -144,7 +146,7 @@ const cityCodeToName = {
     //Issue Found'4423': 'city code missing',
     //Issue Found'4424': 'city code missing',
     //Issue Found'4425': 'city code missing',
-    //Issue Found'4426': 'city code missing'
+    '4426': 'Durgapur',//newly added02/08/2024
     '4601': 'Balasore',
     '4602': 'Berhampore',
     '4603': 'Bhawanipatna',
