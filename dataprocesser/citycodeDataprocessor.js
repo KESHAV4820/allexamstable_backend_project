@@ -35,7 +35,7 @@ const cityCodeToName = {
     //Issue Found'1407': 'city code missing',
     //Issue Found'1408': 'this city name is missing',//this code is missing from SSC book-let but it is in the result. 
     '1601': 'Chandigarh',
-    '1601': 'Mohali',//newly added1/8/24
+    // '1601': 'Mohali',//newly added1/8/24
     '1801': 'Ambala',
     '1802': 'Bhiwani',
     '1803': 'Hisar',
@@ -110,6 +110,7 @@ const cityCodeToName = {
     '3208': 'Aurangabad(Bihar)',
     '3209': 'Purnia',
     //Issue Found '3210': 'city code missing',
+    // Issue Found '3218': 'city code missing',
     '4001': 'Gangtok',
     '4201': 'Bokaro',
     '4202': 'Chaibasa',
@@ -236,6 +237,7 @@ const cityCodeToName = {
     '7217': 'Navi Mumbai',
     '7801': 'Panaji (panjim)',
     '8001': 'Guntur',
+    //Issue Found'8002': 'city code missing',
     '8003': 'Kurnool',
     '8004': 'Rajahmundry',
     '8005': 'Srikakulam',
@@ -1092,10 +1094,10 @@ function calculateStats(counts, total, modelCounts, cityToStateMap=null, populat
             percentageToPlace: modelOrNot==='model'? 'not in modeldataset':(modelCount > 0 ? (count/modelCount)*100:0),
         };
 
-        if (stats[key].perLakh === null) {
-            console.log(`Null perLakh for ${type}: ${key}, Population: ${population}`);
-        };// Code Testing
-        console.log(`${type} - ${key}: count = ${count}, modelCount = ${modelCount}, percentageToPlace = ${stats[key].percentageToPlace}`);
+        // if (stats[key].perLakh === null) {
+        //     console.log(`Null perLakh for ${type}: ${key}, Population: ${population}`);
+        // };// Code Testing
+        // console.log(`${type} - ${key}: count = ${count}, modelCount = ${modelCount}, percentageToPlace = ${stats[key].percentageToPlace}`);// Code Testing
     }
     return stats;
 };// newly added 15/7/2024
