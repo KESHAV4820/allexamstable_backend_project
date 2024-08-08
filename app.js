@@ -1,5 +1,31 @@
 'use strict';
 
+//👇🏼this is to increase the heap size of node.js
+// const v8 = require('v8');
+// v8.setFlagsFromString('--max_old_space_size=16384');Usless Coding it failed to work
+
+/*SuperVIENoteRemember It: nodemon will crash saying node ran out of heap memory. to avoid such case, you need to run you backend without using nodemon using the command 
+👉🏼VIE "node --max-old-space-size=16384 app.js". Becouse, nodemon isn't using the allocated heap size assigned to node environment variables using the code in cmd👈🏼⚡⚡
+you can also use ➡️node --prof --max-old-space-size=16384 app.js this will create the log file which starts with 'isolate-' <filename> ends with '-v8.log', use the command to covert the file into text to see the log of which function is eating more memory ➡️node --prof-process isolate-<filenamelikesomelongnumber>-v8.log > processed_or_anynameyoulike.txt
+👉🏼 setx NODE_OPTIONS --max-old-space-size=12288 and then to check if the assignment has been done, restart your system and then go to cmd and enter 
+👉🏼 echo %NODE_OPTIONS%
+👉🏼VIE➡️ even this command can also be used "nodemon --exec 'node --max-old-space-size=16384' app.js". using this, the nodemon runs the app without crashing.👈🏼⚡⚡ 
+
+⚡➡️Super👉🏼 we are using new process manager for hosting server named "pm2". Actually, this is the mostly used tool in the industry and it has very rich tools into it which nodemon can't even match. But, Ofcourse, this has a bit of learning curve. Not very big curve, but just a bit of learning curve. So following are the commands that needs to be use to run the same app with pm2 process manager. 👉🏼⚡VIEfirst write this in package.json in script for "start:dev":"pm2 start app.js --node-args=\"--max-old-space-size=16384\" --watch --no-daemon", 
+    ⚡➡️ to start server using pm2:- pm2 start app.js
+    ⚡➡️ to stop the server in pm2:- pm2 stop app
+    ⚡➡️ to see the logs in pm2:- pm2 logs
+    ⚡➡️ to view list of process running:- pm2 list
+    ⚡➡️ to monitor your application: pm2 monit
+    Remember you don't need these command
+
+just to remember this script from package.js becouse i can't comment in .json file hence i am writting it in here.😊. It's meant to remember what was there before switching from "nodemon" to "pm2".
+"scripts": {
+    "start:dev": "NODE_ENV=development nodemon --max-old-space-size=16384 app.js",
+    "start:prod": "NODE_ENV=production nodemon --max-old-space-size=16384 app.js"
+  }, and this has been replaced by pm2 commands in script. and nodemon isn't using "ecosystem.config.js". This file has been introduced when we were switching to pm2 from nodemon. becouse i wanted to use standered way to run the program instead of special commands like i mentioned above. after this file, now i can use➡️ npm run start:dev, or➡️ npm run start:prod. or ➡️npm run stop to stop the server all together. Note➡️ ctrl+c will stop just the current process going on in the pm2. not the whole server. 
+*/
+
 /* SuperNote
 1. in this folder, first we setup the server in app.
 2. it's here that we add Routes / (path) on the CRUD functions of node.js to the server variable named app in this file. 

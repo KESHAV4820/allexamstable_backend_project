@@ -629,6 +629,7 @@ const cityCoordinates = {
     'Muzaffarnagar': [29.4739, 77.7033],
     'Gautam Budhnagar(Noida)': [28.5355, 77.3910],
     'Greater Noida': [28.4744, 77.5548],
+    'Sitapur': [27.5634416,80.6394177],
     'Bhagalpur': [25.2425, 86.9842],
     'Darbhanga': [26.1522, 85.8971],
     'Gaya': [24.7969, 85.0070],
@@ -663,6 +664,7 @@ const cityCoordinates = {
     'Siliguri': [26.7200, 88.4237],
     'Suri': [23.9110, 87.5241],
     'Asansol': [23.6739, 86.9524],
+    'Durgapur':[23.5310819,87.2176006],
     'Hooghly': [22.9036, 88.3930],
     'Kalyani': [22.9786, 88.4820],
     'Balasore': [21.4947, 86.9504],
@@ -807,6 +809,7 @@ const cityCoordinates = {
 
 const statePopulation={
     "Jammu & Kashmir": 12541302,
+    "Ladakh": 274289,
     "Himachal Pradesh": 6864602,
     "Punjab": 27743338,
     "Uttarakhand": 10086292,
