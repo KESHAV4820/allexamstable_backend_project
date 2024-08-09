@@ -1,0 +1,238 @@
+14:24 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:24 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:24 +05:30:     at listenInCluster (node:net:1920:12)
+14:24 +05:30:     at Server.listen (node:net:2008:7)
+14:24 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:24 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:24 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:24 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:24 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:24 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:24 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:24 +05:30:   code: 'EADDRINUSE',
+14:24 +05:30:   errno: -4091,
+14:24 +05:30:   syscall: 'listen',
+14:24 +05:30:   address: '::',
+14:24 +05:30:   port: 3000
+14:24 +05:30: }
+14:24 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:24 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:24 +05:30:     at listenInCluster (node:net:1920:12)
+14:24 +05:30:     at Server.listen (node:net:2008:7)
+14:24 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:24 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:24 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:24 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:24 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:24 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:24 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:24 +05:30:   code: 'EADDRINUSE',
+14:24 +05:30:   errno: -4091,
+14:24 +05:30:   syscall: 'listen',
+14:24 +05:30:   address: '::',
+14:24 +05:30:   port: 3000
+14:24 +05:30: }
+14:25 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:25 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:25 +05:30:     at listenInCluster (node:net:1920:12)
+14:25 +05:30:     at Server.listen (node:net:2008:7)
+14:25 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:25 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:25 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:25 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:25 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:25 +05:30:   code: 'EADDRINUSE',
+14:25 +05:30:   errno: -4091,
+14:25 +05:30:   syscall: 'listen',
+14:25 +05:30:   address: '::',
+14:25 +05:30:   port: 3000
+14:25 +05:30: }
+14:25 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:25 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:25 +05:30:     at listenInCluster (node:net:1920:12)
+14:25 +05:30:     at Server.listen (node:net:2008:7)
+14:25 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:25 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:25 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:25 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:25 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:25 +05:30:   code: 'EADDRINUSE',
+14:25 +05:30:   errno: -4091,
+14:25 +05:30:   syscall: 'listen',
+14:25 +05:30:   address: '::',
+14:25 +05:30:   port: 3000
+14:25 +05:30: }
+14:25 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:25 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:25 +05:30:     at listenInCluster (node:net:1920:12)
+14:25 +05:30:     at Server.listen (node:net:2008:7)
+14:25 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:25 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:25 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:25 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:25 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:25 +05:30:   code: 'EADDRINUSE',
+14:25 +05:30:   errno: -4091,
+14:25 +05:30:   syscall: 'listen',
+14:25 +05:30:   address: '::',
+14:25 +05:30:   port: 3000
+14:25 +05:30: }
+14:25 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:25 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:25 +05:30:     at listenInCluster (node:net:1920:12)
+14:25 +05:30:     at Server.listen (node:net:2008:7)
+14:25 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:25 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:25 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:25 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:25 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:25 +05:30:   code: 'EADDRINUSE',
+14:25 +05:30:   errno: -4091,
+14:25 +05:30:   syscall: 'listen',
+14:25 +05:30:   address: '::',
+14:25 +05:30:   port: 3000
+14:25 +05:30: }
+14:25 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:25 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:25 +05:30:     at listenInCluster (node:net:1920:12)
+14:25 +05:30:     at Server.listen (node:net:2008:7)
+14:25 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:25 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:25 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:25 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:25 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:25 +05:30:   code: 'EADDRINUSE',
+14:25 +05:30:   errno: -4091,
+14:25 +05:30:   syscall: 'listen',
+14:25 +05:30:   address: '::',
+14:25 +05:30:   port: 3000
+14:25 +05:30: }
+14:25 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:25 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:25 +05:30:     at listenInCluster (node:net:1920:12)
+14:25 +05:30:     at Server.listen (node:net:2008:7)
+14:25 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:25 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:25 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:25 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:25 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:25 +05:30:   code: 'EADDRINUSE',
+14:25 +05:30:   errno: -4091,
+14:25 +05:30:   syscall: 'listen',
+14:25 +05:30:   address: '::',
+14:25 +05:30:   port: 3000
+14:25 +05:30: }
+14:25 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:25 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:25 +05:30:     at listenInCluster (node:net:1920:12)
+14:25 +05:30:     at Server.listen (node:net:2008:7)
+14:25 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:25 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:25 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:25 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:25 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:25 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:25 +05:30:   code: 'EADDRINUSE',
+14:25 +05:30:   errno: -4091,
+14:25 +05:30:   syscall: 'listen',
+14:25 +05:30:   address: '::',
+14:25 +05:30:   port: 3000
+14:25 +05:30: }
+14:26 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:26 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:26 +05:30:     at listenInCluster (node:net:1920:12)
+14:26 +05:30:     at Server.listen (node:net:2008:7)
+14:26 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:26 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:26 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:26 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:26 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:26 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:26 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:26 +05:30:   code: 'EADDRINUSE',
+14:26 +05:30:   errno: -4091,
+14:26 +05:30:   syscall: 'listen',
+14:26 +05:30:   address: '::',
+14:26 +05:30:   port: 3000
+14:26 +05:30: }
+14:26 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:26 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:26 +05:30:     at listenInCluster (node:net:1920:12)
+14:26 +05:30:     at Server.listen (node:net:2008:7)
+14:26 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:26 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:26 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:26 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:26 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:26 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:26 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:26 +05:30:   code: 'EADDRINUSE',
+14:26 +05:30:   errno: -4091,
+14:26 +05:30:   syscall: 'listen',
+14:26 +05:30:   address: '::',
+14:26 +05:30:   port: 3000
+14:26 +05:30: }
+14:26 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:26 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:26 +05:30:     at listenInCluster (node:net:1920:12)
+14:26 +05:30:     at Server.listen (node:net:2008:7)
+14:26 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:26 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:26 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:26 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:26 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:26 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:26 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:26 +05:30:   code: 'EADDRINUSE',
+14:26 +05:30:   errno: -4091,
+14:26 +05:30:   syscall: 'listen',
+14:26 +05:30:   address: '::',
+14:26 +05:30:   port: 3000
+14:26 +05:30: }
+14:26 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:26 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:26 +05:30:     at listenInCluster (node:net:1920:12)
+14:26 +05:30:     at Server.listen (node:net:2008:7)
+14:26 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:26 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:26 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:26 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:26 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:26 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:26 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:26 +05:30:   code: 'EADDRINUSE',
+14:26 +05:30:   errno: -4091,
+14:26 +05:30:   syscall: 'listen',
+14:26 +05:30:   address: '::',
+14:26 +05:30:   port: 3000
+14:26 +05:30: }
+14:26 +05:30: Error: listen EADDRINUSE: address already in use :::3000
+14:26 +05:30:     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+14:26 +05:30:     at listenInCluster (node:net:1920:12)
+14:26 +05:30:     at Server.listen (node:net:2008:7)
+14:26 +05:30:     at Function.listen (C:\Users\HP\Desktop\allexamstable_backend_project\node_modules\express\lib\application.js:635:24)
+14:26 +05:30:     at Object.<anonymous> (C:\Users\HP\Desktop\allexamstable_backend_project\app.js:280:5)
+14:26 +05:30:     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+14:26 +05:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+14:26 +05:30:     at Module.load (node:internal/modules/cjs/loader:1207:32)
+14:26 +05:30:     at Module._load (node:internal/modules/cjs/loader:1023:12)
+14:26 +05:30:     at Object.<anonymous> (C:\Users\HP\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23) {
+14:26 +05:30:   code: 'EADDRINUSE',
+14:26 +05:30:   errno: -4091,
+14:26 +05:30:   syscall: 'listen',
+14:26 +05:30:   address: '::',
+14:26 +05:30:   port: 3000
+14:26 +05:30: }

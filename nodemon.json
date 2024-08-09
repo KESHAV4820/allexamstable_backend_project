@@ -6,7 +6,7 @@
     "delay": "8000",
     "restartable": "rs",
     "execMap": {
-      "js": "node --max-old-space-size=16384"
+      "js": "node --max-old-space-size=25600"
     },
     "env": {
       "NODE_ENV": "development"

@@ -6,7 +6,7 @@
 
 /*SuperVIENoteRemember It: nodemon will crash saying node ran out of heap memory. to avoid such case, you need to run you backend without using nodemon using the command 
 👉🏼VIE "node --max-old-space-size=16384 app.js". Becouse, nodemon isn't using the allocated heap size assigned to node environment variables using the code in cmd👈🏼⚡⚡
-you can also use ➡️node --prof --max-old-space-size=16384 app.js this will create the log file which starts with 'isolate-' <filename> ends with '-v8.log', use the command to covert the file into text to see the log of which function is eating more memory ➡️node --prof-process isolate-<filenamelikesomelongnumber>-v8.log > processed_or_anynameyoulike.txt
+LearnByHeartJust Beautiful⚡⚡you can also use ➡️node --prof --max-old-space-size=16384 app.js this will create the log file which starts with 'isolate-' <filename> ends with '-v8.log', use the command to covert the file into text to see the log of which function is eating more memory ➡️node --prof-process isolate-<filenamelikesomelongnumber>-v8.log > processed_or_anynameyoulike.txt⚡⚡
 👉🏼 setx NODE_OPTIONS --max-old-space-size=12288 and then to check if the assignment has been done, restart your system and then go to cmd and enter 
 👉🏼 echo %NODE_OPTIONS%
 👉🏼VIE➡️ even this command can also be used "nodemon --exec 'node --max-old-space-size=16384' app.js". using this, the nodemon runs the app without crashing.👈🏼⚡⚡ 
