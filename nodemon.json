@@ -1,0 +1,22 @@
+{
+    "name": "app",
+    "script": "./app.js",
+    "watch": ["./"],
+    "ignore": ["node_modules", "*.test.js"],
+    "delay": "8000",
+    "restartable": "rs",
+    "execMap": {
+      "js": "node --max-old-space-size=16384"
+    },
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "env_production": {
+      "NODE_ENV": "production"
+    },
+    "stdout": "./out.log",
+    "stderr": "./error.log",
+    "timestampFormat": "HH:mm Z",
+    "verbose": true,
+    "ext": "js,json"
+  }
