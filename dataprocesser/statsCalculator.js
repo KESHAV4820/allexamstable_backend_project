@@ -55,7 +55,7 @@ module.exports={
 };
 
 */
-//code upgrade code in progress
+//code upgrade👇🏼 code in progress
 
 // Function to initialize the stats object
 function initializeStatsObject() {
@@ -103,7 +103,7 @@ function initializeStatsObject() {
   // Function to update stats based on a single record generated in every for loop
   function updateStats(stats, record) {
 
-    // Helper function to update category counts
+    // Helper function to update category counts. Helper functions has no return statements
     function updateCategoryCounts(obj) {
         
             // for overall consideration.
@@ -305,19 +305,22 @@ function initializeStatsObject() {
   
   // Main function to calculate all stats
   async function calculateAllStats(baseFilters, limit=316000, offset=0) {
+    console.log(baseFilters);//Code Testing
+    
     // Get EXAMNAME if it exists or put default"NAME N/A"
-    const examName = baseFilters.EXAMNAME || "NAME N/A";
+    const examName = baseFilters.EXAMNAME || "NAME N/A";// Bug this examName isn't getting transfer. see if it is due to none passing of the base filter.
 
     // Fetch all relevant records in one query
     const records = await getRecordsByFilters(baseFilters,limit,offset);//Issue Found currently we aren't sending specified baseFilter in the argument.Hence it is showing data from the start of the database.
     const stats = initializeStatsObject();
-    stats.examname=examName;
+    stats.examname=examName;//Bug
   
     // Process each record
     for (const record of records) {
       updateStats(stats, record);
     };
-    // percentage wise calculation
+
+  // percentage wise calculation
     //for General consideration.
     {
         stats.candidates_per.total = (stats.candidates.total/stats.candidates.total)*100;

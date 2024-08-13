@@ -226,6 +226,8 @@ app.post('/api/v1/summarytablestats', async (req, res) => {
         const limit = req.query.limit || 1000;
         const offset=req.query.offset || 0;
         const stats = await calculateAllStats(filters, limit, offset);
+        console.log(filters);
+        
         res.status(200).json(stats);
     } catch (error) {
         console.error('Error fetching the Stats for the summary table:', error);
@@ -277,6 +279,7 @@ response.status(404).json({
 
 
 const port=process.env.PORT || 3000;//Take A Good Look
-app.listen( 3000, ()=>{
- console.log(" ---SERVER for allexamstable_backend IS LISTENING--- ",port)});
+app.listen( port, ()=>{
+ console.log(" ---SERVER: allexamstable_backend : LISTENING--- PORT NUMBER: ",port)});
   
+//SuperNoteLearnByHeart: if some program is already using the port value in the "port" or 3000(as written above), you can either change the port number in .env file or use these👇🏼 commands in cmd to kill the process running at this port and then your server will work.  👉🏼 netstat -ano | findstr :3000 this will the process ID running at that port number. YOu need this process id to excute kill commmand to free the port. 👉🏼 taskkill /PID <PID> /F this will kill the process running on let's say port number 3000. Don't forget to write /F, it means that you are forceing to stop the process, else it will not terminate on it's free will. 👉🏼 tasklist /FI "PID eq <PID>" this command will help you know more about the process running with that porcess ID, so that you know more the process you are about to kill or general investigation. 
