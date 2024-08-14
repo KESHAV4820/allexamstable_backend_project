@@ -311,7 +311,7 @@ function initializeStatsObject() {
     const examName = baseFilters.EXAMNAME || "NAME N/A";// Bug this examName isn't getting transfer. see if it is due to none passing of the base filter.
 
     // Fetch all relevant records in one query
-    const records = await getRecordsByFilters(baseFilters,limit,offset);//Issue Found currently we aren't sending specified baseFilter in the argument.Hence it is showing data from the start of the database.
+    const records = await getRecordsByFilters(baseFilters,limit,offset);
     const stats = initializeStatsObject();
     stats.examname=examName;//Bug
   

@@ -27582,3 +27582,4237 @@
 15:06 +05:30:     model: allexamstableModel
 15:06 +05:30:   }
 15:06 +05:30: ]
+17:07 +05:30:  ---SERVER: allexamstable_backend : LISTENING--- PORT NUMBER:  3000
+17:07 +05:30: [
+17:07 +05:30:   `Executing (default): SELECT count(*) AS "count" FROM "allexamstable_partitioned" AS "allexamstableModel" WHERE ("allexamstableModel"."EXAMNAME" = 'CONSTABLE-2021');`,
+17:07 +05:30:   {
+17:07 +05:30:     plain: true,
+17:07 +05:30:     raw: true,
+17:07 +05:30:     logging: [Function: logging],
+17:07 +05:30:     where: `("allexamstableModel"."EXAMNAME" = 'CONSTABLE-2021')`,
+17:07 +05:30:     hooks: true,
+17:07 +05:30:     dataType: INTEGER {
+17:07 +05:30:       options: {},
+17:07 +05:30:       _length: undefined,
+17:07 +05:30:       _zerofill: undefined,
+17:07 +05:30:       _decimals: undefined,
+17:07 +05:30:       _precision: undefined,
+17:07 +05:30:       _scale: undefined,
+17:07 +05:30:       _unsigned: undefined
+17:07 +05:30:     },
+17:07 +05:30:     includeIgnoreAttributes: false,
+17:07 +05:30:     limit: null,
+17:07 +05:30:     offset: null,
+17:07 +05:30:     order: null,
+17:07 +05:30:     attributes: [ [Array] ],
+17:07 +05:30:     type: 'SELECT'
+17:07 +05:30:   }
+17:07 +05:30: ]
+17:07 +05:30: [
+17:07 +05:30:   `Executing (default): SELECT "EXAMNAME", "REGID", "ROLL", "NAME", "FATHERNAME", "MOTHERNAME", "DOB", "GENDER", "CAT1", "CAT2", "CAT3", "WRTN1_APP", "WRTN1_QLY", "WRTN2_APP", "WRTN2_QLY", "WRTN3_APP", "WRTN3_QLY", "INTVW_APP", "SKILL_APP", "SKILL_QLY", "PET_APP", "PET_QLY", "DME_APP", "DME_QLY", "RME_APP", "RME_QLY", "SELECTED", "MARKS", "ALLOC_POST", "ALLOC_STAT", "ALLOC_AREA", "ALLOC_CAT", "RANK", "WITHHELD" FROM "allexamstable_partitioned" AS "allexamstableModel" WHERE ("allexamstableModel"."EXAMNAME" = 'CONSTABLE-2021') LIMIT '6090000' OFFSET '0';`,
+17:07 +05:30:   {
+17:07 +05:30:     plain: false,
+17:07 +05:30:     raw: false,
+17:07 +05:30:     logging: [Function: logging],
+17:07 +05:30:     where: `("allexamstableModel"."EXAMNAME" = 'CONSTABLE-2021')`,
+17:07 +05:30:     attributes: [
+17:07 +05:30:       'EXAMNAME',   'REGID',      'ROLL',
+17:07 +05:30:       'NAME',       'FATHERNAME', 'MOTHERNAME',
+17:07 +05:30:       'DOB',        'GENDER',     'CAT1',
+17:07 +05:30:       'CAT2',       'CAT3',       'WRTN1_APP',
+17:07 +05:30:       'WRTN1_QLY',  'WRTN2_APP',  'WRTN2_QLY',
+17:07 +05:30:       'WRTN3_APP',  'WRTN3_QLY',  'INTVW_APP',
+17:07 +05:30:       'SKILL_APP',  'SKILL_QLY',  'PET_APP',
+17:07 +05:30:       'PET_QLY',    'DME_APP',    'DME_QLY',
+17:07 +05:30:       'RME_APP',    'RME_QLY',    'SELECTED',
+17:07 +05:30:       'MARKS',      'ALLOC_POST', 'ALLOC_STAT',
+17:07 +05:30:       'ALLOC_AREA', 'ALLOC_CAT',  'RANK',
+17:07 +05:30:       'WITHHELD'
+17:07 +05:30:     ],
+17:07 +05:30:     limit: '6090000',
+17:07 +05:30:     offset: '0',
+17:07 +05:30:     hooks: true,
+17:07 +05:30:     rejectOnEmpty: false,
+17:07 +05:30:     originalAttributes: [
+17:07 +05:30:       'EXAMNAME',   'REGID',      'ROLL',
+17:07 +05:30:       'NAME',       'FATHERNAME', 'MOTHERNAME',
+17:07 +05:30:       'DOB',        'GENDER',     'CAT1',
+17:07 +05:30:       'CAT2',       'CAT3',       'WRTN1_APP',
+17:07 +05:30:       'WRTN1_QLY',  'WRTN2_APP',  'WRTN2_QLY',
+17:07 +05:30:       'WRTN3_APP',  'WRTN3_QLY',  'INTVW_APP',
+17:07 +05:30:       'SKILL_APP',  'SKILL_QLY',  'PET_APP',
+17:07 +05:30:       'PET_QLY',    'DME_APP',    'DME_QLY',
+17:07 +05:30:       'RME_APP',    'RME_QLY',    'SELECTED',
+17:07 +05:30:       'MARKS',      'ALLOC_POST', 'ALLOC_STAT',
+17:07 +05:30:       'ALLOC_AREA', 'ALLOC_CAT',  'RANK',
+17:07 +05:30:       'WITHHELD'
+17:07 +05:30:     ],
+17:07 +05:30:     tableNames: [ 'allexamstable_partitioned' ],
+17:07 +05:30:     type: 'SELECT',
+17:07 +05:30:     model: allexamstableModel
+17:07 +05:30:   }
+17:07 +05:30: ]
+17:08 +05:30: No population data mapped for state: UnknownState
+17:08 +05:30: No population data for state: UnknownState
+17:08 +05:30: Unknown zone : UnknownZone
+17:08 +05:30: {
+17:08 +05:30:   city_stats: {
+17:08 +05:30:     Agartala: {
+17:08 +05:30:       count: 12641,
+17:08 +05:30:       percentageSeat: 0.3165930470747138,
+17:08 +05:30:       perLakh: 1146.9139522386236,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Agra: {
+17:08 +05:30:       count: 94968,
+17:08 +05:30:       percentageSeat: 2.3784675654292715,
+17:08 +05:30:       perLakh: 158.42865281279097,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Ahmedabad: {
+17:08 +05:30:       count: 36577,
+17:08 +05:30:       percentageSeat: 0.9160686561863625,
+17:08 +05:30:       perLakh: 201.72725786447316,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Aizwal: {
+17:08 +05:30:       count: 1967,
+17:08 +05:30:       percentageSeat: 0.0492633908390129,
+17:08 +05:30:       perLakh: 597.5784553371625,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Ajmer: {
+17:08 +05:30:       count: 15102,
+17:08 +05:30:       percentageSeat: 0.3782286367314554,
+17:08 +05:30:       perLakh: 73.43712300836269,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Aligarh: {
+17:08 +05:30:       count: 15951,
+17:08 +05:30:       percentageSeat: 0.3994917881408717,
+17:08 +05:30:       perLakh: 26.60996799992449,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Alwar: {
+17:08 +05:30:       count: 31057,
+17:08 +05:30:       percentageSeat: 0.7778206046198392,
+17:08 +05:30:       perLakh: 151.02216456566813,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Amravati: {
+17:08 +05:30:       count: 25342,
+17:08 +05:30:       percentageSeat: 0.6346887903621072,
+17:08 +05:30:       perLakh: 75.17137684219522,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Amritsar: {
+17:08 +05:30:       count: 21403,
+17:08 +05:30:       percentageSeat: 0.5360367839996915,
+17:08 +05:30:       perLakh: 257.15482878568304,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Anand: {
+17:08 +05:30:       count: 3296,
+17:08 +05:30:       percentageSeat: 0.08254811194986605,
+17:08 +05:30:       perLakh: 18.177899825609085,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Ara(Arrah)': {
+17:08 +05:30:       count: 9352,
+17:08 +05:30:       percentageSeat: 0.23422024968299374,
+17:08 +05:30:       perLakh: 29.94572280105119,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Aurangabad: {
+17:08 +05:30:       count: 33363,
+17:08 +05:30:       percentageSeat: 0.8355742290604918,
+17:08 +05:30:       perLakh: 98.96387994578798,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Balasore: {
+17:08 +05:30:       count: 12914,
+17:08 +05:30:       percentageSeat: 0.323430314842406,
+17:08 +05:30:       perLakh: 102.55501762216669,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Bareilly: {
+17:08 +05:30:       count: 43668,
+17:08 +05:30:       percentageSeat: 1.0936623035882131,
+17:08 +05:30:       perLakh: 72.84835324560859,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Belgavi (Belgaum)': {
+17:08 +05:30:       count: 19735,
+17:08 +05:30:       percentageSeat: 0.49426182928719853,
+17:08 +05:30:       perLakh: 107.67331785510976,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Bengaluru (Bengalore)': {
+17:08 +05:30:       count: 17866,
+17:08 +05:30:       percentageSeat: 0.447452842262229,
+17:08 +05:30:       perLakh: 97.4761336103061,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Berhampore: {
+17:08 +05:30:       count: 13103,
+17:08 +05:30:       percentageSeat: 0.32816380791234673,
+17:08 +05:30:       perLakh: 104.05593897345905,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Bhagalpur: {
+17:08 +05:30:       count: 17440,
+17:08 +05:30:       percentageSeat: 0.43678369915220383,
+17:08 +05:30:       perLakh: 55.84403396603216,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Bhathinda: {
+17:08 +05:30:       count: 4786,
+17:08 +05:30:       percentageSeat: 0.11986506789807613,
+17:08 +05:30:       perLakh: 57.50329442453297,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Bhopal: {
+17:08 +05:30:       count: 62449,
+17:08 +05:30:       percentageSeat: 1.5640312630938062,
+17:08 +05:30:       perLakh: 286.6205141042798,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Bhubaneshwar: {
+17:08 +05:30:       count: 28283,
+17:08 +05:30:       percentageSeat: 0.7083459497202856,
+17:08 +05:30:       perLakh: 224.6061300455119,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Bikaner: {
+17:08 +05:30:       count: 20849,
+17:08 +05:30:       percentageSeat: 0.5221618889692832,
+17:08 +05:30:       perLakh: 101.38329874197812,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Bilaspur: {
+17:08 +05:30:       count: 18648,
+17:08 +05:30:       percentageSeat: 0.46703798290081977,
+17:08 +05:30:       perLakh: 243.33340457960045,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Chandigarh: {
+17:08 +05:30:       count: 12014,
+17:08 +05:30:       percentageSeat: 0.300889871652212,
+17:08 +05:30:       perLakh: 3797.0226841606573,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Chennai(Madras)': {
+17:08 +05:30:       count: 5115,
+17:08 +05:30:       percentageSeat: 0.12810485213093592,
+17:08 +05:30:       perLakh: 23.632296436873425,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Chirala: {
+17:08 +05:30:       count: 4471,
+17:08 +05:30:       percentageSeat: 0.11197591278150822,
+17:08 +05:30:       perLakh: 29.46442150015476,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Churachandpur: {
+17:08 +05:30:       count: 3083,
+17:08 +05:30:       percentageSeat: 0.07721354039485347,
+17:08 +05:30:       perLakh: 399.8096268140892,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Coimbatore: {
+17:08 +05:30:       count: 1896,
+17:08 +05:30:       percentageSeat: 0.04748520032067537,
+17:08 +05:30:       perLakh: 8.759889353726688,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Cuttack: {
+17:08 +05:30:       count: 12921,
+17:08 +05:30:       percentageSeat: 0.32360562940055193,
+17:08 +05:30:       perLakh: 102.6106073018442,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Dehradun: {
+17:08 +05:30:       count: 45597,
+17:08 +05:30:       percentageSeat: 1.1419739868258623,
+17:08 +05:30:       perLakh: 1506.8966871076111,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Delhi: {
+17:08 +05:30:       count: 177055,
+17:08 +05:30:       percentageSeat: 4.4343312989331105,
+17:08 +05:30:       perLakh: 3522.802213025325,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Dhenkenal: {
+17:08 +05:30:       count: 8614,
+17:08 +05:30:       percentageSeat: 0.2157370862670346,
+17:08 +05:30:       perLakh: 68.40707153456279,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Dibrugarh: {
+17:08 +05:30:       count: 16376,
+17:08 +05:30:       percentageSeat: 0.41013588631401887,
+17:08 +05:30:       perLakh: 174.92600254091343,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Dimapur: {
+17:08 +05:30:       count: 2619,
+17:08 +05:30:       percentageSeat: 0.06559268968346456,
+17:08 +05:30:       perLakh: 441.2429201486782,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Durg-Bhilai': {
+17:08 +05:30:       count: 43077,
+17:08 +05:30:       percentageSeat: 1.078860745893319,
+17:08 +05:30:       perLakh: 562.1017304309014,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Ernakulam: {
+17:08 +05:30:       count: 10069,
+17:08 +05:30:       percentageSeat: 0.2521774694245149,
+17:08 +05:30:       perLakh: 100.47078981665435,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Gandhinagar: {
+17:08 +05:30:       count: 17033,
+17:08 +05:30:       percentageSeat: 0.42659040984286056,
+17:08 +05:30:       perLakh: 93.93937127718432,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Gangtok: {
+17:08 +05:30:       count: 1417,
+17:08 +05:30:       percentageSeat: 0.03548867555611656,
+17:08 +05:30:       perLakh: 773.585204377717,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Gautam Budhnagar(Noida)': {
+17:08 +05:30:       count: 53212,
+17:08 +05:30:       percentageSeat: 1.3326911811517814,
+17:08 +05:30:       perLakh: 88.76995907541733,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Gorakhpur: {
+17:08 +05:30:       count: 41075,
+17:08 +05:30:       percentageSeat: 1.0287207822635764,
+17:08 +05:30:       perLakh: 68.522627772359,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Greater Noida': {
+17:08 +05:30:       count: 15162,
+17:08 +05:30:       percentageSeat: 0.379731332944135,
+17:08 +05:30:       perLakh: 25.29373298318946,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Guntur: {
+17:08 +05:30:       count: 10101,
+17:08 +05:30:       percentageSeat: 0.2529789074046107,
+17:08 +05:30:       perLakh: 66.56679077903449,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Guwahati(Dispur)': {
+17:08 +05:30:       count: 87552,
+17:08 +05:30:       percentageSeat: 2.192734313542073,
+17:08 +05:30:       perLakh: 935.2174752358361,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Gwalior: {
+17:08 +05:30:       count: 50694,
+17:08 +05:30:       percentageSeat: 1.2696280300929943,
+17:08 +05:30:       perLakh: 232.66890329712822,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Haldwani: {
+17:08 +05:30:       count: 42771,
+17:08 +05:30:       percentageSeat: 1.071196995208653,
+17:08 +05:30:       perLakh: 1413.502603335299,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Hamirpur: {
+17:08 +05:30:       count: 7992,
+17:08 +05:30:       percentageSeat: 0.20015913552892278,
+17:08 +05:30:       perLakh: 388.0778521464173,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Hooghly: {
+17:08 +05:30:       count: 16009,
+17:08 +05:30:       percentageSeat: 0.4009443944797954,
+17:08 +05:30:       perLakh: 58.46363348542314,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Hubballi (Hubli)': {
+17:08 +05:30:       count: 21077,
+17:08 +05:30:       percentageSeat: 0.5278721345774656,
+17:08 +05:30:       perLakh: 114.99521258840379,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Hyderabad: {
+17:08 +05:30:       count: 43639,
+17:08 +05:30:       percentageSeat: 1.0929360004187514,
+17:08 +05:30:       perLakh: 415.56590126320265,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Imphal: {
+17:08 +05:30:       count: 8963,
+17:08 +05:30:       percentageSeat: 0.2244777692374543,
+17:08 +05:30:       perLakh: 1162.3398265114113,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Indore: {
+17:08 +05:30:       count: 38276,
+17:08 +05:30:       percentageSeat: 0.958620003942073,
+17:08 +05:30:       perLakh: 175.6743390263321,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Itanagar: {
+17:08 +05:30:       count: 5150,
+17:08 +05:30:       percentageSeat: 0.1289814249216657,
+17:08 +05:30:       perLakh: 1240.610804491541,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Jabalpur: {
+17:08 +05:30:       count: 36005,
+17:08 +05:30:       percentageSeat: 0.9017429522921502,
+17:08 +05:30:       perLakh: 165.25119073683476,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Jaipur: {
+17:08 +05:30:       count: 150448,
+17:08 +05:30:       percentageSeat: 3.7679606634203417,
+17:08 +05:30:       perLakh: 731.5897419124718,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Jalandhar: {
+17:08 +05:30:       count: 26079,
+17:08 +05:30:       percentageSeat: 0.6531469088411883,
+17:08 +05:30:       perLakh: 313.33648460037506,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Jalgaon: {
+17:08 +05:30:       count: 19414,
+17:08 +05:30:       percentageSeat: 0.4862224045493627,
+17:08 +05:30:       perLakh: 57.587290269685816,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Jammu: {
+17:08 +05:30:       count: 38776,
+17:08 +05:30:       percentageSeat: 0.9711424723810697,
+17:08 +05:30:       perLakh: 1030.6213288965798,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Jhansi: {
+17:08 +05:30:       count: 32693,
+17:08 +05:30:       percentageSeat: 0.8187941213522362,
+17:08 +05:30:       perLakh: 54.53950748050475,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Jodhpur: {
+17:08 +05:30:       count: 31926,
+17:08 +05:30:       percentageSeat: 0.7995846547668153,
+17:08 +05:30:       perLakh: 155.2478869795383,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Jorhat: {
+17:08 +05:30:       count: 16527,
+17:08 +05:30:       percentageSeat: 0.41391767178259586,
+17:08 +05:30:       perLakh: 176.53896213933052,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Kakinada: {
+17:08 +05:30:       count: 6415,
+17:08 +05:30:       percentageSeat: 0.16066327007232728,
+17:08 +05:30:       perLakh: 42.275612597515725,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Kalaburagi (Gulbarga)': {
+17:08 +05:30:       count: 9084,
+17:08 +05:30:       percentageSeat: 0.22750820659969148,
+17:08 +05:30:       perLakh: 49.561916361581815,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Kannur (Cannanore)': {
+17:08 +05:30:       count: 11859,
+17:08 +05:30:       percentageSeat: 0.297007906436123,
+17:08 +05:30:       perLakh: 118.33182008498399,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Kanpur: {
+17:08 +05:30:       count: 141422,
+17:08 +05:30:       percentageSeat: 3.5419050631595743,
+17:08 +05:30:       perLakh: 235.92470030000135,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Karimnagar: {
+17:08 +05:30:       count: 14132,
+17:08 +05:30:       percentageSeat: 0.35393504795980185,
+17:08 +05:30:       perLakh: 134.57634951881528,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Karnal: {
+17:08 +05:30:       count: 12398,
+17:08 +05:30:       percentageSeat: 0.31050712741336145,
+17:08 +05:30:       perLakh: 163.0149246093447,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Kohima: {
+17:08 +05:30:       count: 792,
+17:08 +05:30:       percentageSeat: 0.019835590007370722,
+17:08 +05:30:       perLakh: 133.43428513087173,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Kolhapur: {
+17:08 +05:30:       count: 16799,
+17:08 +05:30:       percentageSeat: 0.4207298946134101,
+17:08 +05:30:       perLakh: 49.83047745134707,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Kolkata: {
+17:08 +05:30:       count: 110041,
+17:08 +05:30:       percentageSeat: 2.7559698989912653,
+17:08 +05:30:       perLakh: 401.86124632203433,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Kollam: {
+17:08 +05:30:       count: 10717,
+17:08 +05:30:       percentageSeat: 0.2684065885214546,
+17:08 +05:30:       perLakh: 106.93668233837369,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Kota: {
+17:08 +05:30:       count: 17619,
+17:08 +05:30:       percentageSeat: 0.44126674285336465,
+17:08 +05:30:       perLakh: 85.67664350975647,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Kottayam: {
+17:08 +05:30:       count: 4992,
+17:08 +05:30:       percentageSeat: 0.12502432489494275,
+17:08 +05:30:       perLakh: 49.811320167319344,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Kozhikode (Calicut)': {
+17:08 +05:30:       count: 11992,
+17:08 +05:30:       percentageSeat: 0.3003388830408961,
+17:08 +05:30:       perLakh: 119.65892456860848,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Kurnool: {
+17:08 +05:30:       count: 18072,
+17:08 +05:30:       percentageSeat: 0.4526120992590956,
+17:08 +05:30:       perLakh: 119.09662834954078,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Leh: {
+17:08 +05:30:       count: 1446,
+17:08 +05:30:       percentageSeat: 0.03621497872557837,
+17:08 +05:30:       perLakh: 1757.2706160290788,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Lucknow: {
+17:08 +05:30:       count: 204566,
+17:08 +05:30:       percentageSeat: 5.123342557383586,
+17:08 +05:30:       perLakh: 341.2635392058525,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Madurai: {
+17:08 +05:30:       count: 18059,
+17:08 +05:30:       percentageSeat: 0.4522865150796817,
+17:08 +05:30:       perLakh: 83.43609801632398,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Mangaluru (Mangalore)': {
+17:08 +05:30:       count: 1331,
+17:08 +05:30:       percentageSeat: 0.03333481098460914,
+17:08 +05:30:       perLakh: 7.26187920269324,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Meerut: {
+17:08 +05:30:       count: 72167,
+17:08 +05:30:       percentageSeat: 1.8074179596741453,
+17:08 +05:30:       perLakh: 120.39129588430511,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Mehsana: {
+17:08 +05:30:       count: 7854,
+17:08 +05:30:       percentageSeat: 0.19670293423975968,
+17:08 +05:30:       perLakh: 43.31590571308669,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Moradabad: {
+17:08 +05:30:       count: 19659,
+17:08 +05:30:       percentageSeat: 0.49235841408447106,
+17:08 +05:30:       perLakh: 32.79577210899101,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Mumbai: {
+17:08 +05:30:       count: 17704,
+17:08 +05:30:       percentageSeat: 0.4433955624879941,
+17:08 +05:30:       perLakh: 52.51495760453887,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Muzaffarnagar: {
+17:08 +05:30:       count: 19019,
+17:08 +05:30:       percentageSeat: 0.47632965448255526,
+17:08 +05:30:       perLakh: 31.728103654351695,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Muzaffarpur: {
+17:08 +05:30:       count: 54049,
+17:08 +05:30:       percentageSeat: 1.3536537933186619,
+17:08 +05:30:       perLakh: 173.068474302183,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Mysuru (Mysore)': {
+17:08 +05:30:       count: 5841,
+17:08 +05:30:       percentageSeat: 0.1462874763043591,
+17:08 +05:30:       perLakh: 31.86824674900918,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Nagpur: {
+17:08 +05:30:       count: 47701,
+17:08 +05:30:       percentageSeat: 1.1946685340171603,
+17:08 +05:30:       perLakh: 141.49435114630077,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Nanded: {
+17:08 +05:30:       count: 18951,
+17:08 +05:30:       percentageSeat: 0.4746265987748518,
+17:08 +05:30:       perLakh: 56.21390429076007,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Nashik: {
+17:08 +05:30:       count: 23609,
+17:08 +05:30:       percentageSeat: 0.5912859147525448,
+17:08 +05:30:       perLakh: 70.03081981956383,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Nellore: {
+17:08 +05:30:       count: 3064,
+17:08 +05:30:       percentageSeat: 0.0767376865941716,
+17:08 +05:30:       perLakh: 20.192124239873447,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Panaji (panjim)': {
+17:08 +05:30:       count: 695,
+17:08 +05:30:       percentageSeat: 0.017406231130205372,
+17:08 +05:30:       perLakh: 158.83408922362125,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Patiala: {
+17:08 +05:30:       count: 19243,
+17:08 +05:30:       percentageSeat: 0.48193972034322585,
+17:08 +05:30:       perLakh: 231.20265244698868,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Patna: {
+17:08 +05:30:       count: 307853,
+17:08 +05:30:       percentageSeat: 7.710158952700883,
+17:08 +05:30:       perLakh: 985.7656759486753,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Port Blair': {
+17:08 +05:30:       count: 677,
+17:08 +05:30:       percentageSeat: 0.016955422266401492,
+17:08 +05:30:       perLakh: 592.9530551096,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Prayagraj: {
+17:08 +05:30:       count: 128248,
+17:08 +05:30:       percentageSeat: 3.2119630647288897,
+17:08 +05:30:       perLakh: 213.94741245403526,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Pune: {
+17:08 +05:30:       count: 47776,
+17:08 +05:30:       percentageSeat: 1.19654690428301,
+17:08 +05:30:       perLakh: 141.71682187722828,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Purnia: {
+17:08 +05:30:       count: 25241,
+17:08 +05:30:       percentageSeat: 0.6321592517374299,
+17:08 +05:30:       perLakh: 80.82335214086109,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Raipur: {
+17:08 +05:30:       count: 47349,
+17:08 +05:30:       percentageSeat: 1.1858527162361066,
+17:08 +05:30:       perLakh: 617.8460624967558,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Rajahmundry: {
+17:08 +05:30:       count: 7759,
+17:08 +05:30:       percentageSeat: 0.1943236652363503,
+17:08 +05:30:       perLakh: 51.13273236853071,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Rajkot: {
+17:08 +05:30:       count: 20204,
+17:08 +05:30:       percentageSeat: 0.5060079046829775,
+17:08 +05:30:       perLakh: 111.42787866401879,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Ranchi: {
+17:08 +05:30:       count: 155732,
+17:08 +05:30:       percentageSeat: 3.900298109883659,
+17:08 +05:30:       perLakh: 1573.6163393378563,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Roorkee: {
+17:08 +05:30:       count: 37739,
+17:08 +05:30:       percentageSeat: 0.9451708728385907,
+17:08 +05:30:       perLakh: 1247.2042913953578,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Rourkela: {
+17:08 +05:30:       count: 14580,
+17:08 +05:30:       percentageSeat: 0.36515517968114286,
+17:08 +05:30:       perLakh: 115.78536138541044,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Sagar: {
+17:08 +05:30:       count: 7305,
+17:08 +05:30:       percentageSeat: 0.18295326389374134,
+17:08 +05:30:       perLakh: 33.527564180879814,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Salem: {
+17:08 +05:30:       count: 3111,
+17:08 +05:30:       percentageSeat: 0.07791479862743728,
+17:08 +05:30:       perLakh: 14.373426044010404,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Samba: {
+17:08 +05:30:       count: 10847,
+17:08 +05:30:       percentageSeat: 0.27166243031559373,
+17:08 +05:30:       perLakh: 288.3007415551166,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Sambalpur: {
+17:08 +05:30:       count: 24651,
+17:08 +05:30:       percentageSeat: 0.6173827389794138,
+17:08 +05:30:       perLakh: 195.7630276757032,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Satna: {
+17:08 +05:30:       count: 18977,
+17:08 +05:30:       percentageSeat: 0.4752777671336796,
+17:08 +05:30:       perLakh: 87.09823209590094,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Shillong: {
+17:08 +05:30:       count: 7126,
+17:08 +05:30:       percentageSeat: 0.17847022019258052,
+17:08 +05:30:       perLakh: 800.6141562199778,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Shimla: {
+17:08 +05:30:       count: 10681,
+17:08 +05:30:       percentageSeat: 0.2675049707938469,
+17:08 +05:30:       perLakh: 518.6510934404258,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Shivamogga (Shimoga)': {
+17:08 +05:30:       count: 5576,
+17:08 +05:30:       percentageSeat: 0.13965056803169087,
+17:08 +05:30:       perLakh: 30.422418057263343,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Sikar: {
+17:08 +05:30:       count: 54351,
+17:08 +05:30:       percentageSeat: 1.3612173642558159,
+17:08 +05:30:       perLakh: 264.2948664168667,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Silchar: {
+17:08 +05:30:       count: 10765,
+17:08 +05:30:       percentageSeat: 0.2696087454915983,
+17:08 +05:30:       perLakh: 114.99013295999836,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Siliguri: {
+17:08 +05:30:       count: 37845,
+17:08 +05:30:       percentageSeat: 0.9478256361476579,
+17:08 +05:30:       perLakh: 138.2070216288237,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Sriganganagar: {
+17:08 +05:30:       count: 1717,
+17:08 +05:30:       percentageSeat: 0.043002156619514564,
+17:08 +05:30:       perLakh: 8.349327255023093,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Srinagar(J&K)': {
+17:08 +05:30:       count: 4040,
+17:08 +05:30:       percentageSeat: 0.1011815449870931,
+17:08 +05:30:       perLakh: 107.37853746498303,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Surat: {
+17:08 +05:30:       count: 10710,
+17:08 +05:30:       percentageSeat: 0.26823127396330865,
+17:08 +05:30:       perLakh: 59.067144154209124,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Thiruvananthapuram: {
+17:08 +05:30:       count: 11708,
+17:08 +05:30:       percentageSeat: 0.293226120967546,
+17:08 +05:30:       perLakh: 116.82510747575618,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Thrissur (Trichur)': {
+17:08 +05:30:       count: 18169,
+17:08 +05:30:       percentageSeat: 0.455041458136261,
+17:08 +05:30:       perLakh: 181.29444633814606,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Tiruchirapalli: {
+17:08 +05:30:       count: 3909,
+17:08 +05:30:       percentageSeat: 0.09790065825607595,
+17:08 +05:30:       perLakh: 18.060341499851067,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Tirunelveli: {
+17:08 +05:30:       count: 13621,
+17:08 +05:30:       percentageSeat: 0.34113708521514724,
+17:08 +05:30:       perLakh: 62.93167346366626,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Tirupati: {
+17:08 +05:30:       count: 11338,
+17:08 +05:30:       percentageSeat: 0.2839594943226885,
+17:08 +05:30:       perLakh: 74.71876783018445,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Udaipur: {
+17:08 +05:30:       count: 11005,
+17:08 +05:30:       percentageSeat: 0.27561953034231673,
+17:08 +05:30:       perLakh: 53.5144708453868,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Udupi: {
+17:08 +05:30:       count: 1313,
+17:08 +05:30:       percentageSeat: 0.03288400212080526,
+17:08 +05:30:       perLakh: 7.1636719708010705,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Ujjain: {
+17:08 +05:30:       count: 17769,
+17:08 +05:30:       percentageSeat: 0.4450234833850637,
+17:08 +05:30:       perLakh: 81.55390662971301,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Ukhrul: {
+17:08 +05:30:       count: 284,
+17:08 +05:30:       percentageSeat: 0.007112762073350108,
+17:08 +05:30:       perLakh: 36.829689917353654,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     UnknownCity: {
+17:08 +05:30:       count: 2997,
+17:08 +05:30:       percentageSeat: 0.07505967582334604,
+17:08 +05:30:       perLakh: 1,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Vadodara (Baroda)': {
+17:08 +05:30:       count: 12925,
+17:08 +05:30:       percentageSeat: 0.3237058091480639,
+17:08 +05:30:       perLakh: 71.28317816929534,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Varanasi: {
+17:08 +05:30:       count: 156217,
+17:08 +05:30:       percentageSeat: 3.9124449042694853,
+17:08 +05:30:       perLakh: 260.60619215373356,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Vellore: {
+17:08 +05:30:       count: 8538,
+17:08 +05:30:       percentageSeat: 0.21383367106430715,
+17:08 +05:30:       perLakh: 39.447223260611004,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Vijayawada: {
+17:08 +05:30:       count: 9894,
+17:08 +05:30:       percentageSeat: 0.24779460547086612,
+17:08 +05:30:       perLakh: 65.20263617144514,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Vishakhapatnam: {
+17:08 +05:30:       count: 37886,
+17:08 +05:30:       percentageSeat: 0.9488524785596556,
+17:08 +05:30:       perLakh: 249.67324378323937,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Vizianagaram: {
+17:08 +05:30:       count: 21283,
+17:08 +05:30:       percentageSeat: 0.5330313915743322,
+17:08 +05:30:       perLakh: 140.257500064369,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Warangal: {
+17:08 +05:30:       count: 16157,
+17:08 +05:30:       percentageSeat: 0.4046510451377384,
+17:08 +05:30:       perLakh: 153.86003956803697,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     }
+17:08 +05:30:   },
+17:08 +05:30:   state_stats: {
+17:08 +05:30:     'A & N Islands': {
+17:08 +05:30:       count: 677,
+17:08 +05:30:       percentageSeat: 0.016955422266401492,
+17:08 +05:30:       perLakh: 592.9530551096,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Andhra Pradesh': {
+17:08 +05:30:       count: 130283,
+17:08 +05:30:       percentageSeat: 3.2629295112756065,
+17:08 +05:30:       perLakh: 858.5804576838877,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Arunachal Pradesh': {
+17:08 +05:30:       count: 5150,
+17:08 +05:30:       percentageSeat: 0.1289814249216657,
+17:08 +05:30:       perLakh: 1240.610804491541,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Assam: {
+17:08 +05:30:       count: 131220,
+17:08 +05:30:       percentageSeat: 3.2863966171302863,
+17:08 +05:30:       perLakh: 1401.6725728760784,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Bihar: {
+17:08 +05:30:       count: 413935,
+17:08 +05:30:       percentageSeat: 10.366975946592174,
+17:08 +05:30:       perLakh: 1325.4472591588026,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Chandigarh: {
+17:08 +05:30:       count: 12014,
+17:08 +05:30:       percentageSeat: 0.300889871652212,
+17:08 +05:30:       perLakh: 3797.0226841606573,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Chhattisgarh: {
+17:08 +05:30:       count: 109074,
+17:08 +05:30:       percentageSeat: 2.7317514450302456,
+17:08 +05:30:       perLakh: 1423.2811975072577,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Delhi: {
+17:08 +05:30:       count: 177055,
+17:08 +05:30:       percentageSeat: 4.4343312989331105,
+17:08 +05:30:       perLakh: 3522.802213025325,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Goa: {
+17:08 +05:30:       count: 695,
+17:08 +05:30:       percentageSeat: 0.017406231130205372,
+17:08 +05:30:       perLakh: 158.83408922362125,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Gujarat: {
+17:08 +05:30:       count: 108599,
+17:08 +05:30:       percentageSeat: 2.7198551000131985,
+17:08 +05:30:       perLakh: 598.9386356678765,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Haryana: {
+17:08 +05:30:       count: 12398,
+17:08 +05:30:       percentageSeat: 0.31050712741336145,
+17:08 +05:30:       perLakh: 163.0149246093447,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Himachal Pradesh': {
+17:08 +05:30:       count: 18673,
+17:08 +05:30:       percentageSeat: 0.4676641063227696,
+17:08 +05:30:       perLakh: 906.7289455868431,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Jammu & Kashmir': {
+17:08 +05:30:       count: 53663,
+17:08 +05:30:       percentageSeat: 1.3439864476837564,
+17:08 +05:30:       perLakh: 1426.3006079166794,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Jharkhand: {
+17:08 +05:30:       count: 155732,
+17:08 +05:30:       percentageSeat: 3.900298109883659,
+17:08 +05:30:       perLakh: 1573.6163393378563,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Karnataka: {
+17:08 +05:30:       count: 81823,
+17:08 +05:30:       percentageSeat: 2.049251870168049,
+17:08 +05:30:       perLakh: 446.4227963951683,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Kerala: {
+17:08 +05:30:       count: 79506,
+17:08 +05:30:       percentageSeat: 1.9912227514217384,
+17:08 +05:30:       perLakh: 793.3290907898421,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Ladakh: {
+17:08 +05:30:       count: 1446,
+17:08 +05:30:       percentageSeat: 0.03621497872557837,
+17:08 +05:30:       perLakh: 1757.2706160290788,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Madhya Pradesh': {
+17:08 +05:30:       count: 231475,
+17:08 +05:30:       percentageSeat: 5.797276763833508,
+17:08 +05:30:       perLakh: 1062.3946500710688,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Maharashtra: {
+17:08 +05:30:       count: 250659,
+17:08 +05:30:       percentageSeat: 6.2777388329009325,
+17:08 +05:30:       perLakh: 743.5238792474079,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Manipur: {
+17:08 +05:30:       count: 12330,
+17:08 +05:30:       percentageSeat: 0.3088040717056579,
+17:08 +05:30:       perLakh: 1598.979143242854,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Meghalaya: {
+17:08 +05:30:       count: 7126,
+17:08 +05:30:       percentageSeat: 0.17847022019258052,
+17:08 +05:30:       perLakh: 800.6141562199778,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Mizoram: {
+17:08 +05:30:       count: 1967,
+17:08 +05:30:       percentageSeat: 0.0492633908390129,
+17:08 +05:30:       perLakh: 597.5784553371625,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Nagaland: {
+17:08 +05:30:       count: 3411,
+17:08 +05:30:       percentageSeat: 0.08542827969083529,
+17:08 +05:30:       perLakh: 574.6772052795499,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Odisha: {
+17:08 +05:30:       count: 115066,
+17:08 +05:30:       percentageSeat: 2.8818207068031816,
+17:08 +05:30:       perLakh: 913.7831545386582,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Punjab: {
+17:08 +05:30:       count: 71511,
+17:08 +05:30:       percentageSeat: 1.7909884810821817,
+17:08 +05:30:       perLakh: 859.1972602575798,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Rajasthan: {
+17:08 +05:30:       count: 334074,
+17:08 +05:30:       percentageSeat: 8.366862242578748,
+17:08 +05:30:       perLakh: 1624.5155232350521,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Sikkim: {
+17:08 +05:30:       count: 1417,
+17:08 +05:30:       percentageSeat: 0.03548867555611656,
+17:08 +05:30:       perLakh: 773.585204377717,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Tamil Nadu': {
+17:08 +05:30:       count: 54249,
+17:08 +05:30:       percentageSeat: 1.3586627806942606,
+17:08 +05:30:       perLakh: 250.64094807506282,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Telangana: {
+17:08 +05:30:       count: 73928,
+17:08 +05:30:       percentageSeat: 1.8515220935162915,
+17:08 +05:30:       perLakh: 704.002290350055,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Tripura: {
+17:08 +05:30:       count: 12641,
+17:08 +05:30:       percentageSeat: 0.3165930470747138,
+17:08 +05:30:       perLakh: 1146.9139522386236,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     UnknownState: {
+17:08 +05:30:       count: 2997,
+17:08 +05:30:       percentageSeat: 0.07505967582334604,
+17:08 +05:30:       perLakh: 1,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Uttar Pradesh': {
+17:08 +05:30:       count: 1038027,
+17:08 +05:30:       percentageSeat: 25.997320692652792,
+17:08 +05:30:       perLakh: 1731.6698171310652,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     Uttarakhand: {
+17:08 +05:30:       count: 126107,
+17:08 +05:30:       percentageSeat: 3.158341854873106,
+17:08 +05:30:       perLakh: 4167.603581838267,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'West Bengal': {
+17:08 +05:30:       count: 163895,
+17:08 +05:30:       percentageSeat: 4.104739929618718,
+17:08 +05:30:       perLakh: 598.5319014362811,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     }
+17:08 +05:30:   },
+17:08 +05:30:   zone_stats: {
+17:08 +05:30:     'Central Region': {
+17:08 +05:30:       count: 1451962,
+17:08 +05:30:       percentageSeat: 36.36429663924496,
+17:08 +05:30:       perLakh: 1592.5256751498728,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Eastern Region': {
+17:08 +05:30:       count: 436787,
+17:08 +05:30:       percentageSeat: 10.939302844128077,
+17:08 +05:30:       perLakh: 870.6332186457194,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Karnataka Kerala Region': {
+17:08 +05:30:       count: 161329,
+17:08 +05:30:       percentageSeat: 4.040474621589787,
+17:08 +05:30:       perLakh: 568.6885724056677,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Madhya Pradesh Region': {
+17:08 +05:30:       count: 340549,
+17:08 +05:30:       percentageSeat: 8.529028208863753,
+17:08 +05:30:       perLakh: 1156.3004594806207,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'North Eastern Region': {
+17:08 +05:30:       count: 173845,
+17:08 +05:30:       percentageSeat: 4.353937051554753,
+17:08 +05:30:       perLakh: 1288.4219723849399,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'North Western Region': {
+17:08 +05:30:       count: 169705,
+17:08 +05:30:       percentageSeat: 4.250251012879859,
+17:08 +05:30:       perLakh: 769.0576221991798,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Northern Region': {
+17:08 +05:30:       count: 637236,
+17:08 +05:30:       percentageSeat: 15.959535396384963,
+17:08 +05:30:       perLakh: 2226.8218241873788,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Southern Region': {
+17:08 +05:30:       count: 258460,
+17:08 +05:30:       percentageSeat: 6.473114385486159,
+17:08 +05:30:       perLakh: 541.9268514700972,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     UnknownZone: {
+17:08 +05:30:       count: 2997,
+17:08 +05:30:       percentageSeat: 0.07505967582334604,
+17:08 +05:30:       perLakh: 1,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     },
+17:08 +05:30:     'Western Region': {
+17:08 +05:30:       count: 359953,
+17:08 +05:30:       percentageSeat: 9.015000164044338,
+17:08 +05:30:       perLakh: 686.1906770799634,
+17:08 +05:30:       percentageToPlace: 'not in modeldataset'
+17:08 +05:30:     }
+17:08 +05:30:   },
+17:08 +05:30:   total_records: 3992823
+17:08 +05:30: }
+17:08 +05:30: [
+17:08 +05:30:   `Executing (default): SELECT "EXAMNAME", "REGID", "ROLL", "NAME", "FATHERNAME", "MOTHERNAME", "DOB", "GENDER", "CAT1", "CAT2", "CAT3", "WRTN1_APP", "WRTN1_QLY", "WRTN2_APP", "WRTN2_QLY", "WRTN3_APP", "WRTN3_QLY", "INTVW_APP", "SKILL_APP", "SKILL_QLY", "PET_APP", "PET_QLY", "DME_APP", "DME_QLY", "RME_APP", "RME_QLY", "SELECTED", "MARKS", "ALLOC_POST", "ALLOC_STAT", "ALLOC_AREA", "ALLOC_CAT", "RANK", "WITHHELD" FROM "allexamstable_partitioned" AS "allexamstableModel" WHERE ("allexamstableModel"."EXAMNAME" = 'CONSTABLE-2021') LIMIT '6090000' OFFSET '0';`,
+17:08 +05:30:   {
+17:08 +05:30:     plain: false,
+17:08 +05:30:     raw: false,
+17:08 +05:30:     logging: [Function: logging],
+17:08 +05:30:     where: `("allexamstableModel"."EXAMNAME" = 'CONSTABLE-2021')`,
+17:08 +05:30:     attributes: [
+17:08 +05:30:       'EXAMNAME',   'REGID',      'ROLL',
+17:08 +05:30:       'NAME',       'FATHERNAME', 'MOTHERNAME',
+17:08 +05:30:       'DOB',        'GENDER',     'CAT1',
+17:08 +05:30:       'CAT2',       'CAT3',       'WRTN1_APP',
+17:08 +05:30:       'WRTN1_QLY',  'WRTN2_APP',  'WRTN2_QLY',
+17:08 +05:30:       'WRTN3_APP',  'WRTN3_QLY',  'INTVW_APP',
+17:08 +05:30:       'SKILL_APP',  'SKILL_QLY',  'PET_APP',
+17:08 +05:30:       'PET_QLY',    'DME_APP',    'DME_QLY',
+17:08 +05:30:       'RME_APP',    'RME_QLY',    'SELECTED',
+17:08 +05:30:       'MARKS',      'ALLOC_POST', 'ALLOC_STAT',
+17:08 +05:30:       'ALLOC_AREA', 'ALLOC_CAT',  'RANK',
+17:08 +05:30:       'WITHHELD'
+17:08 +05:30:     ],
+17:08 +05:30:     limit: '6090000',
+17:08 +05:30:     offset: '0',
+17:08 +05:30:     hooks: true,
+17:08 +05:30:     rejectOnEmpty: false,
+17:08 +05:30:     originalAttributes: [
+17:08 +05:30:       'EXAMNAME',   'REGID',      'ROLL',
+17:08 +05:30:       'NAME',       'FATHERNAME', 'MOTHERNAME',
+17:08 +05:30:       'DOB',        'GENDER',     'CAT1',
+17:08 +05:30:       'CAT2',       'CAT3',       'WRTN1_APP',
+17:08 +05:30:       'WRTN1_QLY',  'WRTN2_APP',  'WRTN2_QLY',
+17:08 +05:30:       'WRTN3_APP',  'WRTN3_QLY',  'INTVW_APP',
+17:08 +05:30:       'SKILL_APP',  'SKILL_QLY',  'PET_APP',
+17:08 +05:30:       'PET_QLY',    'DME_APP',    'DME_QLY',
+17:08 +05:30:       'RME_APP',    'RME_QLY',    'SELECTED',
+17:08 +05:30:       'MARKS',      'ALLOC_POST', 'ALLOC_STAT',
+17:08 +05:30:       'ALLOC_AREA', 'ALLOC_CAT',  'RANK',
+17:08 +05:30:       'WITHHELD'
+17:08 +05:30:     ],
+17:08 +05:30:     tableNames: [ 'allexamstable_partitioned' ],
+17:08 +05:30:     type: 'SELECT',
+17:08 +05:30:     model: allexamstableModel
+17:08 +05:30:   }
+17:08 +05:30: ]
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: CityCode= 1207
+17:10 +05:30: No population data mapped for state: UnknownState
+17:10 +05:30: No population data for state: UnknownState
+17:10 +05:30: Unknown zone : UnknownZone
+17:10 +05:30: { EXAMNAME: 'CONSTABLE-2021' }
+17:10 +05:30: [
+17:10 +05:30:   `Executing (default): SELECT "EXAMNAME", "REGID", "ROLL", "NAME", "FATHERNAME", "MOTHERNAME", "DOB", "GENDER", "CAT1", "CAT2", "CAT3", "WRTN1_APP", "WRTN1_QLY", "WRTN2_APP", "WRTN2_QLY", "WRTN3_APP", "WRTN3_QLY", "INTVW_APP", "SKILL_APP", "SKILL_QLY", "PET_APP", "PET_QLY", "DME_APP", "DME_QLY", "RME_APP", "RME_QLY", "SELECTED", "MARKS", "ALLOC_POST", "ALLOC_STAT", "ALLOC_AREA", "ALLOC_CAT", "RANK", "WITHHELD" FROM "allexamstable_partitioned" AS "allexamstableModel" WHERE ("allexamstableModel"."EXAMNAME" = 'CONSTABLE-2021') LIMIT '6090000' OFFSET '0';`,
+17:10 +05:30:   {
+17:10 +05:30:     plain: false,
+17:10 +05:30:     raw: false,
+17:10 +05:30:     logging: [Function: logging],
+17:10 +05:30:     where: `("allexamstableModel"."EXAMNAME" = 'CONSTABLE-2021')`,
+17:10 +05:30:     attributes: [
+17:10 +05:30:       'EXAMNAME',   'REGID',      'ROLL',
+17:10 +05:30:       'NAME',       'FATHERNAME', 'MOTHERNAME',
+17:10 +05:30:       'DOB',        'GENDER',     'CAT1',
+17:10 +05:30:       'CAT2',       'CAT3',       'WRTN1_APP',
+17:10 +05:30:       'WRTN1_QLY',  'WRTN2_APP',  'WRTN2_QLY',
+17:10 +05:30:       'WRTN3_APP',  'WRTN3_QLY',  'INTVW_APP',
+17:10 +05:30:       'SKILL_APP',  'SKILL_QLY',  'PET_APP',
+17:10 +05:30:       'PET_QLY',    'DME_APP',    'DME_QLY',
+17:10 +05:30:       'RME_APP',    'RME_QLY',    'SELECTED',
+17:10 +05:30:       'MARKS',      'ALLOC_POST', 'ALLOC_STAT',
+17:10 +05:30:       'ALLOC_AREA', 'ALLOC_CAT',  'RANK',
+17:10 +05:30:       'WITHHELD'
+17:10 +05:30:     ],
+17:10 +05:30:     limit: '6090000',
+17:10 +05:30:     offset: '0',
+17:10 +05:30:     hooks: true,
+17:10 +05:30:     rejectOnEmpty: false,
+17:10 +05:30:     originalAttributes: [
+17:10 +05:30:       'EXAMNAME',   'REGID',      'ROLL',
+17:10 +05:30:       'NAME',       'FATHERNAME', 'MOTHERNAME',
+17:10 +05:30:       'DOB',        'GENDER',     'CAT1',
+17:10 +05:30:       'CAT2',       'CAT3',       'WRTN1_APP',
+17:10 +05:30:       'WRTN1_QLY',  'WRTN2_APP',  'WRTN2_QLY',
+17:10 +05:30:       'WRTN3_APP',  'WRTN3_QLY',  'INTVW_APP',
+17:10 +05:30:       'SKILL_APP',  'SKILL_QLY',  'PET_APP',
+17:10 +05:30:       'PET_QLY',    'DME_APP',    'DME_QLY',
+17:10 +05:30:       'RME_APP',    'RME_QLY',    'SELECTED',
+17:10 +05:30:       'MARKS',      'ALLOC_POST', 'ALLOC_STAT',
+17:10 +05:30:       'ALLOC_AREA', 'ALLOC_CAT',  'RANK',
+17:10 +05:30:       'WITHHELD'
+17:10 +05:30:     ],
+17:10 +05:30:     tableNames: [ 'allexamstable_partitioned' ],
+17:10 +05:30:     type: 'SELECT',
+17:10 +05:30:     model: allexamstableModel
+17:10 +05:30:   }
+17:10 +05:30: ]
+17:11 +05:30: { EXAMNAME: 'CONSTABLE-2021' }
