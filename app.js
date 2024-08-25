@@ -61,6 +61,10 @@ const {callProcedure, callProcedtesting11, callStoredFunction, callRecordViewFun
 const { getRecordsByFilters, getRecordsCountByFilters, downloadRecord } = require('./sqlscripts/queryBuilder');
 const {citycodeDataprocessor, getModelData, modelCitycodeDataprocessor} = require('./dataprocesser/citycodeDataprocessor');
 const {calculateAllStats} = require('./dataprocesser/statsCalculator');
+const fs = require('fs');
+const path = require('path');
+const archiver = require('archiver');
+const os = require('os');
 
 app.use(express.json());//must come before👇this line
 app.use(express.urlencoded({extended: true}));// these two LOC is used againt the bodyparser code that we used to install. Now that's inbuilt in express.js and this the way you get it. 
@@ -155,10 +159,58 @@ app.get('/api/v1/viewNumberOfRecords', async (request, response) => {
 	}
 });
 // path to call second callProcedure function
+app.get('/api/v1/downloadQuery1', async (request, response) => {
+    try {
+      const filePaths = await downloadQueryFunction('split_downloadqueryfunctionsscdatabase1', ['allexamstable']);
+      
+      // Create a zip file
+      const zipFilename = `download_${Date.now()}.zip`;
+      const zipFilePath = path.join(process.env.DB_File_DownloadedAt, zipFilename);
+      const output = fs.createWriteStream(zipFilePath);
+      const archive = archiver('zip', { zlib: { level: 9 } });
+  
+      output.on('close', () => {
+        console.log('Archive created successfully');
+        
+        // Send the zip file
+        response.download(zipFilePath, zipFilename, (err) => {
+          if (err) {
+            console.error('Error sending file:', err);
+            response.status(500).send('Error sending file');
+          }
+          
+          // Clean up: delete the zip file and original CSV files
+          fs.unlinkSync(zipFilePath);
+          filePaths.forEach(filePath => fs.unlinkSync(filePath));
+        });
+      });
+  
+      archive.on('error', (err) => {
+        throw err;
+      });
+  
+      archive.pipe(output);
+  
+      // Add CSV files to the zip
+      filePaths.forEach(filePath => {
+        archive.file(filePath, { name: path.basename(filePath) });
+      });
+  
+      archive.finalize();
+  
+    } catch (error) {
+      console.error('Error fetching data from allexamstable:', error);
+      response.status(500).json({
+        status: '500',
+        message: 'Failed to download successfully.🥴',
+      });
+    }
+  });
+/*legacy code👇code upgrade👆
 app.get('/api/v1/downloadQuery1', async (request, response) => {	
     try {
         // to Fetch only 100 records from the allexamstable table
-         await downloadQueryFunction('split_downloadqueryfunction2',['allexamstable']);
+         await downloadQueryFunction('split_downloadqueryfunctionsscdatabase',['allexamstable']);
         response.status(200).json({
             status: '200',
             message: `Download successful. check folder ${process.env.DB_File_DownloadedAt}`,
@@ -171,8 +223,8 @@ app.get('/api/v1/downloadQuery1', async (request, response) => {
         });
 	}
 });
-
-
+*/
+//---------------------REAL USE STARTS FROM HERE---------------------
 // Super: from here on, i am using Sequelize and node.js itself to do the query and get the output from the database based on the filter that we have made in node.js for sequelize. Note: we are choosing to receive the parameters for the filter from "request body" not the "request query". Becouse request body is better suited to deal with complex filters and large amount of data to be handled. 
 app.post('/api/v1/records', async (req, res) => {
     try {
@@ -196,7 +248,25 @@ app.post('/api/v1/downloadrecords', async (req, res) => {
       const limit = req.query.limit || 20000;
       const offset=req.query.offset || 0; 
       console.log(filters);//Code Testing
-      
+
+      const zipFilePath=await downloadRecord(filters,limit,offset);
+      res.download(zipFilePath, 'downloaded_data.zip', (err) => {
+        if (err) {
+          console.error('Error sending file:', err);
+          res.status(500).send('Error sending file');
+        }
+        // Delete the temporary zip file after sending
+        fs.unlinkSync(zipFilePath);
+      });
+    } catch (error) {
+      console.error('Error Downloading records:', error);
+      res.status(500).json({ 
+        error: 'Failed to download the records',
+        status: '500',
+        message: 'Failed to Download.'
+      });
+    };
+     /* legacy code👇code in progress👆
       const recordsDownloaded = await downloadRecord(filters,limit,offset);
       res.status(200).json(recordsDownloaded);
     } catch (error) {
@@ -207,6 +277,7 @@ app.post('/api/v1/downloadrecords', async (req, res) => {
         message: 'Failed to Download.'
         });
     }
+    */
   });
 app.post('/api/v1/recordcount', async (req, res) => {
     try {

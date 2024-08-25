@@ -314,8 +314,8 @@ const whereClause = {
   };
 
   let records = [];
-  let offset = 0;
-  const limit = 500000; // Limit to 5 lakh records per fetch
+  let offset = process.env.DOWNLOAD_OFFSET|| 0;
+  const limit = process.env.DOWNLOAD_LIMIT || 500000; // Limit to 5 lakh records per fetch
   const csvFileNames=[];
 
   while (true) {
@@ -357,10 +357,42 @@ const whereClause = {
     csvFileNames.push(filePath);
   }
   // Now i will try the zipping it and downloading it.😵God Help
+  return new Promise((resolve, reject) => {
+    const zipFilePath = path.join(os.tmpdir(), `data_${Date.now()}.zip`);
+    const archive = archiver('zip', { zlib: { level: 9 } });// Knowledge Gap: what's level: 9 😕
+    const outputArea = fs.createWriteStream(zipFilePath);
+
+    outputArea.on('close', () => {
+      console.log(`Total file size of zipped folder is: ${archive.pointer()} bytes`);
+      console.log('ZIP archive has been made and the outputArea file descriptor has been shutdown');
+
+      // Clean up CSV files
+      csvFileNames.forEach((file) => {
+        fs.unlinkSync(file);
+      });
+      console.log('Removed all the temporary files generated in the process.');
+
+      resolve(zipFilePath);
+    });
+
+    archive.on('error', (err) => {
+      reject(err);
+    });
+
+    archive.pipe(outputArea);
+
+    csvFileNames.forEach((file) => {
+      archive.file(file, { name: path.basename(file) });
+    });
+
+    archive.finalize();
+  });
+/*legacy code👇code in progress👆
   const zipFilePath = path.join('D:\\', 'data.zip');
   const archive = archiver('zip', { zlib: { level: 9 } });//i don't know what level:9 is. it's probably the level of zipping or compression to be done.
   const outputArea = fs.createWriteStream(zipFilePath);
   
+
 
   outputArea.on('close', () => {
 
@@ -386,8 +418,8 @@ const whereClause = {
   });
 
   archive.finalize();
-
   return records;
+  */
 };
 
 
