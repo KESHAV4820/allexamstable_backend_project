@@ -136,11 +136,23 @@ const callRecordViewFunction = async (procedureName, params) => {
 // Another Stored Function call( in postgres SQL) for downloading the .csv file for the query. Note: this is "un-split" file download. which is VERSION 1.0
 const downloadQueryFunction = async (procedureName, params) => {
   try {
-    await callStoredFunction('split_downloadqueryfunction2', ['allexamstable']);// first parameter is to pass the storedfunction name itself. Second parameter is to pass the the tablename.
+    const result = await callStoredFunction('split_downloadqueryfunctionsscdatabase1', ['allexamstable']);
+    console.log('CSV files generated successfully');
+    return result.map(row => row.filepath);
+  } catch (err) {
+    console.error('Error generating CSV files:', err);
+    throw err;
+  }
+};
+/*legacy code👇code upgrade👆
+const downloadQueryFunction = async (procedureName, params) => {
+  try {
+    await callStoredFunction('split_downloadqueryfunctionsscdatabase', ['allexamstable']);// first parameter is to pass the storedfunction name itself. Second parameter is to pass the the tablename.
     console.log('CSV file generated successfully at ', process.env.DB_File_DownloadedAt);
   } catch (err) {
     console.error('Error generating CSV file:', err);
   }
 };
+*/
 
 module.exports = { callStoredFunction, callRecordViewFunction, downloadQueryFunction };
