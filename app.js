@@ -224,6 +224,8 @@ app.get('/api/v1/downloadQuery1', async (request, response) => {
 	}
 });
 */
+
+
 //---------------------REAL USE STARTS FROM HERE---------------------
 // Super: from here on, i am using Sequelize and node.js itself to do the query and get the output from the database based on the filter that we have made in node.js for sequelize. Note: we are choosing to receive the parameters for the filter from "request body" not the "request query". Becouse request body is better suited to deal with complex filters and large amount of data to be handled. 
 app.post('/api/v1/records', async (req, res) => {

@@ -232,7 +232,7 @@ const getRecordsCountByFilters = async (filters) => {
   return count;
 };
 
-// For downloeding the query---------------------------------------------------------
+// -------------For DOWNLOADING THE QUERIES--------------------------------------------
 const fs = require('fs');
 const path = require('path');
 const { Parser } = require('json2csv');
@@ -366,7 +366,7 @@ const whereClause = {
       console.log(`Total file size of zipped folder is: ${archive.pointer()} bytes`);
       console.log('ZIP archive has been made and the outputArea file descriptor has been shutdown');
 
-      // Clean up CSV files
+      // Cleaning up CSV files
       csvFileNames.forEach((file) => {
         fs.unlinkSync(file);
       });
