@@ -5,7 +5,7 @@ module.exports = {
       watch: true,//tells PM2 to monitor the files in the project and automatically restart the app when ▶️CHANGES◀️ are detected.
       restart_delay: 8000,// this is in the milli seconds. It the time after which server will restart if it has crashed.
       max_restarts: 3, // tells the number of Attempt to restart the app before pm2 gives up
-      node_args: "--max-old-space-size=25600",//increases the heap space to be used to avoid heapspace limitation.
+      node_args: "--max-old-space-size=10240",//increases the heap space to be used to avoid heapspace limitation.
       env_development: {
         NODE_ENV: "development",
       },
