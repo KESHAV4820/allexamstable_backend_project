@@ -1001,9 +1001,11 @@ function calculateStats(counts, total, statePopulation=0) {
 };
 */
 
+// Code to Sort output in alphabetical order.
 function calculateStats(counts, total, modelCounts, cityToStateMap=null, populationData=null, type, modelOrNot=null) {
     // Convert the counts object to an array of [key, value] pairs and sort it
-    const sortedEntries = Object.entries(counts).sort((a, b) => a[0].localeCompare(b[0]));
+    const sortedEntries = Object.entries(counts).sort((a, b) => a[0].localeCompare(b[0]));//VIE: .sort((a,b)=>a[0].localeCompare(b[0])) does the heavy lifting of alphabetical order sorting.
+    // const sortedEntries = Object.entries(counts);//Note: for unsorted output
 
     // Create a new object from the sorted entries
     const stats = {};
