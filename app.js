@@ -68,6 +68,16 @@ const fs = require('fs');
 const path = require('path');
 const archiver = require('archiver');
 const os = require('os');
+const { Pool } = require('pg');
+//newly added 04/12/2024
+const pool = new Pool({
+  // the connection configuration
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+});
 
 app.use(express.json());//must come before👇this line
 app.use(express.urlencoded({extended: true}));// these two LOC is used againt the bodyparser code that we used to install. Now that's inbuilt in express.js and this the way you get it. 
@@ -77,6 +87,36 @@ app.use(cors({origin:[
     'https://sscradhe.netlify.app'//Temporary Code
     ]}));// if we don't give parameter, it becomes a general instruction which is good like a shotgun . But if you want security and yet cross sharing you need to be specific like sniper. hence you give exact origin value that has to be allowed. 
 app.options('*', cors());
+
+//newly added 4/12/2024
+const QueryManager = {
+  activeQueries:  new Map(),
+
+  //here we shall track queries
+  trackQuery(clientId, pgClient){
+    this.activeQueries.set(clientId, pgClient);
+  },
+
+  //remove a completed or cancelled query
+  removeQuery(clientId){
+    this.activeQueries.delete(clientId);
+  },
+
+  //VIE canceling a specific query
+  async cancelQuery(clientId) {
+    const pgClient=this.activeQueries.get(clientId);
+    if(pgClient){
+      try {
+        // promptly cancel the query using PostgreSQL's command pg_cancel_backend
+        await pgClient.query(`SELECT pg_cancel_backend(pg_backend_pid())`);
+      } catch (error) {
+        console.log('Query already completed or cancelled');
+      } finally{
+        this.removeQuery(clientId);
+      };
+    };
+  },
+};
 
 app.get('/', (request, response) => {
     response.status(200).json({
@@ -296,6 +336,8 @@ app.post('/api/v1/recordcount', async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch records' });
     }
   });
+
+/*forced stop Reason: working on another API endpoint with client facility
 app.post('/api/v1/summarytablestats', async (req, res) => {
     try {
         const filters = req.body;
@@ -310,6 +352,47 @@ app.post('/api/v1/summarytablestats', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch the summary table records' });
     };
 });
+*/
+//code in progress newly added 4/12/2024
+app.post('/api/v1/summarytablestats', async (req, res) => {
+
+  const clientId= req.headers['x-client-id'];// this data will come from the frontend🫡
+
+  //Set up abort handler
+  res.on('close', async () => {
+    if (!res.writableEnded) {
+      await QueryManager.cancelQuery(clientId);
+    }
+  });
+
+    try {
+        const filters = req.body;
+        const limit = req.query.limit || 1000;
+        const offset=req.query.offset || 0;
+
+        //Get a client from the pool for this specific query
+        const client = await pool.connect();
+        QueryManager.trackQuery(clientId,client);
+
+        console.log(filters);//Code Testing
+        try {
+          const stats = await calculateAllStats(filters, limit, offset, client);
+          res.status(200).json(stats);
+        }finally{
+          QueryManager.removeQuery(clientId);
+          client.release();
+        }
+        } catch (error) {
+        if (error.code === '57014') {//VIE'57014' is postgres query cancellation error code
+          res.status(499).json({error: 'Query cancelled'});
+        } else {
+          console.error('Error fetching the Stats from the summary Table:', error);
+          res.status(500).json({error: 'Failed to fetch the summary table records'});
+        }  
+        }
+});
+
+/*forced stop Reason: working on another API endpoint that has clientId facility in it. 
 app.post('/api/v1/venuerecords', async (req, res) => {
     try {
         const filters = req.body;
@@ -342,7 +425,62 @@ app.post('/api/v1/venuerecords', async (req, res) => {
         });
     }
 });
+*/
+//code in progress newly added 4/12/2024
+app.post('/api/v1/venuerecords', async (req, res) => {
+  const clientId = req.headers['x-client-id'];
 
+  // now abort handler
+  res.on('close', async () => {
+    if (!res.writableEnded) {
+      await QueryManager.cancelQuery(clientId);
+    }
+  });
+
+    try {
+        const filters = req.body;
+        const limit = req.query.limit || 1000;
+        const offset = req.query.offset || 0;
+
+        // getting a client from the pool for this specific query
+        const client = await pool.connect();// Issue Found Pool.connect not defined
+        QueryManager.trackQuery(clientId, client);
+        
+      try {
+        //to get the model data
+        const examName = filters.EXAMNAME;
+        const modelData = await getModelData(examName, limit, offset, client);
+        // console.log(modelData);// Code Testing
+        const modelStats = modelCitycodeDataprocessor(modelData);
+        console.log(modelStats);// Code Testing
+        
+        
+        
+        // Process the records to get counts of the student based on user conditions
+        const records = await getRecordsByFilters(filters, limit, offset, client);
+        const processedData = citycodeDataprocessor(records, modelStats);
+        
+        res.status(200).json({
+            records: processedData,
+            //statistics: processedData//SuperConcept in this parameter we send any other data that we may have calculated using the main records that we have fetched from the data base. like some kind of percentage of students being SC or ST. In this parameter we send those parameters like {totalSCPercent,averageAgeSc,}, where totalSCPercent or averageAgeSc is are variables that holds the calculated data from the records fetched.
+        });
+      }finally{
+        QueryManager.removeQuery(clientId);
+        client.release();
+      }
+    } catch (error) {
+        if (error.code === '57014'){
+          res.status(499).json({error: 'Query cancelled'});
+        } else {
+          console.error('Error fetching Venue Records:', error);
+          res.status(500).json({
+            error: 'Failed to fetch the venue records',
+            status:'500',
+            message: 'Failed to fetch.'
+          });
+        }
+    }
+});
 
 
 //Note: this is for anything else you give in the path that hasn't been declared. So this will fire. 
