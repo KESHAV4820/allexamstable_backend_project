@@ -187,7 +187,7 @@ const whereClause = {
 //code in progress👇🏼
 // If a client is provided, use it for direct query
 if (client) {
- const records = await client.findAll({
+ const records = await client.findAll({// Bug client.findAll() is a function for Sequalize, not native Postgres. This is causing trouble.
     ...whereClause,
     attributes: [
         'EXAMNAME', 'REGID', 'ROLL', 'NAME', 'FATHERNAME', 'MOTHERNAME', 
@@ -419,7 +419,7 @@ const whereClause = {
 
 // If a client is provided, use it for direct query
 if (client) {
-      return await client.count({
+      return await client.count({// Bug since client.count() isn't a native function of postgres but sequlize ORM, it is not returning the value but the latter code👇🏼is😕
         ...whereClause,
       });
 }

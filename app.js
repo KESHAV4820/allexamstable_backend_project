@@ -69,6 +69,7 @@ const path = require('path');
 const archiver = require('archiver');
 const os = require('os');
 const { Pool } = require('pg');
+const { timeStamp } = require('console');
 //newly added 04/12/2024
 const pool = new Pool({
   // the connection configuration
@@ -117,6 +118,63 @@ const QueryManager = {
     };
   },
 };
+// newly added 5/12/2024
+// here we are creating a mechanism to keep track of requests being made from frontend to backend
+const RequestTracker = {
+  activeRequests: new Map(),
+
+  // Now tracking the requests coming for each endpoint
+  trackRequest(endpoint, clientId){
+    const previousRequest = this.activeRequests.get(endpoint);
+
+    //If there was a previous request, mark it for cancellation using 'shouldCancel' flag.
+    if (previousRequest) {
+      previousRequest.shouldCancel = true;
+    };
+
+    // For tracking the new request,
+    this.activeRequests.set(endpoint, {
+      clientId,
+      shouldCancel: false,
+      timeStamp: Date.now()
+    });
+  },
+
+  //Place where actually the cancellation of the request is decided
+  shouldCancelRequest(endpoint, currentClientId){
+    const trackedRequest = this.activeRequests.get(endpoint);
+    return  trackedRequest && trackedRequest.clientId !== currentClientId && trackedRequest.shouldCancel;
+  },
+
+  //to Clear old requests to prevent memory Leaks. It's optional and should be suppressed becouse it uses active wait to clean the memory. we don't need it. It's intention was to avoid any memory leakages. But my project architecture is such that from request is being sent from frontend to backend, the request are ultralight weight. Not even a KB in size.
+/*  
+  cleanupOldRequests(){
+    const now= Date.now();
+    for(const [endpoint, request] of this.activeRequests.entries()){
+      //Removing requests older than 5 minutes. We can use any other condition as well
+      if (now - request.timeStamp > 5*60*1000) {
+        this.activeRequests.delete(endpoint);
+      } 
+    }
+  },
+*/
+};
+//newly added 5/12/2024
+//Middleware to track requests
+const requestTrackerMiddleware =(req, res, next) => {	
+  const endpoint = req.path;// Here we are puting the path name of the API endpoint which is making the call. 
+  const clientId = req.headers['x-client-id'];// here we are passing the client id that has been passed from the frontend in the request header
+
+  //Saying the program to track the new request
+  RequestTracker.trackRequest(endpoint, clientId);
+
+  // Optional: periodically clean up old requests
+  // RequestTracker.cleanupOldRequests();
+
+  next();
+	};
+//newly added 5/12/2024
+app.use(requestTrackerMiddleware);// Here we finally applied our middleware
 
 app.get('/', (request, response) => {
     response.status(200).json({
@@ -429,21 +487,20 @@ app.post('/api/v1/venuerecords', async (req, res) => {
 //code in progress newly added 4/12/2024
 app.post('/api/v1/venuerecords', async (req, res) => {
   const clientId = req.headers['x-client-id'];
-
-  // now abort handler
-  res.on('close', async () => {
-    if (!res.writableEnded) {
-      await QueryManager.cancelQuery(clientId);
-    }
-  });
+  const endpoint =req.path;
 
     try {
+        // Checking if this request need to cancel the previous one which was running before it. That is, you need to cancel if something is already running out there. 
+        if (RequestTracker.shouldCancelRequest(endpoint, clientId)) {
+          await QueryManager.cancelQuery(clientId);
+        };
+
         const filters = req.body;
         const limit = req.query.limit || 1000;
         const offset = req.query.offset || 0;
 
         // getting a client from the pool for this specific query
-        const client = await pool.connect();// Issue Found Pool.connect not defined
+        const client = await pool.connect();
         QueryManager.trackQuery(clientId, client);
         
       try {
