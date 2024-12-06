@@ -117,6 +117,8 @@ const records = await allexamstableModel.findAll({// here query is being made.
 ////code in progress newly added4/12/2024
 const getRecordsByFilters = async (filters, limit=300, offset=0, client=null) => {
   const { EXAMNAME, REGID, ROLL, NAME, FATHERNAME, MOTHERNAME, DOB, GENDER, CAT1, CAT2, CAT3, WRTN1_APP, WRTN1_QLY, WRTN2_APP, WRTN2_QLY, WRTN3_APP, WRTN3_QLY, INTVW_APP, SKILL_APP, SKILL_QLY, PET_APP, PET_QLY, DME_APP, DME_QLY, RME_APP, RME_QLY, SELECTED, MARKS, ALLOC_POST, ALLOC_STAT, ALLOC_AREA, ALLOC_CAT, RANK, WITHHELD } = filters;
+  // console.log(filters);//Code Testing
+  
   
 const whereClause = {
   where: {
@@ -185,9 +187,25 @@ const whereClause = {
 };
 
 //code in progress👇🏼
-// If a client is provided, use it for direct query
-if (client) {
- const records = await client.findAll({// Bug client.findAll() is a function for Sequalize, not native Postgres. This is causing trouble.
+// if no client is provided, using the sequlize model
+if (!client || !client.findAll) {
+  const records = await allexamstableModel.findAll({
+    ...whereClause,
+    attributes:[
+      'EXAMNAME', 'REGID', 'ROLL', 'NAME', 'FATHERNAME', 'MOTHERNAME', 
+      'DOB', 'GENDER', 'CAT1', 'CAT2', 'CAT3', 'WRTN1_APP', 'WRTN1_QLY', 
+      'WRTN2_APP', 'WRTN2_QLY', 'WRTN3_APP', 'WRTN3_QLY', 'INTVW_APP', 
+      'SKILL_APP', 'SKILL_QLY', 'PET_APP', 'PET_QLY', 'DME_APP', 'DME_QLY', 
+      'RME_APP', 'RME_QLY', 'SELECTED', 'MARKS', 'ALLOC_POST', 'ALLOC_STAT', 
+      'ALLOC_AREA', 'ALLOC_CAT', 'RANK', 'WITHHELD'
+      ],
+    limit, 
+    offset 
+  });
+}
+// If a client is provided, but client.findAll() isn't working, then we use allexamstableModel
+if (client && !client.findAll) {
+ const records = await allexamstableModel.findAll({// Bug client.findAll() is a function for Sequalize, not native Postgres. This is causing trouble.
     ...whereClause,
     attributes: [
         'EXAMNAME', 'REGID', 'ROLL', 'NAME', 'FATHERNAME', 'MOTHERNAME', 
@@ -203,21 +221,21 @@ if (client) {
   return records;
 }
 
-// Fallback to original Sequelize query if no client is provided
-const records = await allexamstableModel.findAll({
-...whereClause,
-attributes: [
-    'EXAMNAME', 'REGID', 'ROLL', 'NAME', 'FATHERNAME', 'MOTHERNAME', 
-    'DOB', 'GENDER', 'CAT1', 'CAT2', 'CAT3', 'WRTN1_APP', 'WRTN1_QLY', 
-    'WRTN2_APP', 'WRTN2_QLY', 'WRTN3_APP', 'WRTN3_QLY', 'INTVW_APP', 
-    'SKILL_APP', 'SKILL_QLY', 'PET_APP', 'PET_QLY', 'DME_APP', 'DME_QLY', 
-    'RME_APP', 'RME_QLY', 'SELECTED', 'MARKS', 'ALLOC_POST', 'ALLOC_STAT', 
-    'ALLOC_AREA', 'ALLOC_CAT', 'RANK', 'WITHHELD'
-        ],
-        limit,
-        offset,
-    });
-  return records;
+// if it is possible that client is a Sequelize model, then we use this client.
+// const records = await client.findAll({
+// ...whereClause,
+// attributes: [
+//     'EXAMNAME', 'REGID', 'ROLL', 'NAME', 'FATHERNAME', 'MOTHERNAME', 
+//     'DOB', 'GENDER', 'CAT1', 'CAT2', 'CAT3', 'WRTN1_APP', 'WRTN1_QLY', 
+//     'WRTN2_APP', 'WRTN2_QLY', 'WRTN3_APP', 'WRTN3_QLY', 'INTVW_APP', 
+//     'SKILL_APP', 'SKILL_QLY', 'PET_APP', 'PET_QLY', 'DME_APP', 'DME_QLY', 
+//     'RME_APP', 'RME_QLY', 'SELECTED', 'MARKS', 'ALLOC_POST', 'ALLOC_STAT', 
+//     'ALLOC_AREA', 'ALLOC_CAT', 'RANK', 'WITHHELD'
+//         ],
+//         limit,
+//         offset,
+//     });
+//   return records;
 };
 //
 

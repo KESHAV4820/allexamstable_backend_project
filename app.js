@@ -89,35 +89,7 @@ app.use(cors({origin:[
     ]}));// if we don't give parameter, it becomes a general instruction which is good like a shotgun . But if you want security and yet cross sharing you need to be specific like sniper. hence you give exact origin value that has to be allowed. 
 app.options('*', cors());
 
-//newly added 4/12/2024
-const QueryManager = {
-  activeQueries:  new Map(),
 
-  //here we shall track queries
-  trackQuery(clientId, pgClient){
-    this.activeQueries.set(clientId, pgClient);
-  },
-
-  //remove a completed or cancelled query
-  removeQuery(clientId){
-    this.activeQueries.delete(clientId);
-  },
-
-  //VIE canceling a specific query
-  async cancelQuery(clientId) {
-    const pgClient=this.activeQueries.get(clientId);
-    if(pgClient){
-      try {
-        // promptly cancel the query using PostgreSQL's command pg_cancel_backend
-        await pgClient.query(`SELECT pg_cancel_backend(pg_backend_pid())`);
-      } catch (error) {
-        console.log('Query already completed or cancelled');
-      } finally{
-        this.removeQuery(clientId);
-      };
-    };
-  },
-};
 // newly added 5/12/2024
 // here we are creating a mechanism to keep track of requests being made from frontend to backend
 const RequestTracker = {
@@ -173,6 +145,40 @@ const requestTrackerMiddleware =(req, res, next) => {
 
   next();
 	};
+//newly added 4/12/2024
+const QueryManager = {
+  activeQueries:  new Map(),
+
+  //here we shall track queries
+  trackQuery(clientId, pgClient, queryContext){
+    this.activeQueries.set(clientId, {
+      pgClient,
+      queryContext,
+      startTime: Date.now()
+    });
+  },
+
+  //VIE canceling a specific query
+  async cancelQuery(clientId) {
+    const queryEntry=this.activeQueries.get(clientId);
+    if(queryEntry && queryEntry.pgClient){
+      try {
+        // promptly cancel the query using PostgreSQL's command pg_cancel_backend
+        await queryEntry.pgClient.query(`SELECT pg_cancel_backend(pg_backend_pid())`);
+        console.log(`Query for client ${clientId} cancelled`);//Code Testing
+        
+      } catch (error) {
+        console.log('Query already completed or could not be cancelled', error);
+      } finally{
+        this.removeQuery(clientId);
+      };
+    };
+  },
+  //remove a completed or cancelled query
+  removeQuery(clientId){
+    this.activeQueries.delete(clientId);
+  },
+};
 //newly added 5/12/2024
 app.use(requestTrackerMiddleware);// Here we finally applied our middleware
 
@@ -500,13 +506,19 @@ app.post('/api/v1/venuerecords', async (req, res) => {
         const offset = req.query.offset || 0;
 
         // getting a client from the pool for this specific query
-        const client = await pool.connect();
-        QueryManager.trackQuery(clientId, client);
+        const pgClient = await pool.connect();
+        console.log(pgClient);//Code Testing
         
-      try {
+        
+        try {
+        QueryManager.trackQuery(clientId, pgClient,{
+          endpoint:'/api/v1/venuerecords',
+          filters: req.body
+        });
+        
         //to get the model data
         const examName = filters.EXAMNAME;
-        const modelData = await getModelData(examName, limit, offset, client);
+        const modelData = await getModelData(examName, limit, offset, pgClient);
         // console.log(modelData);// Code Testing
         const modelStats = modelCitycodeDataprocessor(modelData);
         console.log(modelStats);// Code Testing
@@ -514,7 +526,7 @@ app.post('/api/v1/venuerecords', async (req, res) => {
         
         
         // Process the records to get counts of the student based on user conditions
-        const records = await getRecordsByFilters(filters, limit, offset, client);
+        const records = await getRecordsByFilters(filters, limit, offset, pgClient);
         const processedData = citycodeDataprocessor(records, modelStats);
         
         res.status(200).json({
@@ -523,7 +535,7 @@ app.post('/api/v1/venuerecords', async (req, res) => {
         });
       }finally{
         QueryManager.removeQuery(clientId);
-        client.release();
+        pgClient.release();
       }
     } catch (error) {
         if (error.code === '57014'){
