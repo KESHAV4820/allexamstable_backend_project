@@ -68,7 +68,7 @@ const fs = require('fs');
 const path = require('path');
 const archiver = require('archiver');
 const os = require('os');
-const processCancellationManager = require('./processCancellationManager');
+const processCancellationManager = require('./controller/processCancellationManager');
 const { Pool } = require('pg');
 const { timeStamp, error } = require('console');
 //newly added 04/12/2024
@@ -556,7 +556,9 @@ app.post('/api/v1/venuerecords', async (req, res) => {
 
             const modelStats = modelCitycodeDataprocessor(modelData);
             console.log(modelStats);// Code Testing
-        
+              
+            cancellationCheck();
+
             // Process the records to get counts of the student based on user conditions
             const records = await getRecordsByFilters(filters, limit, offset, pgClient);
 
@@ -611,7 +613,7 @@ app.post('/api/v1/cancel-process', (req, res) => {
   processCancellationManager.cancelProcess(token, 'User-initiated cancellation');
   
   res.status(200).json({ 
-    message: 'Process cancellation requested',
+    message: 'Process cancellation requested in direct manner.',
     token 
   });
 });
@@ -628,6 +630,6 @@ response.status(404).json({
 
 const port=process.env.PORT || 3000;//Take A Good Look
 app.listen( port, ()=>{
- console.log(" ---SERVER: allexamstable_backend : LISTENING--- PORT NUMBER: ",port)});
+ console.log(` ---SERVER: allexamstable_backend : LISTENING--- PORT NUMBER: ${port}`)});
   
 //SuperNoteLearnByHeart: if some program is already using the port value in the "port" or 3000(as written above), you can either change the port number in .env file or use these👇🏼 commands in cmd to kill the process running at this port and then your server will work.  👉🏼 netstat -ano | findstr :3000 this will the process ID running at that port number. YOu need this process id to excute kill commmand to free the port. 👉🏼 taskkill /PID <PID> /F this will kill the process running on let's say port number 3000. Don't forget to write /F, it means that you are forceing to stop the process, else it will not terminate on it's free will. 👉🏼 tasklist /FI "PID eq <PID>" this command will help you know more about the process running with that porcess ID, so that you know more the process you are about to kill or general investigation. 
