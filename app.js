@@ -507,7 +507,7 @@ app.post('/api/v1/venuerecords', async (req, res) => {
 
         // getting a client from the pool for this specific query
         const pgClient = await pool.connect();
-        console.log(pgClient);//Code Testing
+        // console.log(pgClient);//Code Testing
         
         
         try {

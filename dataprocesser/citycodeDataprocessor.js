@@ -888,9 +888,9 @@ function citycodeDataprocessor(data) {
 */
 
 // function that sets the model parameter for the model dataset.
-async function getModelData(examName, limit, offset) {
+async function getModelData(examName, limit, offset, pgClient) {
     const modelFilters = { EXAMNAME: examName };
-    return await getRecordsByFilters(modelFilters, limit, offset);
+    return await getRecordsByFilters(modelFilters, limit, offset, pgClient);
 };
 
 // this function is meant to process the model data comming from getModelData() function
