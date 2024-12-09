@@ -68,8 +68,9 @@ const fs = require('fs');
 const path = require('path');
 const archiver = require('archiver');
 const os = require('os');
+const processCancellationManager = require('./processCancellationManager');
 const { Pool } = require('pg');
-const { timeStamp } = require('console');
+const { timeStamp, error } = require('console');
 //newly added 04/12/2024
 const pool = new Pool({
   // the connection configuration
@@ -131,7 +132,7 @@ const RequestTracker = {
   },
 */
 };
-//newly added 5/12/2024
+/*//newly added 5/12/2024 forced stop
 //Middleware to track requests
 const requestTrackerMiddleware =(req, res, next) => {	
   const endpoint = req.path;// Here we are puting the path name of the API endpoint which is making the call. 
@@ -145,6 +146,7 @@ const requestTrackerMiddleware =(req, res, next) => {
 
   next();
 	};
+*/
 //newly added 4/12/2024
 const QueryManager = {
   activeQueries:  new Map(),
@@ -179,8 +181,31 @@ const QueryManager = {
     this.activeQueries.delete(clientId);
   },
 };
-//newly added 5/12/2024
-app.use(requestTrackerMiddleware);// Here we finally applied our middleware
+//newly added 5/12/2024 forced stop
+// app.use(requestTrackerMiddleware);// Here we finally applied our middleware
+
+// Enhanced Middleware to integrate all tracking mechanisms
+
+const comprehensiveRequestMiddleware = (req, res, next) => {	
+  const endpoint = req.path;
+  const clientId = req.headers['x-client-id'];
+
+  // Generate process cancellation token
+  req.processCancellationManager = processCancellationManager.generateToken();
+
+  // Track request in RequestTracker
+  RequestTracker.trackRequest(endpoint, clientId);
+
+  // Start tracking process
+  processCancellationManager.startProcess(req.processCancellationToken, {
+    endpoint,
+    clientId,
+    method: req.method,
+  });
+  next();
+};
+// Apply comprehensive middleware
+app.use(comprehensiveRequestMiddleware);
 
 app.get('/', (request, response) => {
     response.status(200).json({
@@ -494,50 +519,73 @@ app.post('/api/v1/venuerecords', async (req, res) => {
 app.post('/api/v1/venuerecords', async (req, res) => {
   const clientId = req.headers['x-client-id'];
   const endpoint =req.path;
+  const processCancellationToken = req.processCancellationToken;
 
     try {
         // Checking if this request need to cancel the previous one which was running before it. That is, you need to cancel if something is already running out there. 
         if (RequestTracker.shouldCancelRequest(endpoint, clientId)) {
           await QueryManager.cancelQuery(clientId);
+          processCancellationManager.cancelProcess(processCancellationToken, 'Conflicting request');
+          return res.status(499).json({error: 'Request cancelled'});
         };
 
-        const filters = req.body;
-        const limit = req.query.limit || 1000;
-        const offset = req.query.offset || 0;
+        // Wraping the data processing related functions to form a cancellableProcess
+        const processvenueRecords = processCancellationManager.createCancellableProcess(
+          async (processToken, cancellationCheck) => {
+            const pgClient = await pool.connect();
 
-        // getting a client from the pool for this specific query
-        const pgClient = await pool.connect();
-        console.log(pgClient);//Code Testing
+            try{
+              //Track the query
+              QueryManager.trackQuery(clientId, pgClient, {
+                endpoint: '/api/v1/venuerecords',
+                filters: req.body,
+              });
+            // Periodic cancellation checks
+            cancellationCheck();
+
+            const filters = req.body;
+            const limit = req.query.limit || 1000;
+            const offset = req.query.offset || 0;
+
+            //to get the model data
+            const examName = filters.EXAMNAME;
+            const modelData = await getModelData(examName, limit, offset, pgClient);
+            //console.log(modelData);// Code Testing
+
+            cancellationCheck();
+
+            const modelStats = modelCitycodeDataprocessor(modelData);
+            console.log(modelStats);// Code Testing
         
-        
-        try {
-        QueryManager.trackQuery(clientId, pgClient,{
-          endpoint:'/api/v1/venuerecords',
-          filters: req.body
-        });
-        
-        //to get the model data
-        const examName = filters.EXAMNAME;
-        const modelData = await getModelData(examName, limit, offset, pgClient);
-        // console.log(modelData);// Code Testing
-        const modelStats = modelCitycodeDataprocessor(modelData);
-        console.log(modelStats);// Code Testing
-        
-        
-        
-        // Process the records to get counts of the student based on user conditions
-        const records = await getRecordsByFilters(filters, limit, offset, pgClient);
-        const processedData = citycodeDataprocessor(records, modelStats);
-        
-        res.status(200).json({
-            records: processedData,
-            //statistics: processedData//SuperConcept in this parameter we send any other data that we may have calculated using the main records that we have fetched from the data base. like some kind of percentage of students being SC or ST. In this parameter we send those parameters like {totalSCPercent,averageAgeSc,}, where totalSCPercent or averageAgeSc is are variables that holds the calculated data from the records fetched.
-        });
-      }finally{
-        QueryManager.removeQuery(clientId);
-        pgClient.release();
-      }
-    } catch (error) {
+            // Process the records to get counts of the student based on user conditions
+            const records = await getRecordsByFilters(filters, limit, offset, pgClient);
+
+            cancellationCheck();
+
+            return {
+              records: citycodeDataprocessor(records, modelStats)
+            };
+            } finally {
+              QueryManager.removeQuery(clientId);
+              pgClient.release();
+            };
+          }
+        );
+
+        //Execute the cancellable process
+        const result = await processvenueRecords(processCancellationToken);
+
+        //Handle process result
+        if(result.cancelled){
+          return res.status(499).json({
+            error: 'Process cancelled',
+            reason: result.reason,
+          });
+        };
+
+        res.status(200).json(result);
+
+      } catch (error) {
         if (error.code === '57014'){
           res.status(499).json({error: 'Query cancelled'});
         } else {
@@ -549,6 +597,23 @@ app.post('/api/v1/venuerecords', async (req, res) => {
           });
         }
     }
+});
+
+
+//Note: Endpoint to manually cancel a process. This endpoint is meant to be used such that a button is pressed on frontend, and it will abort the ongoing process in the backend using the passed token.
+app.post('/api/v1/cancel-process', (req, res) => {
+  const { token } = req.body;
+  
+  if (!token) {
+    return res.status(400).json({ error: 'Process token is required' });
+  }
+
+  processCancellationManager.cancelProcess(token, 'User-initiated cancellation');
+  
+  res.status(200).json({ 
+    message: 'Process cancellation requested',
+    token 
+  });
 });
 
 
