@@ -304,14 +304,14 @@ function initializeStatsObject() {
 };
   
   // Main function to calculate all stats
-  async function calculateAllStats(baseFilters, limit=316000, offset=0) {
+  async function calculateAllStats(baseFilters, limit=316000, offset=0, client=null) {
     console.log(baseFilters);//Code Testing
     
     // Get EXAMNAME if it exists or put default"NAME N/A"
     const examName = baseFilters.EXAMNAME || "NAME N/A";// Bug this examName isn't getting transfer. see if it is due to none passing of the base filter.
 
     // Fetch all relevant records in one query
-    const records = await getRecordsByFilters(baseFilters,limit,offset);
+    const records = await getRecordsByFilters(baseFilters,limit,offset,client=client);
     const stats = initializeStatsObject();
     stats.examname=examName;//Bug
   

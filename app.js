@@ -132,21 +132,7 @@ const RequestTracker = {
   },
 */
 };
-/*//newly added 5/12/2024 forced stop
-//Middleware to track requests
-const requestTrackerMiddleware =(req, res, next) => {	
-  const endpoint = req.path;// Here we are puting the path name of the API endpoint which is making the call. 
-  const clientId = req.headers['x-client-id'];// here we are passing the client id that has been passed from the frontend in the request header
 
-  //Saying the program to track the new request
-  RequestTracker.trackRequest(endpoint, clientId);
-
-  // Optional: periodically clean up old requests
-  // RequestTracker.cleanupOldRequests();
-
-  next();
-	};
-*/
 //newly added 4/12/2024
 const QueryManager = {
   activeQueries:  new Map(),
@@ -181,11 +167,9 @@ const QueryManager = {
     this.activeQueries.delete(clientId);
   },
 };
-//newly added 5/12/2024 forced stop
-// app.use(requestTrackerMiddleware);// Here we finally applied our middleware
 
 // Enhanced Middleware to integrate all tracking mechanisms
-
+//newly added 9/12/2024
 const comprehensiveRequestMiddleware = (req, res, next) => {	
   const endpoint = req.path;
   const clientId = req.headers['x-client-id'];
@@ -444,41 +428,59 @@ app.post('/api/v1/summarytablestats', async (req, res) => {
 */
 //code in progress newly added 4/12/2024
 app.post('/api/v1/summarytablestats', async (req, res) => {
+  const clientId = req.headers['x-client-id'];
+  const processCancellationToken = processCancellationManager.generateToken();
 
-  const clientId= req.headers['x-client-id'];// this data will come from the frontend🫡
+  // Wrap data processing in a cancellable process
+  const processSummaryStats = processCancellationManager.createCancellableProcess(
+    async (processToken, cancellationCheck) => {
+      const client = await pool.connect();
 
-  //Set up abort handler
-  res.on('close', async () => {
-    if (!res.writableEnded) {
-      await QueryManager.cancelQuery(clientId);
-    }
-  });
+      try {
+        // Track query in QueryManager
+        QueryManager.trackQuery(clientId, client);
 
-    try {
         const filters = req.body;
         const limit = req.query.limit || 1000;
-        const offset=req.query.offset || 0;
+        const offset = req.query.offset || 0;
 
-        //Get a client from the pool for this specific query
-        const client = await pool.connect();
-        QueryManager.trackQuery(clientId,client);
+        // Periodic cancellation check
+        cancellationCheck();
 
-        console.log(filters);//Code Testing
-        try {
-          const stats = await calculateAllStats(filters, limit, offset, client);
-          res.status(200).json(stats);
-        }finally{
-          QueryManager.removeQuery(clientId);
-          client.release();
-        }
-        } catch (error) {
-        if (error.code === '57014') {//VIE'57014' is postgres query cancellation error code
-          res.status(499).json({error: 'Query cancelled'});
-        } else {
-          console.error('Error fetching the Stats from the summary Table:', error);
-          res.status(500).json({error: 'Failed to fetch the summary table records'});
-        }  
-        }
+        const stats = await calculateAllStats(filters, limit, offset, client);
+        
+        // Another cancellation check before returning
+        cancellationCheck();
+
+        return stats;
+      } finally {
+        QueryManager.removeQuery(clientId);
+        client.release();
+      }
+    }
+  );
+
+  try {
+    // Execute the cancellable process
+    const result = await processSummaryStats(processCancellationToken);
+
+    // Handle process result
+    if (result.cancelled) {
+      return res.status(499).json({ 
+        error: 'Process cancelled', 
+        reason: result.reason 
+      });
+    }
+
+    res.status(200).json(result);
+  } catch (error) {
+    if (error.code === '57014') {
+      res.status(499).json({error: 'Query cancelled'});
+    } else {
+      console.error('Error fetching the Stats from the summary Table:', error);
+      res.status(500).json({error: 'Failed to fetch the summary table records'});
+    }
+  }
 });
 
 /*forced stop Reason: working on another API endpoint that has clientId facility in it. 
