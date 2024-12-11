@@ -344,6 +344,7 @@ app.get('/api/v1/downloadQuery1', async (request, response) => {
 
 //---------------------REAL USE STARTS FROM HERE---------------------
 // Super: from here on, i am using Sequelize and node.js itself to do the query and get the output from the database based on the filter that we have made in node.js for sequelize. Note: we are choosing to receive the parameters for the filter from "request body" not the "request query". Becouse request body is better suited to deal with complex filters and large amount of data to be handled. 
+/*forced stop
 app.post('/api/v1/records', async (req, res) => {
     try {
       const filters = req.body;// i am not using request query like "req.query.EXAMNAME". It's useful for straigh forward, less complex shit.
@@ -360,6 +361,62 @@ app.post('/api/v1/records', async (req, res) => {
         });
     }
   });
+*/
+//code in progress newly added 11/12/2024
+app.post('/api/v1/records', async (req, res) => {
+  const clientId = req.headers['x-client-id'];
+  const processCancellationToken = processCancellationManager.generateToken();
+
+  const processRecords = processCancellationManager.createCancellableProcess(
+    async (processToken, cancellationCheck) => {
+      const client = await pool.connect();
+      try {
+        // Track query in QueryManager
+        QueryManager.trackQuery(clientId, client);
+
+        const filters = req.body;
+        const limit = req.query.limit || 1000;
+        const offset = req.query.offset || 0;
+
+        // Periodic cancellation check
+        cancellationCheck();
+
+        const records = await getRecordsByFilters(filters, limit, offset,client);
+        
+        // Another cancellation check before returning
+        cancellationCheck();
+
+        return records;
+      } finally {
+        QueryManager.removeQuery(clientId);
+        client.release();
+      }
+
+    }
+  );
+
+  try {
+    const result = await processRecords(processCancellationToken);
+
+    if (result.cancelled) {
+      return res.status(499).json({ 
+        error: 'Process cancelled', 
+        reason: result.reason 
+      });
+    }
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error fetching records:', error);
+    res.status(500).json({ 
+      error: 'Failed to fetch records',
+      status: '500',
+      message: 'Failed to fetch.'
+    });
+  }
+});
+
+/*forced stop
 app.post('/api/v1/downloadrecords', async (req, res) => {
     try {
       const filters = req.body;
@@ -384,19 +441,75 @@ app.post('/api/v1/downloadrecords', async (req, res) => {
         message: 'Failed to Download.'
       });
     };
-     /* legacy code👇code in progress👆
-      const recordsDownloaded = await downloadRecord(filters,limit,offset);
-      res.status(200).json(recordsDownloaded);
-    } catch (error) {
-      console.error('Error Downloading records:', error);
-      res.status(500).json({ 
-        error: 'Failed to download the records',
-        status:'500',
-        message: 'Failed to Download.'
-        });
-    }
-    */
+     // legacy code👇code in progress👆
+    //   const recordsDownloaded = await downloadRecord(filters,limit,offset);
+    //   res.status(200).json(recordsDownloaded);
+    // } catch (error) {
+    //   console.error('Error Downloading records:', error);
+    //   res.status(500).json({ 
+    //     error: 'Failed to download the records',
+    //     status:'500',
+    //     message: 'Failed to Download.'
+    //     });
+    // }
+    //
   });
+*/
+//code in progress newly added 11/12/2024
+app.post('/api/v1/downloadrecords', async (req, res) => {
+  const processCancellationToken = processCancellationManager.generateToken();
+ 
+  const processDownloadRecords = processCancellationManager.createCancellableProcess(
+    async (processToken, cancellationCheck) => {
+      const client = pool.connect();
+
+      const filters = req.body;
+      const limit = req.query.limit || 20000;
+      const offset = req.query.offset || 0; 
+ 
+      // Periodic cancellation check
+      cancellationCheck();
+ 
+      // const zipFilePath = await downloadRecord(filters, limit, offset);//NoteVIERemember Itcode abandoned becouse downloadRecord() method itself has limit and offset into the function itself. So to change the limit in future, you will go directly to the querymethod itself. 
+      const zipFilePath = await downloadRecord(filters, client);
+      
+      // Another cancellation check before file processing
+      cancellationCheck();
+ 
+      return zipFilePath;
+    }
+  );
+ 
+  try {
+    const zipFilePath = await processDownloadRecords(processCancellationToken);
+ 
+    // Check for cancellation
+    if (zipFilePath.cancelled) {
+      return res.status(499).json({ 
+        error: 'Process cancelled', 
+        reason: zipFilePath.reason 
+      });
+    }
+ 
+    res.download(zipFilePath, 'downloaded_data.zip', (err) => {
+      if (err) {
+        console.error('Error sending file:', err);
+        res.status(500).send('Error sending file');
+      }
+      // Delete the temporary zip file after sending
+      fs.unlinkSync(zipFilePath);
+    });
+  } catch (error) {
+    console.error('Error Downloading records:', error);
+    res.status(500).json({ 
+      error: 'Failed to download the records',
+      status: '500',
+      message: 'Failed to Download.'
+    });
+  }
+ });
+
+ /*forced stop
 app.post('/api/v1/recordcount', async (req, res) => {
     try {
       const filters = req.body;
@@ -409,7 +522,7 @@ app.post('/api/v1/recordcount', async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch records' });
     }
   });
-
+*/
 /*forced stop Reason: working on another API endpoint with client facility
 app.post('/api/v1/summarytablestats', async (req, res) => {
     try {
