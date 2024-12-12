@@ -456,7 +456,7 @@ const { Parser } = require('json2csv');
 const archiver=require('archiver');
 const os=require('os');
 
-/* forced stop on 4/12/2024 Reason client parameter compatible code to replace
+// forced stop on 4/12/2024 Reason client parameter compatible code to replace
 const downloadRecord = async (filters) => {
   console.log(filters);//Code Testing
   
@@ -605,42 +605,9 @@ const whereClause = {
 
     archive.finalize();
   });
-//legacy code👇code in progress👆
-  // const zipFilePath = path.join('D:\\', 'data.zip');
-  // const archive = archiver('zip', { zlib: { level: 9 } });//i don't know what level:9 is. it's probably the level of zipping or compression to be done.
-  // const outputArea = fs.createWriteStream(zipFilePath);
-  
-
-
-  // outputArea.on('close', () => {
-
-  //     console.log(`Total file size of zipped folder is: ${archive.pointer()} bytes`);
-  //   console.log('ZIP archive has been made and the outputArea file descriptor has been shutdown');
-  //   console.log('ZIP archive has been downloaded successfully at the location D:\\ drive.');
-  //   //and now removing the old temporary .csv file
-  //     csvFileNames.forEach((file) => {
-  //       fs.unlinkSync(file);
-  //     });
-  //     console.log('removed all the temporary file generated in the process.');
-      
-  // });
-
-  // archive.on('error', (err) => {
-  //   console.error('Error creating ZIP archive:', err);
-  // });
-
-  // archive.pipe(outputArea);
-
-  // csvFileNames.forEach((file) => {
-  //   archive.file(file, { name: path.basename(file) });
-  // });
-
-  // archive.finalize();
-  // return records;
-  //
 };
-*/
-//code in progress newly added 4/12/2024
+//
+/*code in progress newly added 4/12/2024 Note:this code isn't being implemented becouse didn't want to over do the download logic by implementing instant query abort system. Becouse i presume that once, you have come to the stage of downloading a data, you are sure about your intentions. Second thing: that this download logic works such that it downloaded zipped folder of chucks of file with 5 lakhs of data each, which are first downloaded and put into the project folder and then, from there, it is zipped and shipped to frontend for downloading purpose. So to implement IQAS, i will have to pick a fateful day and work on it.
 const downloadRecord = async (filters, client=null) => {
   console.log(filters);//Code Testing
   
@@ -792,7 +759,7 @@ const whereClause = {
     archive.finalize();
   });
 };
-
+*/
 
 //--------EXPORTING----------------------------------------------------------------
 

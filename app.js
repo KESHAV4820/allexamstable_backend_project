@@ -416,7 +416,7 @@ app.post('/api/v1/records', async (req, res) => {
   }
 });
 
-/*forced stop
+
 app.post('/api/v1/downloadrecords', async (req, res) => {
     try {
       const filters = req.body;
@@ -454,8 +454,8 @@ app.post('/api/v1/downloadrecords', async (req, res) => {
     // }
     //
   });
-*/
-//code in progress newly added 11/12/2024
+//code in progress newly added 11/12/2024 Not used becouse downloading doesn't need it. once you make your mind to download after filtering the data this far, it means you are sure and downlaoding has been implemented in complecated manner for the ease of the enduser. 
+/*
 app.post('/api/v1/downloadrecords', async (req, res) => {
   const processCancellationToken = processCancellationManager.generateToken();
  
@@ -508,8 +508,9 @@ app.post('/api/v1/downloadrecords', async (req, res) => {
     });
   }
  });
-
- /*forced stop
+*/
+ 
+/*forced stop
 app.post('/api/v1/recordcount', async (req, res) => {
     try {
       const filters = req.body;
@@ -523,6 +524,50 @@ app.post('/api/v1/recordcount', async (req, res) => {
     }
   });
 */
+//code in progress newly added 12/12/2024
+app.post('/api/v1/recordcount', async (req, res) => {
+  const clientId = req.headers['x-client-id'];
+  const processCancellationToken = processCancellationManager.generateToken();
+
+  const processRecordCount = processCancellationManager.createCancellableProcess(
+    async (processToken, cancellationCheck) => {	
+      const client = await pool.connect();
+      try {
+        const filters = req.body;
+        // const limit = req.query.limit || 1000;
+        // const offset = req.query.offset || 0;
+        cancellationCheck();
+        const totalRecordCount = await getRecordsCountByFilters(filters);
+        cancellationCheck();
+        return totalRecordCount;
+      } finally{
+        QueryManager.removeQuery(clientId);
+        client.release();
+      }
+    }
+  );
+  try {
+    // Executing the cancellable process
+    const result = await processRecordCount(processCancellationToken);
+
+    // Handle process result
+    if (result.cancelled) {
+      return  res.status(499).json({
+        error: 'Process cancelled',
+        reason: result.reason
+      });
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    if (error.code === '57014') {
+      res.status(499).json({error: 'Query cancelled'});
+    } else {
+      console.error('Error fetching the Record count:', error);
+      res.status(500).json({error: 'Failed to fetch the Record Count'});
+    }
+  }
+});
+
 /*forced stop Reason: working on another API endpoint with client facility
 app.post('/api/v1/summarytablestats', async (req, res) => {
     try {
