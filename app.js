@@ -65,6 +65,7 @@ const { getRecordsByFilters, getRecordsCountByFilters, downloadRecord } = requir
 const {citycodeDataprocessor, getModelData, modelCitycodeDataprocessor} = require('./dataprocesser/citycodeDataprocessor');
 const {calculateAllStats} = require('./dataprocesser/statsCalculator');
 const fs = require('fs');
+const {Transform} = require('stream');
 const path = require('path');
 const archiver = require('archiver');
 const os = require('os');
@@ -362,7 +363,7 @@ app.post('/api/v1/records', async (req, res) => {
     }
   });
 */
-//code in progress newly added 11/12/2024
+/*newly added 11/12/2024
 app.post('/api/v1/records', async (req, res) => {
   const clientId = req.headers['x-client-id'];
   const processCancellationToken = processCancellationManager.generateToken();
@@ -415,7 +416,64 @@ app.post('/api/v1/records', async (req, res) => {
     });
   }
 });
+*/
+//newly added code in progress 16/12/2024 above records API endpoint works fine. By now i have already implement process cancellation in database and backend. for the frontend section it remain.But before, i need to sort out view button data straming. above API is used for the purpose.Now this API👇🏼 is meant to be used to implement data-streaming endpoint. 
+app.post('/api/v1/records-stream', async (req, res) => {
+  const filters = req.body;
+  const limit = parseInt(req.query.limit) || 1000;
+  const offset = parseInt(req.query.offset) || 0;
 
+  // Set headers for server-sent events (SSE)
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-open');
+
+  const transformStream = new Transform({
+    objectMode: true,
+    transform(chunk, encoding, callback) {
+      // Transform each record into a stringified JSON event
+      const event = `data: ${JSON.stringify(chunk)}\n\n`;
+      callback(null, event);
+    }
+  });
+
+  try {
+    // Stream records in batches
+    const batchSize = 500; // Adjust based on performance testing
+    let currentOffset = offset;
+    let totalRecordsProcessed = 0;
+
+    while (true) {
+      const records = await getRecordsByFilters(
+        filters, 
+        batchSize, 
+        currentOffset
+      );
+
+      if (records.length === 0) break;
+
+      records.forEach(record => {
+        transformStream.push(record);
+        totalRecordsProcessed++;
+      });
+
+      // Send a final message when all records are processed
+      if (totalRecordsProcessed >= limit) {
+        transformStream.push(null);
+        break;
+      }
+
+      currentOffset += batchSize;
+    }
+
+    // Pipe transformed stream to response
+    transformStream.pipe(res);
+
+  } catch (error) {
+    console.error('Streaming error:', error);
+    res.status(500).end();
+  }
+});
 
 app.post('/api/v1/downloadrecords', async (req, res) => {
     try {
