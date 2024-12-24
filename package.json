@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-   "start:dev": "nodemon --config nodemon.json",
-  "start:prod": "set NODE_ENV=production && nodemon --config nodemon.json"
+    "start:dev": "nodemon --config nodemon.json",
+    "start:prod": "set NODE_ENV=production && nodemon --config nodemon.json"
   },
   "keywords": [],
   "author": "Keshav Rising",
@@ -20,6 +20,7 @@
     "path": "^0.12.7",
     "pg": "^8.11.5",
     "pg-hstore": "^2.3.4",
+    "pg-query-stream": "^4.7.1",
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
