@@ -66,6 +66,7 @@ const {getRecordsByFiltersDataStream} = require('./sqlscripts/queryToStreamDataF
 const {citycodeDataprocessor, getModelData, modelCitycodeDataprocessor} = require('./dataprocesser/citycodeDataprocessor');
 const {calculateAllStats} = require('./dataprocesser/statsCalculator');
 const fs = require('fs');
+const {Transform} = require('stream');
 const path = require('path');
 const archiver = require('archiver');
 const os = require('os');
@@ -422,7 +423,6 @@ app.post('/api/v1/records', async (req, res) => {
   }
 });
 */
-// code in progress newly added 24/12/2024 for streaming the view.
 
 
 app.post('/api/v1/downloadrecords', async (req, res) => {
