@@ -417,13 +417,14 @@ app.post('/api/v1/records', async (req, res) => {
   }
 });
 */
+
 //newly added code in progress 16/12/2024 above records API endpoint works fine. By now i have already implement process cancellation in database and backend. for the frontend section it remain.But before, i need to sort out view button data straming. above API is used for the purpose.Now this API👇🏼 is meant to be used to implement data-streaming endpoint. 
 app.post('/api/v1/records-stream', async (req, res) => {
   const filters = req.body;
   const limit = parseInt(req.query.limit) || 1000;
   const offset = parseInt(req.query.offset) || 0;
 
-  // Set headers for server-sent events (SSE)
+  // i am trying to set headers for server-sent events (SSE) 4th attempt
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-open');
@@ -431,7 +432,7 @@ app.post('/api/v1/records-stream', async (req, res) => {
   const transformStream = new Transform({
     objectMode: true,
     transform(chunk, encoding, callback) {
-      // Transform each record into a stringified JSON event
+      // hoping to transform each record😕 into a stringified JSON event. It's impact is not know to me. It could put extra overhead.
       const event = `data: ${JSON.stringify(chunk)}\n\n`;
       callback(null, event);
     }
@@ -439,14 +440,14 @@ app.post('/api/v1/records-stream', async (req, res) => {
 
   try {
     // Stream records in batches
-    const batchSize = 500; // Adjust based on performance testing
+    const batchSize = 500; // Note: this value is number of records that will be placed in each SSE packet. It has to be adjuested based on performance testing
     let currentOffset = offset;
     let totalRecordsProcessed = 0;
 
     while (true) {
       const records = await getRecordsByFilters(
         filters, 
-        batchSize, 
+        batchSize, //VIE Issue Found this variable can be used only after updating getRecordsByFilters
         currentOffset
       );
 
