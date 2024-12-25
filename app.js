@@ -73,6 +73,7 @@ const os = require('os');
 const processCancellationManager = require('./controller/processCancellationManager');
 const { Pool } = require('pg');
 const {pool, RequestTracker, QueryManager, comprehensiveRequestMiddleware} = require('./backendMiddlewares/processId_tracking_closing');
+const {streamRecordsMiddleware} = require('./backendMiddlewares/dataStreamingforViewmiddleware');
 const { timeStamp, error } = require('console');
 //newly added 04/12/2024
 // const pool = new Pool({
@@ -423,6 +424,8 @@ app.post('/api/v1/records', async (req, res) => {
   }
 });
 */
+//code in progress newly added 25/12/2024
+app.post('/api/v1/records-stream', streamRecordsMiddleware);
 
 app.post('/api/v1/downloadrecords', async (req, res) => {
     try {

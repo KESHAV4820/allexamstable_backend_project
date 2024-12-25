@@ -1,5 +1,6 @@
 const { Transform } = require('stream');
 const { getRecordsByFiltersDataStream } = require('../sqlscripts/queryToStreamDataFromDB');
+const processCancellationManager = require('./../controller/processCancellationManager');
 const {pool, RequestTracker, QueryManager, comprehensiveRequestMiddleware} = require('../backendMiddlewares/processId_tracking_closing');
 
 const streamRecordsMiddleware = async (req, res) => {
@@ -66,4 +67,4 @@ const streamRecordsMiddleware = async (req, res) => {
   }
 };
 
-module.exports = streamRecordsMiddleware;
+module.exports = {streamRecordsMiddleware};
