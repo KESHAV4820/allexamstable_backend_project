@@ -62,6 +62,7 @@ const authRouter = require('./route/authRoute');
 const allexamstableModel = require('./db/models/allexamstablemodel');
 const {callProcedure, callProcedtesting11, callStoredFunction, callRecordViewFunction, downloadQueryFunction} = require('./sqlscripts/dbpool');
 const { getRecordsByFilters, getRecordsCountByFilters, downloadRecord } = require('./sqlscripts/queryBuilder');
+const {getRecordsByFiltersDataStream} = require('./sqlscripts/queryToStreamDataFromDB');
 const {citycodeDataprocessor, getModelData, modelCitycodeDataprocessor} = require('./dataprocesser/citycodeDataprocessor');
 const {calculateAllStats} = require('./dataprocesser/statsCalculator');
 const fs = require('fs');
@@ -71,16 +72,17 @@ const archiver = require('archiver');
 const os = require('os');
 const processCancellationManager = require('./controller/processCancellationManager');
 const { Pool } = require('pg');
+const {pool, RequestTracker, QueryManager, comprehensiveRequestMiddleware} = require('./backendMiddlewares/processId_tracking_closing');
 const { timeStamp, error } = require('console');
 //newly added 04/12/2024
-const pool = new Pool({
-  // the connection configuration
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-});
+// const pool = new Pool({
+//   // the connection configuration
+//   host: process.env.DB_HOST,
+//   port: process.env.DB_PORT,
+//   database: process.env.DB_NAME,
+//   user: process.env.DB_USERNAME,
+//   password: process.env.DB_PASSWORD,
+// });
 
 app.use(express.json());//must come before👇this line
 app.use(express.urlencoded({extended: true}));// these two LOC is used againt the bodyparser code that we used to install. Now that's inbuilt in express.js and this the way you get it. 
@@ -94,6 +96,7 @@ app.options('*', cors());
 
 // newly added 5/12/2024
 // here we are creating a mechanism to keep track of requests being made from frontend to backend
+/*
 const RequestTracker = {
   activeRequests: new Map(),
 
@@ -121,20 +124,21 @@ const RequestTracker = {
   },
 
   //to Clear old requests to prevent memory Leaks. It's optional and should be suppressed becouse it uses active wait to clean the memory. we don't need it. It's intention was to avoid any memory leakages. But my project architecture is such that from request is being sent from frontend to backend, the request are ultralight weight. Not even a KB in size.
-/*  
-  cleanupOldRequests(){
-    const now= Date.now();
-    for(const [endpoint, request] of this.activeRequests.entries()){
-      //Removing requests older than 5 minutes. We can use any other condition as well
-      if (now - request.timeStamp > 5*60*1000) {
-        this.activeRequests.delete(endpoint);
-      } 
-    }
-  },
-*/
+//  
+  // cleanupOldRequests(){
+  //   const now= Date.now();
+  //   for(const [endpoint, request] of this.activeRequests.entries()){
+  //     //Removing requests older than 5 minutes. We can use any other condition as well
+  //     if (now - request.timeStamp > 5*60*1000) {
+  //       this.activeRequests.delete(endpoint);
+  //     } 
+  //   }
+  // },
+//
 };
-
+*/
 //newly added 4/12/2024
+/*
 const QueryManager = {
   activeQueries:  new Map(),
 
@@ -168,9 +172,10 @@ const QueryManager = {
     this.activeQueries.delete(clientId);
   },
 };
-
+*/
 // Enhanced Middleware to integrate all tracking mechanisms
 //newly added 9/12/2024
+/*
 const comprehensiveRequestMiddleware = (req, res, next) => {	
   const endpoint = req.path;
   const clientId = req.headers['x-client-id'];
@@ -189,6 +194,7 @@ const comprehensiveRequestMiddleware = (req, res, next) => {
   });
   next();
 };
+*/
 // Apply comprehensive middleware
 app.use(comprehensiveRequestMiddleware);
 
@@ -363,7 +369,7 @@ app.post('/api/v1/records', async (req, res) => {
     }
   });
 */
-/*newly added 11/12/2024
+/*newly added 11/12/2024 client compatible
 app.post('/api/v1/records', async (req, res) => {
   const clientId = req.headers['x-client-id'];
   const processCancellationToken = processCancellationManager.generateToken();
@@ -417,64 +423,6 @@ app.post('/api/v1/records', async (req, res) => {
   }
 });
 */
-
-//newly added code in progress 16/12/2024 above records API endpoint works fine. By now i have already implement process cancellation in database and backend. for the frontend section it remain.But before, i need to sort out view button data straming. above API is used for the purpose.Now this API👇🏼 is meant to be used to implement data-streaming endpoint. 
-app.post('/api/v1/records-stream', async (req, res) => {
-  const filters = req.body;
-  const limit = parseInt(req.query.limit) || 1000;
-  const offset = parseInt(req.query.offset) || 0;
-
-  // i am trying to set headers for server-sent events (SSE) 4th attempt
-  res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection', 'keep-open');
-
-  const transformStream = new Transform({
-    objectMode: true,
-    transform(chunk, encoding, callback) {
-      // hoping to transform each record😕 into a stringified JSON event. It's impact is not know to me. It could put extra overhead.
-      const event = `data: ${JSON.stringify(chunk)}\n\n`;
-      callback(null, event);
-    }
-  });
-
-  try {
-    // Stream records in batches
-    const batchSize = 500; // Note: this value is number of records that will be placed in each SSE packet. It has to be adjuested based on performance testing
-    let currentOffset = offset;
-    let totalRecordsProcessed = 0;
-
-    while (true) {
-      const records = await getRecordsByFilters(
-        filters, 
-        batchSize, //VIE Issue Found this variable can be used only after updating getRecordsByFilters
-        currentOffset
-      );
-
-      if (records.length === 0) break;
-
-      records.forEach(record => {
-        transformStream.push(record);
-        totalRecordsProcessed++;
-      });
-
-      // Send a final message when all records are processed
-      if (totalRecordsProcessed >= limit) {
-        transformStream.push(null);
-        break;
-      }
-
-      currentOffset += batchSize;
-    }
-
-    // Pipe transformed stream to response
-    transformStream.pipe(res);
-
-  } catch (error) {
-    console.error('Streaming error:', error);
-    res.status(500).end();
-  }
-});
 
 app.post('/api/v1/downloadrecords', async (req, res) => {
     try {
