@@ -18,7 +18,9 @@ const streamRecordsMiddleware = async (req, res) => {
         res.setHeader('Cache-Control', 'no-cache');
         res.setHeader('Connection', 'keep-alive');
 
-        const dataStream = await getRecordsByFiltersDataStream(req.body.filters, client);
+        // console.log(`streamRecordsMiddleware line:21  ${req.body}, ${client}`);// Code Testing
+        
+        const dataStream = await getRecordsByFiltersDataStream(req.body, client);
         
         const transform = new Transform({
           objectMode: true,

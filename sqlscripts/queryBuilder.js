@@ -162,7 +162,7 @@ const whereClause = {
       filters.ALLOC_AREA !== undefined ? (filters.ALLOC_AREA === "" ? { ALLOC_AREA: { [Op.eq]: null } } : { ALLOC_AREA: filters.ALLOC_AREA }) : {},
 
       filters.ALLOC_CAT !== undefined ? ((filters.ALLOC_CAT === "") ? ({ALLOC_CAT: { [Op.eq]: null } }):
-  (filters.ALLOC_CAT === "ALL_TOGETHER")?{ ALLOC_CAT:{ [Op.ne]: null } }:
+      (filters.ALLOC_CAT === "ALL_TOGETHER")?{ ALLOC_CAT:{ [Op.ne]: null } }:
       (filters.ALLOC_CAT === "0")?({ ALLOC_CAT: { [Op.in]: ['0','3', '4', '5', '7', '8'] }}):
       (filters.ALLOC_CAT ==="1")?({ ALLOC_CAT: { [Op.in]: ['1','3', '4', '5', '7', '8'] }}):
       (filters.ALLOC_CAT === "2")?({ ALLOC_CAT: { [Op.in]: ['2','3', '4', '5', '7', '8'] }}):
