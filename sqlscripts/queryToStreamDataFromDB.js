@@ -1,3 +1,4 @@
+const { text } = require('express');
 const { Client } = require('pg');
 const QueryStream = require('pg-query-stream');
 
@@ -338,6 +339,7 @@ module.exports = { buildWhereClause, getRecordsByFiltersDataStream };
  * @param {Object} filters - Object containing filter conditions
  * @returns {Object} Object containing query text and parameter values
  */
+/*Buggy code. Has problem with the use of "" value which is being used as default value, but leads to the case where the undefined values become "is null".
 const buildWhereClause = (filters = {}) => {
   // Destructure all possible fields with default empty string values
   const {
@@ -387,12 +389,12 @@ const buildWhereClause = (filters = {}) => {
   
   
   
-  /**
-   * Helper function to add conditions to the WHERE clause
-   */
+  
+   // Helper function to add conditions to the WHERE clause
+   
   const addCondition = (field, value, customHandler) => {    
     if (customHandler) {
-      const result = customHandler(field, value, paramCount);
+      const result = customHandler(`"${field}"`, value, paramCount);
       if (result) {
         conditions.push(result.condition);
         if (result.params) {
@@ -402,9 +404,9 @@ const buildWhereClause = (filters = {}) => {
       }
     } else {
       if (value === "") {
-        conditions.push(`${field} IS NULL`);
+        conditions.push(`"${field}" IS NULL`);
       } else {
-        conditions.push(`${field} = $${paramCount}`);
+        conditions.push(`"${field}" = $${paramCount}`);
         parameters.push(value);
         paramCount++;
       }
@@ -526,7 +528,138 @@ const buildWhereClause = (filters = {}) => {
       };
     } else if (value === "9") {
       return {
-        condition: `(${field} = $${pCount} OR (${field} IN ($${pCount + 1}, $${pCount + 2}, $${pCount + 3}, $${pCount + 4}, $${pCount + 5}) AND CAT1 = $${pCount + 6}))`,
+        condition: `(${field} = $${pCount} OR (${field} IN ($${pCount + 1}, $${pCount + 2}, $${pCount + 3}, $${pCount + 4}, $${pCount + 5}) AND "CAT1" = $${pCount + 6}))`,
+        params: ['9', '3', '4', '5', '7', '8', '9']
+      };
+    } else {
+      return {
+        condition: `${field} = $${pCount}`,
+        params: [value]
+      };
+    }
+  });
+
+  return {
+    text: conditions.length > 0 ? conditions.join(' AND ') : '',
+    values: parameters
+  };
+};
+*/
+
+const buildWhereClause = (filters = {}) => {
+  const conditions = [];
+  const parameters = [];
+  let paramCount = 1;
+
+  console.log('Received filters:', filters); // Debug log
+
+  /**
+   * Helper function to add conditions to the WHERE clause only if the field exists in filters
+   */
+  const addCondition = (field, customHandler) => {    
+    // Only add condition if the field exists in filters
+    if (field in filters) {
+      const value = filters[field];
+      
+      if (customHandler) {
+        const result = customHandler(`"${field}"`, value, paramCount);
+        if (result) {
+          conditions.push(result.condition);
+          if (result.params) {
+            parameters.push(...result.params);
+            paramCount += result.params.length;
+          }
+        }
+      } else {
+        if (value === "") {
+          conditions.push(`"${field}" IS NULL`);
+        } else {
+          conditions.push(`"${field}" = $${paramCount}`);
+          parameters.push(value);
+          paramCount++;
+        }
+      }
+    }
+  };
+
+  // EXAMNAME handling
+  addCondition('EXAMNAME', (field, value, pCount) => {
+    if (value === "") {
+      return { condition: `${field} IS NULL` };
+    } else if (value === "ALL EXAMs") {
+      return { condition: `${field} IS NOT NULL` };
+    } else {
+      return {
+        condition: `${field} = $${pCount}`,
+        params: [value]
+      };
+    }
+  });
+
+  // Add conditions only if they exist in filters
+  const fields = [
+    'REGID', 'ROLL', 'NAME', 'FATHERNAME', 'MOTHERNAME', 'DOB'
+  ];
+  fields.forEach(field => addCondition(field));
+
+  // GENDER handling
+  addCondition('GENDER', (field, value, pCount) => {
+    if (value === "") {
+      return { condition: `${field} IS NULL` };
+    } else if (value === "OVERALL") {
+      return { condition: `${field} IS NOT NULL` };
+    } else if (value === "OTHERS") {
+      return {
+        condition: `${field} = $${pCount}`,
+        params: ['T']
+      };
+    } else {
+      return {
+        condition: `${field} = $${pCount}`,
+        params: [value]
+      };
+    }
+  });
+
+  // CAT1 handling
+  addCondition('CAT1', (field, value, pCount) => {
+    if (value === "") {
+      return { condition: `${field} IS NULL` };
+    } else if (value === "TOGETHER") {
+      return { condition: `${field} IS NOT NULL` };
+    } else {
+      return {
+        condition: `${field} = $${pCount}`,
+        params: [value]
+      };
+    }
+  });
+
+  // Rest of the fields...
+  // (Following the same pattern - only add if they exist in filters)
+  const otherFields = [
+    'CAT2', 'CAT3', 'WRTN1_APP', 'WRTN1_QLY', 'WRTN2_APP', 'WRTN2_QLY',
+    'WRTN3_APP', 'WRTN3_QLY', 'INTVW_APP', 'SKILL_APP', 'SKILL_QLY',
+    'PET_APP', 'PET_QLY', 'DME_APP', 'DME_QLY', 'RME_APP', 'RME_QLY',
+    'SELECTED', 'MARKS', 'ALLOC_POST', 'ALLOC_STAT', 'ALLOC_AREA', 'RANK',
+    'WITHHELD'
+  ];
+  otherFields.forEach(field => addCondition(field));
+
+  // ALLOC_CAT handling
+  addCondition('ALLOC_CAT', (field, value, pCount) => {
+    if (value === "") {
+      return { condition: `${field} IS NULL` };
+    } else if (value === "ALL_TOGETHER") {
+      return { condition: `${field} IS NOT NULL` };
+    } else if (["0", "1", "2", "6"].includes(value)) {
+      return {
+        condition: `${field} IN ($${pCount}, $${pCount + 1}, $${pCount + 2}, $${pCount + 3}, $${pCount + 4}, $${pCount + 5})`,
+        params: [value, '3', '4', '5', '7', '8']
+      };
+    } else if (value === "9") {
+      return {
+        condition: `(${field} = $${pCount} OR (${field} IN ($${pCount + 1}, $${pCount + 2}, $${pCount + 3}, $${pCount + 4}, $${pCount + 5}) AND "CAT1" = $${pCount + 6}))`,
         params: ['9', '3', '4', '5', '7', '8', '9']
       };
     } else {
@@ -570,10 +703,16 @@ const getRecordsByFiltersDataStream = async (filters, client) => {
         SELECT *
         FROM allexamstable
         ${whereClause.text ? `WHERE ${whereClause.text}` : ''}
-        ORDER BY ${filters.orderBy || 'REGID ASC, ROLL ASC'}
+        ORDER BY "${filters.orderBy || 'ROLL'}" ASC
       `,
       values: whereClause.values
     };
+
+    console.log('Executing query:', {
+      text: query.text,
+      values: query.values
+    });// Code Testing
+    
     
     const queryStream = new QueryStream(query.text, query.values);
     return {
