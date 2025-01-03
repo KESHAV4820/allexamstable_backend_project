@@ -16,6 +16,7 @@ const streamRecordsMiddleware = async (req, res) => {
       
       const client = await pool.connect();
       let streamObj;// newly added1/1/2025
+      let recordCount = 0;
       
       try {
         QueryManager.trackQuery(clientId, client);
@@ -31,9 +32,14 @@ const streamRecordsMiddleware = async (req, res) => {
         const streamObj = await getRecordsByFiltersDataStream(req.body.filters || req.body, client);//newly added1/1/2025
         console.log('Stream created');//Code Testing
         
+        //Geting total count before streaming
+        const countResult = await client.query('SELECT COUNT(*) as total FROM allexamstable WHERE '+ streamObj.query.text.split('WHERE')[1].split('ORDER BY')[0]);
+        const totalCount = parseInt(countResult.rows[0].total, 10);
+        res.setHeader('X-Total-Count', totalCount.toString());
         
         const transform = new Transform({
           objectMode: true,
+          highWaterMark: 50,// Match batch size
           transform(chunk, _, callback) {
             // console.log('Processing chunk:', chunk);//Code Testing
             
@@ -41,43 +47,51 @@ const streamRecordsMiddleware = async (req, res) => {
               callback(new Error('Request cancelled'));
               return;
             }
-            callback(null, `data: ${JSON.stringify(chunk)}\n\n`);
+
+            recordCount++;
+            const data = `data: ${JSON.stringify(chunk)}\n\n`;
+            callback(null, data);
           }
         });
 
-        // dataStream//wrong. we can't use this object itself
-        streamObj.stream//newly added
-          .pipe(transform)
-          .pipe(res)
-          .on('error', (error) => {
-            console.error('Stream error:', error);
-            QueryManager.cancelQuery(clientId);
-            res.status(500).end();
-          })
-          .on('end', () => {
-            console.log('Stream ended');// Code Testing
-            res.end();
-          });
+        await new Promise((resolve, reject) => {	
+          streamObj.stream.pipe(transform)
+                          .pipe(res)
+                          .on('error', reject)
+                          .on('finish', resolve);
+        	});
+        // streamObj.stream//newly added
+        //   .pipe(transform)
+        //   .pipe(res)
+        //   .on('error', (error) => {
+        //     console.error('Stream error:', error);
+        //     QueryManager.cancelQuery(clientId);
+        //     res.status(500).end();
+        //   })
+        //   .on('end', () => {
+        //     console.log('Stream ended');// Code Testing
+        //     res.end();
+        //   });
 
-          //Adding debug log for empty results
-          let hasData = false;
-          streamObj.stream.on('data', () => {//newly added
-            hasData = true;
-          });// For Code Testing only
-          streamObj.stream.on('end', () => {//newly added
-            if (!hasData) {
-              console.log('Streaming completed with no more data found');
-            }
-          });//for Code Testing only
+        //   //Adding debug log for empty results
+        //   let hasData = false;
+        //   streamObj.stream.on('data', () => {//newly added
+        //     hasData = true;
+        //   });// For Code Testing only
+        //   streamObj.stream.on('end', () => {//newly added
+        //     if (!hasData) {
+        //       console.log('Streaming completed with no more data found');
+        //     }
+        //   });//for Code Testing only
 
-        req.on('close', () => {
-          console.log('Request closed');//Code Testing
-          // dataStream.destroy();//Issue Foundfrom where did dataStream variable came!! it's no more in use at the first place. we destructured this object in the first place.
-          if(streamObj && streamObj.stream){//newly added
-          streamObj.stream.destroy();//Issue Resolved
-          };
-          QueryManager.cancelQuery(clientId);
-        });
+        // req.on('close', () => {
+        //   console.log('Request closed');//Code Testing
+        //   // dataStream.destroy();//Issue Foundfrom where did dataStream variable came!! it's no more in use at the first place. we destructured this object in the first place.
+        //   if(streamObj && streamObj.stream){//newly added
+        //   streamObj.stream.destroy();//Issue Resolved
+        //   };
+        //   QueryManager.cancelQuery(clientId);
+        // });
 
       } finally {
         QueryManager.removeQuery(clientId);

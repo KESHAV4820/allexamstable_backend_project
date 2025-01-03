@@ -2,6 +2,8 @@ const { text } = require('express');
 const { Client } = require('pg');
 const QueryStream = require('pg-query-stream');
 
+// ConceptRemember It: if you are going to use native query to connect to postgres, by default, it treats all the fieldnames of the table in the small case. That is, EXAMNAME will be treated as "examname".And this will give rise to connection failure and missing field name in the table. to avoied it, you have to mention your fieldname in "". like "EXAMNAME". It is becouse of this, that you see such a extensive use of "" in the buildWhereClause function.
+
 /*legacy code code is good but vulnarable to SQL injection attacks. 
 const getRecordsByFiltersDataStream = async (filters, client) => {
   let pgClient;
