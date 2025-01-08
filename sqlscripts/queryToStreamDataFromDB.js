@@ -138,7 +138,7 @@ const buildWhereClause = (filters = {}) => {
  * Creates a streaming query based on provided filters
  */
 const getRecordsByFiltersDataStream = async (filters, client) => {
-  console.log(filters);
+  console.log(filters);//Code Testing
   
   let pgClient;
   let needToCloseClient = false;
@@ -161,7 +161,6 @@ const getRecordsByFiltersDataStream = async (filters, client) => {
         SELECT *
         FROM allexamstable
         ${whereClause.text ? `WHERE ${whereClause.text}` : ''}
-        ORDER BY "${filters.orderBy || 'ROLL'}" ASC
       `,
       values: whereClause.values
     };
@@ -172,7 +171,10 @@ const getRecordsByFiltersDataStream = async (filters, client) => {
     });// Code Testing
     
     
-    const queryStream = new QueryStream(query.text, query.values);
+    const queryStream = new QueryStream(query.text, query.values, {
+      batchSize: 100, //Increased from default
+      highWaterMark: 100 // Controls internal buffer size
+    });
     return {
       stream: pgClient.query(queryStream),
       cleanup: async () => {

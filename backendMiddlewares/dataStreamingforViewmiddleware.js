@@ -48,16 +48,22 @@ const streamRecordsMiddleware = async (req, res) => {
         
         const transform = new Transform({
           objectMode: true,
-          highWaterMark: 50,
+          highWaterMark: 100,
           transform(chunk, _, callback) {
             console.log('Processing chunk:', chunk);//Code Testing
             
             if (RequestTracker.shouldCancelRequest(req.path, clientId)) {
               callback(new Error('Request cancelled'));
               return;
-            }
+            };
+
+            //Sending each record with its unique identifier
+            const record = {
+              ...chunk,
+              _id: `${chunk.REGID}|${chunk.ROLL}`
+            };
             recordCount++;
-            callback(null, `data: ${JSON.stringify(chunk)}\n\n`);
+            callback(null, `data: ${JSON.stringify(record)}\n\n`);
           }
         });
 
