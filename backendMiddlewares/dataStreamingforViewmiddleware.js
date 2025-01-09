@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config({path:`${process.cwd()}/config.env`});//is recipe! not concept these two lines now gives eyes to our rest of code to see what's present in config.env file.😎🙏
+
 const { Transform } = require('stream');
 const { getRecordsByFiltersDataStream, buildWhereClause } = require('../sqlscripts/queryToStreamDataFromDB');
 const processCancellationManager = require('./../controller/processCancellationManager');
@@ -48,7 +51,7 @@ const streamRecordsMiddleware = async (req, res) => {
         
         const transform = new Transform({
           objectMode: true,
-          highWaterMark: 100,
+          highWaterMark: 100,//process.env.streaming_buffersize_limit,//100,
           transform(chunk, _, callback) {
             console.log('Processing chunk:', chunk);//Code Testing
             

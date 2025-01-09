@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config({path:`${process.cwd()}/../config.env`});//is recipe! not concept these two lines now gives eyes to our rest of code to see what's present in config.env file.😎🙏
+
 const { text } = require('express');
 const { Client } = require('pg');
 const QueryStream = require('pg-query-stream');
@@ -172,8 +175,8 @@ const getRecordsByFiltersDataStream = async (filters, client) => {
     
     
     const queryStream = new QueryStream(query.text, query.values, {
-      batchSize: 100, //Increased from default
-      highWaterMark: 100 // Controls internal buffer size
+      batchSize: 100,//streaming_chunksize_limit,//100, //Increased from default
+      highWaterMark: 100,//streaming_buffersize_limit,//100 // Controls internal buffer size
     });
     return {
       stream: pgClient.query(queryStream),
