@@ -53,7 +53,7 @@ const streamRecordsMiddleware = async (req, res) => {
           objectMode: true,
           highWaterMark: 100,//process.env.streaming_buffersize_limit,//100,
           transform(chunk, _, callback) {
-            console.log('Processing chunk:', chunk);//Code Testing
+            // console.log('Processing chunk:', chunk);//Code Testing
             
             if (RequestTracker.shouldCancelRequest(req.path, clientId)) {
               callback(new Error('Request cancelled'));
