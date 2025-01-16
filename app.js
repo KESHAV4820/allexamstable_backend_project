@@ -3,7 +3,7 @@
 //👇🏼this is to increase the heap size of node.js
 // const v8 = require('v8');
 // v8.setFlagsFromString('--max_old_space_size=16384');Usless Coding it failed to work
-
+//ConceptKnowledge GapRemember It: typeof(someArray) give output that someArray is an Note: "OBJECT". this is misleading. to confirm if a variable named "someArray" is an array actually, we need to use Array.isArray(someArray) 
 /*SuperVIENoteRemember It: nodemon will crash saying node ran out of heap memory. to avoid such case, you need to run you backend without using nodemon using the command 
 👉🏼VIE "node --max-old-space-size=16384 app.js". Becouse, nodemon isn't using the allocated heap size assigned to node environment variables using the code in cmd👈🏼⚡⚡
 LearnByHeartJust Beautiful⚡⚡you can also use ➡️node --prof --max-old-space-size=16384 app.js this will create the log file which starts with 'isolate-' <filename> ends with '-v8.log', use the command to covert the file into text to see the log of which function is eating more memory ➡️node --prof-process isolate-<filenamelikesomelongnumber>-v8.log > processed_or_anynameyoulike.txt⚡⚡
@@ -75,6 +75,7 @@ const { Pool } = require('pg');
 const {pool, RequestTracker, QueryManager, comprehensiveRequestMiddleware} = require('./backendMiddlewares/processId_tracking_closing');
 const {streamRecordsMiddleware} = require('./backendMiddlewares/dataStreamingforViewmiddleware');
 const { timeStamp, error } = require('console');
+const { getDistinctExamNames } = require('./sqlscripts/postgresNativeQueryBuilder');
 //newly added 04/12/2024
 // const pool = new Pool({
 //   // the connection configuration
@@ -771,6 +772,46 @@ app.post('/api/v1/venuerecords', async (req, res) => {
     }
 });
 
+app.post('/api/v1/databaserecordsupdate', async (req, res) => {
+  const clientId = req.headers['x-client-id'];
+  const processCancellationToken = processCancellationManager.generateToken();
+
+  const databaseRecordsUpdateCancellableProcess = processCancellationManager.createCancellableProcess(
+    async (processToken, cancellationCheck) => {	
+      const client = await pool.connect();
+      try {
+        cancellationCheck();
+        const distinctExamNames = await getDistinctExamNames(client);
+        // console.log(Array.isArray(distinctExamNames));//Code Testing // true
+        cancellationCheck();
+        return distinctExamNames;
+      } finally{
+        QueryManager.removeQuery(clientId);
+        client.release();
+      }
+    }
+  );
+  try {
+    // Executing the cancellable process inside which our real backend work is happening.
+    const result = await databaseRecordsUpdateCancellableProcess(processCancellationToken);
+
+    // Handle process result
+    if (result.cancelled) {
+      return  res.status(499).json({
+        error: 'Process cancelled',
+        reason: result.reason
+      });
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    if (error.code === '57014') {
+      res.status(499).json({error: 'Query cancelled'});
+    } else {
+      console.error('Error fetching the distinct exam names:', error);
+      res.status(500).json({error: 'Failed to fetch the distinct exam names'});
+    }
+  }
+});
 
 //Note: Endpoint to manually cancel a process. This endpoint is meant to be used such that a button is pressed on frontend, and it will abort the ongoing process in the backend using the passed token.
 app.post('/api/v1/cancel-process', (req, res) => {
