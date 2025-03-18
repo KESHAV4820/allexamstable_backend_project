@@ -35,7 +35,7 @@ just to remember this script from package.js becouse i can't comment in .json fi
 6. never forget to use try catch within these backend functions, becouse they use asyn, and hence uses promise. And in these case, automatic throw of error fails. Hence you need to do it explicitly. 
 7.Remember It I didn't knew where to write this important thing. Hence i am writing it here. When database is very big, like crores of data. Your querying will be very slow. Hence, you will need to optimise your database. process of optimization has many steps in it. i am writing them as you will need to do starting from first, being the first step to optimise your database and so on. 1️⃣"partition" the database(on the fields that can break the table into major chunks) 👉2️⃣"indexing" the database(single filed and multiple field basis as well. index those fields with less number of null value in them) 👉3️⃣"enable parallel querying process"(that is you will set the number of "workers" doing query from the database; simultaneously; for your query. The number of workers that your computer can afford exactly depends on the number of cores in your computer. At max, you can you number of worker= number of cores in your sytem - 1) 👉4️⃣"create materialised view" of queries that you deem important or most used ones or the most time taking ones. 👉5️⃣Keep "Refreshing the materialised view" so that if any change has been made in database, it get recorded by materialised view as well 👉6️⃣to keep materialised view update automatically, we need to "SCHEDULE the Refreshing of materialised view" 👉7️⃣to avoid stale data in materialised view, you need "Real-time Refreshing" of materialised view as well.
 
-8. Remember It: How to create database dump and how to import it. 
+8. Remember ItLearnByHeart: How to create database dump and how to import it. 
 👉1️⃣ nagivate to the bin folder of the postgresql program files in the C drive. 
 👉2️⃣ to dump an entire database: pg_dump -U username -d databasename > "C:\Program Files\PostgreSQL\[version]\bin\dumpfile.sql"
 here username in ourcase was postgres and name of database was sscdatabase. 
@@ -45,7 +45,7 @@ e.g:- pg_dump -U postgres -d sscdatabase > "C:\Program Files\PostgreSQL\15\bin\a
 👉4️⃣why you create database dump of a database and sometime only for the table. Becouse sometimes, we just have a table that is small and we don't need to optimise it. So no partitioning or indexing. that table is standalone thing and hence, we need only one thing which is that table. But if you table is huge, contains 50 to 60 millions of records/rows and you need to optimise it to speedup the query. So you will need to partition and index the table. that will create additional separate table and indexes from the big table and the whole partitioned table and the big table is a connected system. So you no more has one table that you need to dump. Hence, you will need to dump the whole database like sscdatabase in our case.
 👉5️⃣ the database dump so created will have .sql extension, may look like notepad icon file
  
-9.Remember It: steps to import the database dump into another system. 
+9.Remember ItLearnByHeart: steps to import the database dump into another system. 
  👉1️⃣ first, navigate to the bin folder of postgres in the terminal or cmd using cd command. like: cd "C:\Program Files\PostgreSQL\15\bin" 
  👉2️⃣then create the database possibly named the same as in the previous system using the command "createdb -U username databasename".  like this: "createdb -U postgres sscdatabase". you will need to enter the password of the database according to the password set in the new system when postgres was installed. 
  👉3️⃣ then import the database with command: psql -U username -d databasename -f "C:\path\to\your\dumpfile.sql" which in ourcase looks like: psql -U postgres -d sscdatabase -f "C:\Users\YourUsername\Desktop\allexamstable_partitioned.sql"
@@ -101,51 +101,56 @@ NoteSuper: this line "replace(replace(exam_name, '-', '_'), '/', '_'), exam_name
         partition_name := replace(partition_name, ')', '_');
 
   ⚡⚡⚡Command for individual examnames to partition them:
+      1. Create the specific partition for that particular exam data based on the field being used to partition. eg:- "Constable-2015".
+          DO $$
+              DECLARE
+                  exam_name TEXT := 'constable-2015';
+                  partition_name TEXT;
+              BEGIN
+                  partition_name := replace(replace(replace(replace(exam_name, '(', '_'), ')', '_'), ' ', '_'), '/', '_');
+                  EXECUTE format(
+                      'CREATE TABLE IF NOT EXISTS public.%I PARTITION OF public.allexamstable_partitioned FOR VALUES IN (%L);',
+                      partition_name,
+                      exam_name
+                  );
+          END $$;
 
-  DO $$ 
-  DECLARE 
-    exam_name TEXT := 'CHSL-2024';
-  BEGIN
-    -- Replace hyphens and slashes with underscores for the partition table name
-    EXECUTE format('CREATE TABLE IF NOT EXISTS public.allexamstable_%s PARTITION OF public.allexamstable_partitioned FOR VALUES IN (%L);', 
-                   replace(replace(exam_name, '-', '_'), '/', '_'), 
-                   exam_name);
-  END $$;
+      2. Insert the data.
+          \COPY allexamstable_partitioned FROM 'C:\Users\HP\Desktop\allexamstableoutput\C2015.csv' WITH (FORMAT csv, HEADER); This command will be executable in psql interface of Admin 4 tool.
+  
 // you may use this line as well:- " replace(replace(replace(replace(exam_name, '(', '_'), ')', '_'), ' ', '_'), '/', '_');"
-  ⚡⚡⚡Remember It LearnByHeart If you want PostgreSQL to automatically partition new exams when they arrive, you can modify your partitioning script to fetch missing partitions dynamically.👇🏼
-  DO $$ 
-  DECLARE 
-      exam_table TEXT;
-      partition_name TEXT;
-      exam_name TEXT;
-  BEGIN
-      FOR exam_name IN 
-          SELECT DISTINCT exam_name FROM public.allexamstable_partitioned
-      LOOP
-          -- Generate cleaner partition name by keeping original format
-          partition_name := replace(replace(replace(replace(exam_name, '(', '_'), ')', '_'), ' ', '_'), '/', '_');
+  ⚡⚡⚡Remember It LearnByHeart battle tested solution17/03/2025: If you want PostgreSQL to automatically partition new exams when they arrive, you can modify your partitioning script to fetch missing partitions dynamically.👇🏼
+    step 1: use the following command in psql prompt to import .csv file into allexamstable_partitioned. 👉🏼\COPY allexamstable_partitioned FROM 'C:\Users\HP\Desktop\allexamstableoutput\C2015.csv' WITH (FORMAT csv, HEADER);
+    step 2: now generate the partition dynamically based on the distict examname output for which partition table hasn't been made.VIE: skips the already existing partitons. hence don't tinker with the naming conventions being used blow. Think it through first.
+      👉🏼DO $$
+          DECLARE
+              exam_table TEXT;
+              partition_name TEXT;
+              exam_name TEXT;
+          BEGIN
+              FOR exam_name IN
+                  SELECT DISTINCT exam_name FROM public.allexamstable_partitioned
+              LOOP
+                  partition_name := replace(replace(replace(replace(exam_name, '(', '_'), ')', '_'), ' ', '_'), '/', '_');
 
-          -- Check if the partition already exists
-          SELECT tablename INTO exam_table 
-          FROM pg_tables 
-          WHERE schemaname = 'public' 
-            AND tablename = partition_name;
+                  SELECT tablename INTO exam_table
+                  FROM pg_tables
+                  WHERE schemaname = 'public'
+                      AND tablename = partition_name;
 
-          -- If partition doesn't exist, create it
-          IF exam_table IS NULL THEN
-              EXECUTE format('CREATE TABLE IF NOT EXISTS public.%I 
-                              PARTITION OF public.allexamstable_partitioned 
-                              FOR VALUES IN (%L);', 
-                              partition_name, exam_name);
-          END IF;
-      END LOOP;
-  END $$;
-
+                  IF exam_table IS NULL THEN
+                      EXECUTE format('CREATE TABLE IF NOT EXISTS public.%I
+                                      PARTITION OF public.allexamstable_partitioned
+                                      FOR VALUES IN (%L);',
+                                      partition_name, exam_name);
+                  END IF;
+              END LOOP;
+      END $$;
 the above command has to be used in the Admin4 tool or psql query tool.
 
 👉2️⃣ then, you need to create the index on the fields that you want like i used the names of the distinct exams. 👉🏼 command :- on the basis of field "ROLL"
 
-⚡⚡⚡ batch command for indexing 
+⚡⚡⚡ batch command for indexing battle tested solution
 DO $$ 
 DECLARE 
     exam_names TEXT[] := ARRAY[
@@ -186,23 +191,111 @@ ON public.allexamstable_CHSL_2024 ("ROLL");
 
 we used "ROLL" instead of roll. becouse by default, postgres, considers the field names in small. but our database has it in capital ROLL. Hence you need to put it in the "".
 
-⚡⚡⚡ dynamic command for creating indexes on basis of "ROLL"
-  DO $$ 
-    DECLARE 
-        exam_table TEXT;
-        index_name TEXT;
-    BEGIN
-        FOR exam_table IN 
-            SELECT tablename FROM pg_tables 
-            WHERE schemaname = 'public' 
-              AND tablename LIKE '%-%' -- Changed to match your actual table pattern
+⚡⚡⚡ battle tested solutionLearnByHeartMarvelRemember It: dynamic command for creating indexes 1) on basis of names
+and fields to be used in indexing mentioned in array 'idx_names' and 'idx_columns'. 2) this code has facility of informative logs to see which exam is being processed. 3)VIE This code can also be used to run even when updating the indexing for new partition added. Becouse it checks if the particular indexing already exists. if not, then it makes those index. Hence naming convention being used below shouldn't be tinkered without indepth decision made in advance. 
+DO $$
+DECLARE
+    exam_name TEXT;
+    index_name_postfix TEXT;
+    sql_command TEXT;
+    idx_names TEXT[] := ARRAY[ -- here you mention the names of indexs to be created corresponding to idx_column array
+        'idx_ROLL',
+        'idx_EXAMNAME_SELECTED',
+        'idx_EXAMNAME_SELECTED_ROLL',
+        'idx_EXAMNAME_SELECTED_CAT1',
+        'idx_EXAMNAME_SELECTED_CAT3',
+        'idx_EXAMNAME_SELECTED_ALLOC_CAT',
+        'idx_EXAMNAME_GENDER',
+        'idx_EXAMNAME_SELECTED_GENDER',
+        'idx_EXAMNAME_SELECTED_GENDER_CAT1',
+        'idx_EXAMNAME_SELECTED_GENDER_ALLOC_CAT'
+    ];
+    idx_columns TEXT[] := ARRAY[--here you mention all the corresponding field for indexing in 'idx_names' array
+        '"ROLL"',
+        '"EXAMNAME","SELECTED"',
+        '"EXAMNAME","SELECTED","ROLL"',
+        '"EXAMNAME","SELECTED","CAT1"',
+        '"EXAMNAME","SELECTED","CAT3"',
+        '"EXAMNAME","SELECTED","ALLOC_CAT"',
+        '"EXAMNAME","GENDER"',
+        '"EXAMNAME","SELECTED","GENDER"',
+        '"EXAMNAME","SELECTED","GENDER","CAT1"',
+        '"EXAMNAME","SELECTED","GENDER","ALLOC_CAT"'
+    ];
+    exam_names TEXT[];
+    i INTEGER;
+    j INTEGER;
+    index_start_time TIMESTAMP;
+    index_end_time TIMESTAMP;
+    overall_start_time TIMESTAMP;
+    overall_end_time TIMESTAMP;
+BEGIN
+    -- Ensure the number of index names matches the number of column sets
+    IF array_length(idx_names, 1) <> array_length(idx_columns, 1) THEN
+        RAISE EXCEPTION 'Number of index names does not match the number of column sets.';
+    END IF;
+    
+    -- Get all distinct exam names at once and store in array to avoid repeated queries
+    SELECT array_agg(DISTINCT "EXAMNAME") INTO exam_names FROM public.allexamstable_partitioned;
+    
+    -- Record overall start time
+    overall_start_time := clock_timestamp();
+    RAISE NOTICE 'Starting all indexing operations at %', overall_start_time;
+    
+    -- Outer loop: iterate through each index type
+    FOR i IN 1..array_length(idx_names, 1)
+    LOOP
+        -- Record start time for this index type
+        index_start_time := clock_timestamp();
+        RAISE NOTICE '----- Starting creation of % indexes at % -----', idx_names[i], index_start_time;
+        
+        -- Inner loop: iterate through distinct exam names
+        FOREACH exam_name IN ARRAY exam_names
         LOOP
-            index_name := replace(replace(replace(exam_table, '(', '_'), ')', '_'), ' ', '_');
-            EXECUTE format('CREATE INDEX IF NOT EXISTS idx_%s_student_ROLL 
-                            ON public.%I ("ROLL");', 
-                            index_name, exam_table);
+            -- Generate a safe index name from the exam name
+            index_name_postfix := replace(replace(replace(replace(exam_name, '(', '_'), ')', '_'), ' ', '_'), '/', '_');
+            
+            RAISE NOTICE 'Creating index %_% for exam name "%"...', idx_names[i], index_name_postfix, exam_name;
+            
+            -- Construct the full index command(for indexing on the whole allexamstable_partitioned table)
+            -- sql_command := format('CREATE INDEX IF NOT EXISTS %s_%s ON public.allexamstable_partitioned (%s);',
+            --                    idx_names[i],
+            --                    index_name_postfix,
+            --                    idx_columns[i]);
+
+			-- Construct the full index command
+				sql_command := format('CREATE INDEX IF NOT EXISTS %s_%s ON public.%I (%s);',
+				                   idx_names[i],
+				                   replace(index_name_postfix, '-', '_'),  -- Replace hyphens with underscores in index name
+				                   replace(exam_name, '/', '_'),  -- For table name, only replace slashes
+				                   idx_columns[i]);
+            
+            -- Execute the create index command
+            BEGIN
+                EXECUTE sql_command;
+                RAISE NOTICE 'Successfully created index %_% for exam name "%"', idx_names[i], index_name_postfix, exam_name;
+            EXCEPTION WHEN OTHERS THEN
+                RAISE WARNING 'Error creating index %_% for exam name "%": %', idx_names[i], index_name_postfix, exam_name, SQLERRM;
+            END;
+            
+            -- Add a small delay to ensure previous transaction is fully completed
+            PERFORM pg_sleep(0.1);
+            
+            -- Explicitly commit after each index creation
+            COMMIT;
         END LOOP;
-  END $$;
+        
+        -- Record end time for this index type
+        index_end_time := clock_timestamp();
+        RAISE NOTICE '----- Completed creation of % indexes at % (duration: % seconds) -----', 
+            idx_names[i], index_end_time, EXTRACT(EPOCH FROM (index_end_time - index_start_time));
+    END LOOP;
+    
+    -- Record overall end time
+    overall_end_time := clock_timestamp();
+    RAISE NOTICE 'All indexing operations completed at % (total duration: % seconds)', 
+        overall_end_time, EXTRACT(EPOCH FROM (overall_end_time - overall_start_time));
+END $$;
 
 
 3️⃣👉 And after adding new partition or indexing on new table or data that came you need to run the following command : VIELearnByHeart
