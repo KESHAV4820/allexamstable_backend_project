@@ -119,41 +119,98 @@ NoteSuper: this line "replace(replace(exam_name, '-', '_'), '/', '_'), exam_name
           \COPY allexamstable_partitioned FROM 'C:\Users\HP\Desktop\allexamstableoutput\C2015.csv' WITH (FORMAT csv, HEADER); This command will be executable in psql interface of Admin 4 tool.
   
 // you may use this line as well:- " replace(replace(replace(replace(exam_name, '(', '_'), ')', '_'), ' ', '_'), '/', '_');"
-  ⚡⚡⚡Remember It LearnByHeart battle tested solution17/03/2025: If you want PostgreSQL to automatically partition new exams when they arrive, you can modify your partitioning script to fetch missing partitions dynamically.👇🏼
-    step 1: use the following command in psql prompt to import .csv file into allexamstable_partitioned. 👉🏼\COPY allexamstable_partitioned FROM 'C:\Users\HP\Desktop\allexamstableoutput\C2015.csv' WITH (FORMAT csv, HEADER);
-    step 2: now generate the partition dynamically based on the distict examname output for which partition table hasn't been made.VIE: skips the already existing partitons. hence don't tinker with the naming conventions being used blow. Think it through first.
-      👉🏼DO $$
-          DECLARE
-              exam_table TEXT;
-              partition_name TEXT;
-              exam_name TEXT;
-          BEGIN
-              FOR exam_name IN
-                  SELECT DISTINCT exam_name FROM public.allexamstable_partitioned
-              LOOP
-                  partition_name := replace(replace(replace(replace(exam_name, '(', '_'), ')', '_'), ' ', '_'), '/', '_');
+  ⚡⚡⚡Remember It LearnByHeart battle tested solution23/04/2025: If you want PostgreSQL to automatically partition new exams when they arrive, you can modify your partitioning script to fetch missing partitions dynamically.👇🏼
 
-                  SELECT tablename INTO exam_table
-                  FROM pg_tables
-                  WHERE schemaname = 'public'
-                      AND tablename = partition_name;
+  step 1: import the data into the allexamstable table. This is the main table where all the data will be imported as backup. You can use the command: \COPY allexamstable FROM 'C:\Users\HP\Desktop\allexamstableoutput\C2015.csv' WITH (FORMAT csv, HEADER); This command will be executable in psql interface of Admin 4 tool. It will not throw partition don't exist error becouse the table is not partitioned yet. It will just import the data into the allexamstable table. OR you can use the import data option from admin4 tool.
 
-                  IF exam_table IS NULL THEN
-                      EXECUTE format('CREATE TABLE IF NOT EXISTS public.%I
-                                      PARTITION OF public.allexamstable_partitioned
-                                      FOR VALUES IN (%L);',
-                                      partition_name, exam_name);
-                  END IF;
+  step 2: generate the partition dynamically based on the distict examname output for which partition hasn't been made in partition table. This is done by getting the list of examnames from the EXAMNAME field of backup table named allexamstable. .VIE: skips the already existing partitons. don't missout: Please don't tinker with the naming conventions being used blow. I know that it isn't same as used in indexing, but that's becouse EXAMNAME value is directly used in naming the partition. First, think it through. Don't be sorry later.
+  👉🏼	DO $$
+  DECLARE
+  exam_table TEXT;
+  partition_name TEXT;
+  exam_name TEXT;
+  partition_exists BOOLEAN;
+  count_created INTEGER := 0;
+  count_skipped INTEGER := 0;
+  start_time TIMESTAMP;
+  end_time TIMESTAMP;
+  data_count INTEGER;
+  BEGIN
+  -- Record start time
+  start_time := clock_timestamp();
+  RAISE NOTICE 'Starting partition creation process at %', start_time;
+  
+  -- Loop through each distinct exam name in the source table
+  FOR exam_name IN
+  SELECT DISTINCT "EXAMNAME" FROM public.allexamstable
+  
+  LOOP
+  -- Use the exact same partition naming convention as your previous code
+  partition_name := replace(replace(exam_name, ' ', '_'), '/', '_');
+  
+  -- Check if partition already exists
+  SELECT EXISTS (
+    SELECT 1 FROM pg_tables 
+    WHERE schemaname = 'public' 
+                AND tablename = partition_name
+                ) INTO partition_exists;
+                
+        IF NOT partition_exists THEN
+        BEGIN
+        -- Create the partition
+              EXECUTE format(
+                'CREATE TABLE IF NOT EXISTS public.%I PARTITION OF public.allexamstable_partitioned FOR VALUES IN (%L);',
+                partition_name, 
+                exam_name
+                );
+                  
+              RAISE NOTICE 'Created partition % for exam name "%"', partition_name, exam_name;
+                  count_created := count_created + 1;
+                  
+        -- For confirmation, check how many rows now exist in this partition
+              EXECUTE format(
+                'SELECT COUNT(*) FROM public.%I', 
+                partition_name
+                ) INTO data_count;
+                    
+              RAISE NOTICE 'Partition % contains % rows', partition_name, data_count;
+                    
+                EXCEPTION WHEN OTHERS THEN
+                RAISE WARNING 'Error creating partition % for exam name "%": %', partition_name, exam_name, SQLERRM;
+                END;
+                ELSE
+              RAISE NOTICE 'Partition % already exists for exam name "%", skipping', partition_name, exam_name;
+              count_skipped := count_skipped + 1;
+              END IF;
               END LOOP;
-      END $$;
-the above command has to be used in the Admin4 tool or psql query tool.
+                    
+        -- Record end time
+              end_time := clock_timestamp();
+                    
+        -- Summary
+              RAISE NOTICE '------------------------------------';
+              RAISE NOTICE 'Partition creation process complete';
+              RAISE NOTICE 'Created: % new partitions', count_created;
+              RAISE NOTICE 'Skipped: % existing partitions', count_skipped;
+              RAISE NOTICE 'Total processing time: % seconds', EXTRACT(EPOCH FROM (end_time - start_time));
+              RAISE NOTICE '------------------------------------';
+                    
+        -- If needed, you can add a separate step to manually copy data from backup table to partitioned table
+        -- This would be necessary if data isn't already in the partitioned table
+              RAISE NOTICE 'To copy data from backup to partitioned table if needed:';
+              RAISE NOTICE 'INSERT INTO public.allexamstable_partitioned SELECT * FROM public.allexamstable WHERE "EXAMNAME" IS NOT NULL;';
+                    
+  END $$;
+  the above command has to be used in the Admin4 tool or psql query tool.
 
-👉2️⃣ then, you need to create the index on the fields that you want like i used the names of the distinct exams. 👉🏼 command :- on the basis of field "ROLL"
-
-⚡⚡⚡ batch command for indexing battle tested solution (alternate command. last resort use only)
-DO $$ 
-DECLARE 
-    exam_names TEXT[] := ARRAY[
+step 3: use the following command in psql prompt to import .csv file into allexamstable_partitioned. 👉🏼\COPY allexamstable_partitioned FROM 'C:\Users\HP\Desktop\allexamstableoutput\C2015.csv' WITH (FORMAT csv, HEADER); Remember It:  it works only when the partition of for that exam data has already been created using the step 2.
+                    
+  👉2️⃣ then, you need to create the index on the fields that you want like i used the names of the distinct exams. 👉🏼 command :- on the basis of field "ROLL"
+                    
+                    ⚡⚡⚡ batch command for indexing battle tested solution (alternate command. last resort use only)
+                    DO $$ 
+                    DECLARE 
+      exam_names TEXT[] := ARRAY[
         'AWO/TPO-2022', 'CAPF-2016', 'CAPF-2017', 'CAPF-2018', 'CAPF-2019', 'CAPF-2020', 'CAPF-2022', 'CAPF-2023',
         'CGL-2016', 'CGL-2017', 'CGL-2018', 'CGL-2019', 'CGL-2020', 'CGL-2021', 'CGL-2022', 'CGL-2023',
         'CHSL-2017', 'CHSL-2018', 'CHSL-2019', 'CHSL-2020', 'CHSL-2021', 'CHSL-2022', 'CHSL-2023',
