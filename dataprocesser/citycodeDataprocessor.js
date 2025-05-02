@@ -949,26 +949,35 @@ function citycodeDataprocessor(data, modelData) {
     
 
     //to process the records comming from user filters.(subset) 
+    const missingCityCodes = {};
     for (const record of data) {
         const cityCode = record.ROLL.substring(0, 4);
         const city = cityCodeToName[cityCode] || 'UnknownCity';
         const state = cityToState[city] || 'UnknownState';
         const zone = stateToZone[state] || 'UnknownZone';
         const centerCoordinates= cityCoordinates[city] || 'unknownCenterCoordinates';
-        if(city === 'UnknownCity' || state ==='UnknownState' || zone === 'UnknownZone' || centerCoordinates=== 'UnknownCenterCoordinates'){
-            console.log('CityCode= '+cityCode);
+        if(city === 'UnknownCity' || state ==='UnknownState' || zone === 'UnknownZone' || centerCoordinates=== 'UnknownCenterCoordinates')
+            {
+            if (!missingCityCodes[cityCode]) {
+                missingCityCodes[cityCode] = 1;
+            } else {
+                missingCityCodes[cityCode]++;
+            };
+            // console.log('CityCode= '+cityCode);//debugging log
             // console.log('city= '+city);
             // console.log('state= '+state);
             // console.log('zone= '+zone);
             // console.log('centerCoordinates= '+centerCoordinates);
         };//Code Testing
-
+        
+        
         
         cityCounts[city] = (cityCounts[city] || 0) + 1;
         stateCounts[state] = (stateCounts[state] || 0) + 1;
         zoneCounts[zone] = (zoneCounts[zone] || 0) + 1;
         centerCoordinatesCounts[city]=(centerCoordinatesCounts[city] || 0) + 1;
     };
+    console.log('Missing city codes and number of times they were missing: ',missingCityCodes);//debugging log
         
     
     // Calculate percentages for each city, state, and zone
