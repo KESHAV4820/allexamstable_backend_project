@@ -7,15 +7,15 @@ class ProcessCancellationManager {
   }
 
   /**
-   * Generate a unique cancellation token
-   * @returns {string} Unique process identifier
+   * this is meant to Generate a unique cancellation token
+   * it returns  {string} Unique process identifier
    */
   generateToken() {
-    return `process_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `process_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
   }
 
   /**
-   * Start tracking a new process
+   * this is meant to Start tracking a new process
    * @param {string} token - Unique process token
    * @param {Object} context - Additional process context
    * @returns {Object} Process tracking object
@@ -28,8 +28,13 @@ class ProcessCancellationManager {
       isCancelled: false,// initially
       cancellationReason: null
     };
+    console.log('token: ',token);//debugging log
 
     this.activeProcesses.set(token, processEntry);
+    console.log('processEntry: ',processEntry);//debugging log
+    console.log('activeProcesses: ',this.activeProcesses);//debugging log
+    
+    
     return processEntry;
   }
 
@@ -40,6 +45,8 @@ class ProcessCancellationManager {
    */
   isCancelled(token) {
     const process = this.activeProcesses.get(token);
+    console.log('process: ',process,'with token number: ',token,'is being checked for cancellation 👮🏼🚓');//debugging log
+    
     return process ? process.isCancelled : false;
   }
 
@@ -59,6 +66,8 @@ class ProcessCancellationManager {
         token,
         reason
       });
+      console.log('in backend, the process: ', process,' with token: ', token,' got cancelled here👇🏼');//debugging log
+      
     }
   }
 
@@ -70,7 +79,7 @@ class ProcessCancellationManager {
   createCancellableProcess(processFn) {
     return async (token, ...args) => {
       if (this.isCancelled(token)) {
-        throw new Error(`Process ${token} was cancelled`);
+        throw new Error(`Process with token: ${token} was cancelled🙅🏼`);
       }
 
       try {
@@ -82,7 +91,7 @@ class ProcessCancellationManager {
         };
 
         // Periodically check for cancellation during long-running processes
-        const cancellationInterval = setInterval(cancellationCheck, 2*1000);// in 2 seconds
+        const cancellationInterval = setInterval(cancellationCheck, 1*1000);// in 1 seconds
 
         try {
           const result = await processFn(token, ...args, cancellationCheck);
@@ -90,6 +99,8 @@ class ProcessCancellationManager {
         } finally {
           clearInterval(cancellationInterval);
           this.activeProcesses.delete(token);
+          console.log('process got terminated after completion of the request.🫡');//debugging log
+          
         }
       } catch (error) {
         if (this.isCancelled(token)) {
@@ -119,6 +130,8 @@ class ProcessCancellationManager {
    */
   removeProcessListeners(token) {
     this.cancellationEmitter.removeAllListeners(`cancel:${token}`);
+    console.log('all listerners for the process with token: ',token,' has been removed as cancellation of the process has occured.👋🏼');//debugging log
+    
   }
 }
 

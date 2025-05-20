@@ -17,7 +17,7 @@ const RequestTracker = {
   trackRequest(endpoint, clientId){
     const previousRequest = this.activeRequests.get(endpoint);
 
-    //If there was a previous request, mark it for cancellation using 'shouldCancel' flag.
+    //If there was a previous request from that endpoint, mark it for cancellation using 'shouldCancel' flag to start the new request on the same endpoint.
     if (previousRequest) {
       previousRequest.shouldCancel = true;
     };
@@ -49,6 +49,8 @@ const RequestTracker = {
   },
 */
 };
+// console.log('value inside RequestTracker ',RequestTracker);//debugging log
+
 
 //newly added 4/12/2024
 const QueryManager = {
@@ -61,6 +63,8 @@ const QueryManager = {
       queryContext,
       startTime: Date.now()
     });
+    // console.log('Query getting tracked:', this.trackQuery);//debugging log
+    // console.log('active Queries after update:', this.activeQueries);//debugging log
   },
 
   //VIE canceling a specific query
@@ -70,10 +74,10 @@ const QueryManager = {
       try {
         // promptly cancel the query using PostgreSQL's command pg_cancel_backend
         await queryEntry.pgClient.query(`SELECT pg_cancel_backend(pg_backend_pid())`);
-        console.log(`Query for client ${clientId} cancelled`);//Code Testing
+        // console.log(`Query for client: ${clientId} just got cancelled`);//debugging log
         
       } catch (error) {
-        console.log('Query already completed or could not be cancelled', error);
+        // console.log('Query already completed or could not be cancelled', error);//debugging log
       } finally{
         this.removeQuery(clientId);
       };
@@ -82,6 +86,8 @@ const QueryManager = {
   //remove a completed or cancelled query
   removeQuery(clientId){
     this.activeQueries.delete(clientId);
+    // console.log(`${clientId} just got deleted❌. Either by cancellation or completion`);//debugging log
+    
   },
 };
 

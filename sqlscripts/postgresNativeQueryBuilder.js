@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 dotenv.config({path:`${process.cwd()}/../config.env`});//is recipe! not concept these two lines now gives eyes to our rest of code to see what's present in config.env file.😎🙏
 
 const { Client } = require('pg');
-const { buildWhereClause } = require('./queryToStreamDataFromDB.js');// Note: this file is certain to use many more queries using native postgres query system. the "getDistinctExamName()" isn't using it, becouse the where clause is static. But going forward, if we make up mind to add more postgres native clause, we may need to use this buildwhereClause.Hence imported. 
+const { buildWhereClause } = require('./queryToStreamDataFromDB.js');// Note: this file is certain to use many more queries using native postgres query system. the "getDistinctExamName()" isn't using it(buildWhereClause), becouse the where clause is static. But going forward, if we make up mind to add more postgres native clause, we may need to use this buildwhereClause.Hence imported. 
 
 
 // ConceptRemember It: if you are going to use native query to connect to postgres, by default, it treats all the fieldnames of the table in the small case. That is, EXAMNAME will be treated as "examname".And this will give rise to connection failure and missing field name in the table. to avoied it, you have to mention your fieldname in "". like "EXAMNAME". It is becouse of this, that you see such a extensive use of "" in the buildWhereClause function.
@@ -36,13 +36,14 @@ const getDistinctExamNames = async (client) => {
       console.log('Executing query:', query); // Debug log
   
       const result = await pgClient.query(query);
+      console.log('Output of the Query execution:', result); // Debug log
       return result.rows.map(row => row.EXAMNAME);
   
     } catch (error) {
-      console.error('Error in getDistinctExamNames:', error);
+      console.error('Error in function getDistinctExamNames:', error);
       throw error;
     } finally {
-      // Clean up connection if we created it
+      // Clean up connection if we has successfully created it
       if (needToCloseClient && pgClient) {
         await pgClient.end();
       }

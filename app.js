@@ -862,7 +862,8 @@ app.post('/api/v1/recordcount', async (req, res) => {
 app.post('/api/v1/recordcount', async (req, res) => {
   const clientId = req.headers['x-client-id'];
   const processCancellationToken = processCancellationManager.generateToken();
-
+  console.log(`in backend /recordcount path:- clientId: ${clientId} processCancellationToken: ${processCancellationToken}`);//debugging log
+  
   const processRecordCount = processCancellationManager.createCancellableProcess(
     async (processToken, cancellationCheck) => {	
       const client = await pool.connect();
@@ -887,17 +888,17 @@ app.post('/api/v1/recordcount', async (req, res) => {
     // Handle process result
     if (result.cancelled) {
       return  res.status(499).json({
-        error: 'Process cancelled',
+        error: 'Process got cancelled 😼😵‍💫',
         reason: result.reason
       });
     }
     res.status(200).json(result);
   } catch (error) {
     if (error.code === '57014') {
-      res.status(499).json({error: 'Query cancelled'});
+      res.status(499).json({error: 'Query cancelled 😼'});
     } else {
       console.error('Error fetching the Record count:', error);
-      res.status(500).json({error: 'Failed to fetch the Record Count'});
+      res.status(500).json({error: 'Failed to fetch the Record Count 😵‍💫'});
     }
   }
 });
@@ -1044,12 +1045,12 @@ app.post('/api/v1/venuerecords', async (req, res) => {
             //to get the model data
             const examName = filters.EXAMNAME;
             const modelData = await getModelData(examName, limit, offset, pgClient);
-            //console.log(modelData);// Code Testing
+            //console.log(modelData);// debugging log
 
             cancellationCheck();
 
             const modelStats = modelCitycodeDataprocessor(modelData);
-            console.log(modelStats);// Code Testing
+            // console.log(modelStats);// debugging log
               
             cancellationCheck();
 
