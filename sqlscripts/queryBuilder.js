@@ -123,7 +123,7 @@ const getRecordsByFilters = async (filters, limit=300, offset=0, client=null) =>
 const whereClause = {
   where: {
     [Op.and]: [
-      filters.EXAMNAME !== undefined ? ((filters.EXAMNAME === "") ? { EXAMNAME: { [Op.eq]: null } } : (filters.EXAMNAME==="ALL EXAMs")?{EXAMNAME:{[Op.ne]:null}}: { EXAMNAME: filters.EXAMNAME }) : {},
+      filters.EXAMNAME !== undefined ? ((filters.EXAMNAME === "") ? { EXAMNAME: { [Op.eq]: null } } : (filters.EXAMNAME==="ALL EXAMS")?{EXAMNAME:{[Op.ne]:null}}: { EXAMNAME: filters.EXAMNAME }) : {},
 
       filters.REGID !== undefined ? (filters.REGID === "" ? { REGID: { [Op.ne]: null } } : { REGID: filters.REGID }) : {},
       filters.ROLL !== undefined ? (filters.ROLL === "" ? { ROLL: { [Op.ne]: null } } : { ROLL: filters.ROLL }) : {},
