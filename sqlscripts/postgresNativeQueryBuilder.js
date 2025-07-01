@@ -29,15 +29,15 @@ const getDistinctExamNames = async (client) => {
   
       // Simple query to get distinct EXAMNAME values
       const query = {
-        text: 'SELECT DISTINCT "EXAMNAME" FROM allexamstable_partitioned WHERE "EXAMNAME" IS NOT NULL ORDER BY "EXAMNAME"',
+        text: 'SELECT DISTINCT "examname" FROM exam_filter_cache WHERE "examname" IS NOT NULL ORDER BY "examname"',
         values: []
       };
   
-      console.log('Executing query:', query); // Debug log
+      console.log('Executing query:', query); // debugging log
   
       const result = await pgClient.query(query);
-      console.log('Output of the Query execution:', result); // Debug log
-      return result.rows.map(row => row.EXAMNAME);
+      console.log('Output of the Query execution:', result); // debugging log
+      return result.rows.map(row => row.examname);
   
     } catch (error) {
       console.error('Error in function getDistinctExamNames:', error);
@@ -50,4 +50,48 @@ const getDistinctExamNames = async (client) => {
     }
   };
 
-module.exports = { getDistinctExamNames };
+  // TO GET fiter DATA FOR SPECIFIC EXAMNAME
+  const getExamFilters = async (examName, client) => {
+    let pgClient; 
+    let needToCloseClient = false;
+
+    try {
+      // Handle both client instance and connection string
+      if (client instanceof Client) {
+        pgClient = client;
+      } else if (typeof client === 'string') {
+        pgClient = new Client({ connectionString: client });
+        await pgClient.connect();
+        needToCloseClient = true;
+      } else {
+        throw new Error("Invalid client provided");
+      }
+
+      // Query to get filters for a specific exam name
+      const query = {
+        text: 'SELECT "filters" FROM exam_filter_cache WHERE "examname" = $1',
+        values: [examName]
+      };
+
+      console.log('Executing query:\n', query); // debugging log
+
+      const result = await pgClient.query(query);
+      console.log('Output of the Query execution:\n', result); // debugging log
+
+      if (result.rows.length > 0) {
+        return result.rows[0].filters; // Assuming filters is a JSON object
+      } else {
+        return null; // No filters found for the given exam name
+      }
+    } catch (error) {
+      console.error('Error in function getExamFilters:', error);
+      throw error;
+    } finally {
+      // Clean up connection if we has successfully created it
+      if (needToCloseClient && pgClient) {
+        await pgClient.end();
+      }
+    }
+  };
+
+module.exports = { getDistinctExamNames, getExamFilters };

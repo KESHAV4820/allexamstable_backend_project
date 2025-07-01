@@ -400,7 +400,7 @@ const { Pool } = require('pg');
 const {pool, RequestTracker, QueryManager, comprehensiveRequestMiddleware} = require('./backendMiddlewares/processId_tracking_closing');
 const {streamRecordsMiddleware} = require('./backendMiddlewares/dataStreamingforViewmiddleware');
 const { timeStamp, error } = require('console');
-const { getDistinctExamNames } = require('./sqlscripts/postgresNativeQueryBuilder');
+const { getDistinctExamNames, getExamFilters } = require('./sqlscripts/postgresNativeQueryBuilder');
 //newly added 04/12/2024
 // const pool = new Pool({
 //   // the connection configuration
@@ -1097,6 +1097,105 @@ app.post('/api/v1/venuerecords', async (req, res) => {
         }
     }
 });
+
+// API endpoint to get distinct exam names(called on page load to populate the EXAMs dropdown div)
+app.post('/api/v2/examnames',async (req, res) => {
+  const clientId = req.headers['x-client-id'];
+  const processCancellationToken = processCancellationManager.generateToken();
+
+  const getExamNamesProcess = processCancellationManager.createCancellableProcess(
+          async (processToken, cancellationCheck) => {
+            const client = await pool.connect();
+            try {
+
+              cancellationCheck();
+              const distinctExamNames = await getDistinctExamNames(client);
+              // console.log('distinctExamNames:', distinctExamNames);//debugging log
+              
+              cancellationCheck();
+
+              return distinctExamNames;
+            } finally {
+              QueryManager.removeQuery(clientId);
+              client.release();
+            }
+          }
+        );
+
+  try {
+    const result = await getExamNamesProcess(processCancellationToken);
+
+    // Handle process result
+    if (result.cancelled) {
+      return res.status(499).json({
+        error: 'Process cancelled',
+        reason: result.reason
+      });
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    if (error.code === '57014') {
+      res.status(499).json({error: 'Query cancelled'});
+    } else {
+      console.error('Error fetching distinct exam names:', error);
+      res.status(500).json({error: 'Failed to fetch distinct exam names'});
+    }
+  }
+
+
+});
+
+app.post('/api/v2/examnames/filters', async (req, res) => {
+  const clientId = req.headers['x-client-id'];
+  // const examName = req.params;
+  // console.log('using req.params.examname => examName = ',req.params.examname);//debugging log
+  
+  // console.log('using req.params => examName = ',req.params);//debugging log
+  const examName = req.body.EXAMNAME;
+  console.log('using req.body => examName = ', req.body);//debugging log
+  
+  
+  const processCancellationToken = processCancellationManager.generateToken();
+
+  const getExamFiltersProcess = processCancellationManager.createCancellableProcess(
+    async (processToken, cancellationCheck) => {
+      const client = await pool.connect();
+      try {
+        cancellationCheck();
+        const filters = await getExamFilters(examName, client);
+        console.log('examName:\n',examName,'\n','client: ',client);//debugging log
+        
+        cancellationCheck();
+        return filters;
+      } finally {
+        QueryManager.removeQuery(clientId);
+        client.release();
+      }
+    }
+  );
+
+  try {
+    const result = await getExamFiltersProcess(processCancellationToken);
+
+    // Handle process result
+    if (result.cancelled) {
+      return res.status(499).json({
+        error: 'Process cancelled',
+        reason: result.reason
+      });
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    if (error.code === '57014') {
+      res.status(499).json({error: 'Query cancelled'});
+    } else {
+      console.error('Error fetching exam filters:', error);
+      res.status(500).json({error: 'Failed to fetch exam filters'});
+    }
+  }
+})
+
+
 
 app.post('/api/v1/databaserecordsupdate', async (req, res) => {
   const clientId = req.headers['x-client-id'];
