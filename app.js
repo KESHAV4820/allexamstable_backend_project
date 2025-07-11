@@ -413,11 +413,17 @@ const { getDistinctExamNames, getExamFilters } = require('./sqlscripts/postgresN
 
 app.use(express.json());//must come before👇this line
 app.use(express.urlencoded({extended: true}));// these two LOC is used againt the bodyparser code that we used to install. Now that's inbuilt in express.js and this the way you get it. 
-app.use(cors({origin:[
+app.use(cors({
+  origin:[
     'http://127.0.0.1:5500',
+    'http://localhost:5500',
     'https://mirrorverse--sscradhe.netlify.app',
     'https://sscradhe.netlify.app'//Temporary Code
-    ]}));// if we don't give parameter, it becomes a general instruction which is good like a shotgun . But if you want security and yet cross sharing you need to be specific like sniper. hence you give exact origin value that has to be allowed. 
+    ],
+  credentials: true, // Allow credentials to be sent with requests
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-client-id'], // Specify allowed headers
+  }));// if we don't give parameter, it becomes a general instruction which is good like a shotgun . But if you want security and yet cross sharing you need to be specific like sniper. hence you give exact origin value that has to be allowed. 
 app.options('*', cors());
 
 
@@ -750,7 +756,7 @@ app.post('/api/v1/records', async (req, res) => {
   }
 });
 */
-//code in progress newly added 25/12/2024
+//code upgradenewly added 25/12/2024
 app.post('/api/v1/records-stream', streamRecordsMiddleware);
 
 app.post('/api/v1/downloadrecords', async (req, res) => {
@@ -790,61 +796,6 @@ app.post('/api/v1/downloadrecords', async (req, res) => {
     // }
     //
   });
-//code in progress newly added 11/12/2024 Not used becouse downloading doesn't need it. once you make your mind to download after filtering the data this far, it means you are sure and downlaoding has been implemented in complecated manner for the ease of the enduser. 
-/*
-app.post('/api/v1/downloadrecords', async (req, res) => {
-  const processCancellationToken = processCancellationManager.generateToken();
- 
-  const processDownloadRecords = processCancellationManager.createCancellableProcess(
-    async (processToken, cancellationCheck) => {
-      const client = pool.connect();
-
-      const filters = req.body;
-      const limit = req.query.limit || 20000;
-      const offset = req.query.offset || 0; 
- 
-      // Periodic cancellation check
-      cancellationCheck();
- 
-      // const zipFilePath = await downloadRecord(filters, limit, offset);//NoteVIERemember Itcode abandoned becouse downloadRecord() method itself has limit and offset into the function itself. So to change the limit in future, you will go directly to the querymethod itself. 
-      const zipFilePath = await downloadRecord(filters, client);
-      
-      // Another cancellation check before file processing
-      cancellationCheck();
- 
-      return zipFilePath;
-    }
-  );
- 
-  try {
-    const zipFilePath = await processDownloadRecords(processCancellationToken);
- 
-    // Check for cancellation
-    if (zipFilePath.cancelled) {
-      return res.status(499).json({ 
-        error: 'Process cancelled', 
-        reason: zipFilePath.reason 
-      });
-    }
- 
-    res.download(zipFilePath, 'downloaded_data.zip', (err) => {
-      if (err) {
-        console.error('Error sending file:', err);
-        res.status(500).send('Error sending file');
-      }
-      // Delete the temporary zip file after sending
-      fs.unlinkSync(zipFilePath);
-    });
-  } catch (error) {
-    console.error('Error Downloading records:', error);
-    res.status(500).json({ 
-      error: 'Failed to download the records',
-      status: '500',
-      message: 'Failed to Download.'
-    });
-  }
- });
-*/
  
 /*forced stop
 app.post('/api/v1/recordcount', async (req, res) => {
@@ -860,7 +811,7 @@ app.post('/api/v1/recordcount', async (req, res) => {
     }
   });
 */
-//code in progress newly added 12/12/2024
+//code upgradenewly added 12/12/2024
 app.post('/api/v1/recordcount', async (req, res) => {
   const clientId = req.headers['x-client-id'];
   const processCancellationToken = processCancellationManager.generateToken();
@@ -921,7 +872,7 @@ app.post('/api/v1/summarytablestats', async (req, res) => {
     };
 });
 */
-//code in progress newly added 4/12/2024
+// code upgradenewly added 4/12/2024
 app.post('/api/v1/summarytablestats', async (req, res) => {
   const clientId = req.headers['x-client-id'];
   const processCancellationToken = processCancellationManager.generateToken();
@@ -1012,7 +963,7 @@ app.post('/api/v1/venuerecords', async (req, res) => {
     }
 });
 */
-//code in progress newly added 4/12/2024
+//code upgradenewly added 4/12/2024
 app.post('/api/v1/venuerecords', async (req, res) => {
   const clientId = req.headers['x-client-id'];
   const endpoint =req.path;
@@ -1197,48 +1148,49 @@ app.post('/api/v2/examnames/filters', async (req, res) => {
 
 
 
-app.post('/api/v1/databaserecordsupdate', async (req, res) => {
-  const clientId = req.headers['x-client-id'];
-  const processCancellationToken = processCancellationManager.generateToken();
+// app.post('/api/v1/databaserecordsupdate', async (req, res) => {
+//   const clientId = req.headers['x-client-id'];
+//   const processCancellationToken = processCancellationManager.generateToken();
 
-  const databaseRecordsUpdateCancellableProcess = processCancellationManager.createCancellableProcess(
-    async (processToken, cancellationCheck) => {	
-      const client = await pool.connect();
-      try {
-        cancellationCheck();
-        const distinctExamNames = await getDistinctExamNames(client);
-        // console.log(Array.isArray(distinctExamNames));//Code Testing // true
-        cancellationCheck();
-        return distinctExamNames;
-      } finally{
-        QueryManager.removeQuery(clientId);
-        client.release();
-      }
-    }
-  );
-  try {
-    // Executing the cancellable process inside which our real backend work is happening.
-    const result = await databaseRecordsUpdateCancellableProcess(processCancellationToken);
+//   const databaseRecordsUpdateCancellableProcess = processCancellationManager.createCancellableProcess(
+//     async (processToken, cancellationCheck) => {	
+//       const client = await pool.connect();
+//       try {
+//         cancellationCheck();
+//         const distinctExamNames = await getDistinctExamNames(client);
+//         // console.log(Array.isArray(distinctExamNames));//Code Testing // true
+//         cancellationCheck();
+//         return distinctExamNames;
+//       } finally{
+//         QueryManager.removeQuery(clientId);
+//         client.release();
+//       }
+//     }
+//   );
+//   try {
+//     // Executing the cancellable process inside which our real backend work is happening.
+//     const result = await databaseRecordsUpdateCancellableProcess(processCancellationToken);
 
-    // Handle process result
-    if (result.cancelled) {
-      return  res.status(499).json({
-        error: 'Process cancelled',
-        reason: result.reason
-      });
-    }
-    res.status(200).json(result);
-  } catch (error) {
-    if (error.code === '57014') {
-      res.status(499).json({error: 'Query cancelled'});
-    } else {
-      console.error('Error fetching the distinct exam names:', error);
-      res.status(500).json({error: 'Failed to fetch the distinct exam names'});
-    }
-  }
-});
+//     // Handle process result
+//     if (result.cancelled) {
+//       return  res.status(499).json({
+//         error: 'Process cancelled',
+//         reason: result.reason
+//       });
+//     }
+//     res.status(200).json(result);
+//   } catch (error) {
+//     if (error.code === '57014') {
+//       res.status(499).json({error: 'Query cancelled'});
+//     } else {
+//       console.error('Error fetching the distinct exam names:', error);
+//       res.status(500).json({error: 'Failed to fetch the distinct exam names'});
+//     }
+//   }
+// });// code abandoned
 
 //Note: Endpoint to manually cancel a process. This endpoint is meant to be used such that a button is pressed on frontend, and it will abort the ongoing process in the backend using the passed token.
+
 app.post('/api/v1/cancel-process', (req, res) => {
   const { token } = req.body;
   
